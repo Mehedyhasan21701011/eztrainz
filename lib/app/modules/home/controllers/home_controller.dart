@@ -13,35 +13,54 @@ class HomeController extends GetxController {
       {
         "title": "Introduction to N1",
         "progress": 0.0,
-        "videos": [
+        "content": [
           {
             "url": "https://www.youtube.com/shorts/tLZjL-dMH_g",
             "watched": false,
+            "title": "Kanji",
           },
           {
             "url": "https://www.youtube.com/shorts/tLZjL-dMH_g",
             "watched": false,
+            "title": "Vucabolary Grammer",
           },
           {
             "url": "https://www.youtube.com/shorts/tLZjL-dMH_g",
             "watched": false,
+            "title": "Listening Practice",
           },
         ],
       },
       {
         "title": "Basic Grammar N1",
         "progress": 0.0,
-        "videos": [
-          {"url": "https://www.youtube.com/shorts/abc123", "watched": false},
-          {"url": "https://www.youtube.com/shorts/abc456", "watched": false},
+        "content": [
+          {
+            "url": "https://www.youtube.com/shorts/abc123",
+            "watched": false,
+            "title": "Kanji",
+          },
+          {
+            "url": "https://www.youtube.com/shorts/abc456",
+            "watched": false,
+            "title": "Kanji",
+          },
         ],
       },
       {
         "title": "Bocabolary N1",
         "progress": 0.0,
-        "videos": [
-          {"url": "https://www.youtube.com/shorts/abc123", "watched": false},
-          {"url": "https://www.youtube.com/shorts/abc456", "watched": false},
+        "content": [
+          {
+            "url": "https://www.youtube.com/shorts/abc123",
+            "watched": false,
+            "title": "Kanji",
+          },
+          {
+            "url": "https://www.youtube.com/shorts/abc456",
+            "watched": false,
+            "title": "Kanji",
+          },
         ],
       },
     ],
@@ -49,25 +68,54 @@ class HomeController extends GetxController {
       {
         "title": "Introduction to N2",
         "progress": 0.0,
-        "videos": [
-          {"url": "https://www.youtube.com/shorts/n2a", "watched": false},
-          {"url": "https://www.youtube.com/shorts/n2b", "watched": false},
+        "content": [
+          {
+            "url": "https://www.youtube.com/shorts/n2a",
+            "watched": false,
+            "title": "kanji",
+          },
+          {
+            "url": "https://www.youtube.com/shorts/n2b",
+            "watched": false,
+            "title": "kanji",
+          },
         ],
       },
       {
         "title": "Grammar Practice N2",
         "progress": 0.0,
-        "videos": [
-          {"url": "https://www.youtube.com/shorts/n2c", "watched": false},
-          {"url": "https://www.youtube.com/shorts/n2d", "watched": false},
-          {"url": "https://www.youtube.com/shorts/n2e", "watched": false},
+        "content": [
+          {
+            "url": "https://www.youtube.com/shorts/n2c",
+            "watched": false,
+            "title": "Kanji",
+          },
+          {
+            "url": "https://www.youtube.com/shorts/n2d",
+            "watched": false,
+            "title": "Kanji",
+          },
+          {
+            "url": "https://www.youtube.com/shorts/n2e",
+            "watched": false,
+            "title": "Kanji",
+          },
         ],
       },
       {
         "title": "Vocabulary N2",
         "progress": 0.0,
-        "videos": [
-          {"url": "https://www.youtube.com/shorts/n2f", "watched": false},
+        "content": [
+          {
+            "url": "https://www.youtube.com/shorts/n2f",
+            "watched": false,
+            "title": "Kanji",
+          },
+          {
+            "url": "https://www.youtube.com/shorts/n2g",
+            "watched": false,
+            "title": "Kanji",
+          },
         ],
       },
     ],
@@ -75,26 +123,54 @@ class HomeController extends GetxController {
       {
         "title": "Introduction to N3",
         "progress": 0.0,
-        "videos": [
-          {"url": "https://www.youtube.com/shorts/n3a", "watched": false},
-          {"url": "https://www.youtube.com/shorts/n3b", "watched": false},
+        "content": [
+          {
+            "url": "https://www.youtube.com/shorts/n3a",
+            "watched": false,
+            "title": "Kanji",
+          },
+          {
+            "url": "https://www.youtube.com/shorts/n3b",
+            "watched": false,
+            "title": "Kanji",
+          },
         ],
       },
       {
         "title": "Grammar Practice N3",
         "progress": 0.0,
-        "videos": [
-          {"url": "https://www.youtube.com/shorts/n3c", "watched": false},
-          {"url": "https://www.youtube.com/shorts/n3d", "watched": false},
+        "content": [
+          {
+            "url": "https://www.youtube.com/shorts/n3c",
+            "watched": false,
+            "title": "Kanji",
+          },
+          {
+            "url": "https://www.youtube.com/shorts/n3d",
+            "watched": false,
+            "title": "Kanji",
+          },
         ],
       },
       {
         "title": "Vocabulary N3",
         "progress": 0.0,
-        "videos": [
-          {"url": "https://www.youtube.com/shorts/n3e", "watched": false},
-          {"url": "https://www.youtube.com/shorts/n3f", "watched": false},
-          {"url": "https://www.youtube.com/shorts/n3g", "watched": false},
+        "content": [
+          {
+            "url": "https://www.youtube.com/shorts/n3e",
+            "watched": false,
+            "title": "Kanji",
+          },
+          {
+            "url": "https://www.youtube.com/shorts/n3f",
+            "watched": false,
+            "title": "Kanji",
+          },
+          {
+            "url": "https://www.youtube.com/shorts/n3g",
+            "watched": false,
+            "title": "Kanji",
+          },
         ],
       },
     ],
@@ -116,18 +192,22 @@ class HomeController extends GetxController {
 
   void markVideoWatched(int lessonIndex, int videoIndex) {
     final lesson = Map<String, dynamic>.from(lessons[lessonIndex]);
-    final videos = List<Map<String, dynamic>>.from(lesson["videos"]);
 
-    videos[videoIndex] = {
-      ...videos[videoIndex],
-      "watched": !(videos[videoIndex]["watched"] as bool),
+    // ✅ use "content" instead of "videos"
+    final content = List<Map<String, dynamic>>.from(lesson["content"]);
+
+    content[videoIndex] = {
+      ...content[videoIndex],
+      "watched": !(content[videoIndex]["watched"] as bool),
     };
 
-    final watchedCount = videos.where((v) => v["watched"] == true).length;
-    lesson["videos"] = videos;
-    lesson["progress"] = watchedCount / videos.length;
+    final watchedCount = content.where((c) => c["watched"] == true).length;
 
-    lessons[lessonIndex] = lesson; // This updates the RxList properly
+    lesson["content"] = content;
+    lesson["progress"] = watchedCount / content.length;
+
+    lessons[lessonIndex] =
+        lesson; // ✅ RxList gets updated → triggers Obx rebuild
   }
 
   void changeLevel(String level) {
@@ -137,7 +217,10 @@ class HomeController extends GetxController {
   }
 
   double getProgressForLesson(int lessonIndex) {
-    return lessons[lessonIndex]["progress"] as double;
+    final lesson = lessons[lessonIndex];
+    final content = lesson["content"] as List?;
+    if (content == null || content.isEmpty) return 0.0;
+    return lesson["progress"] as double? ?? 0.0;
   }
 
   void playVideo(String url) {

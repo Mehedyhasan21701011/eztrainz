@@ -12,8 +12,8 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.8
   get: ^4.7.2
-  flutter_native_splash: ^2.4.6
   youtube_player_flutter: ^9.1.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -21,6 +21,7 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
   assets:
     - assets/logo.png
     - assets/logo2.png
@@ -28,8 +29,4 @@ flutter:
     - assets/playcard.png
     - assets/champion.png
 
-flutter_native_splash:
-  color: "#FFFFFF"   # white background
-  image: assets/logo.png
-  android: true
-  ios: true
+

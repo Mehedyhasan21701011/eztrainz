@@ -1,5 +1,6 @@
 import 'package:eztrainz/app/modules/onboardingscreen/views/onboardingscreen_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class SplashScreenView extends StatefulWidget {
   const SplashScreenView({super.key});
@@ -26,13 +27,21 @@ class _AnimatedSplashScreenState extends State<SplashScreenView> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+        statusBarBrightness: Brightness.light,
+      ),
+    );
+
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white,
       body: Center(
         child: Image.asset(
-          'assets/animation/splash_1.gif',
-          width: double.infinity,
-          height: double.infinity,
+          'assets/logo.png',
+          width: 300,
+          height: 50,
           fit: BoxFit.cover,
         ),
       ),

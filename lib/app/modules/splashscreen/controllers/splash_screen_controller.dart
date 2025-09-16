@@ -7,7 +7,7 @@ class SplashScreenController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    Timer(const Duration(seconds: 3), () {
+    Timer(const Duration(seconds: 5), () {
       Get.offNamed(Routes.ONBOARDINGSCREEN); // Navigate after 3s
     });
   }
