@@ -190,26 +190,6 @@ class HomeController extends GetxController {
     expandedIndex.value = expandedIndex.value == index ? null : index;
   }
 
-  void markVideoWatched(int lessonIndex, int videoIndex) {
-    final lesson = Map<String, dynamic>.from(lessons[lessonIndex]);
-
-    // ✅ use "content" instead of "videos"
-    final content = List<Map<String, dynamic>>.from(lesson["content"]);
-
-    content[videoIndex] = {
-      ...content[videoIndex],
-      "watched": !(content[videoIndex]["watched"] as bool),
-    };
-
-    final watchedCount = content.where((c) => c["watched"] == true).length;
-
-    lesson["content"] = content;
-    lesson["progress"] = watchedCount / content.length;
-
-    lessons[lessonIndex] =
-        lesson; // ✅ RxList gets updated → triggers Obx rebuild
-  }
-
   void changeLevel(String level) {
     selectedLevel.value = level;
     expandedIndex.value = null;
@@ -221,10 +201,5 @@ class HomeController extends GetxController {
     final content = lesson["content"] as List?;
     if (content == null || content.isEmpty) return 0.0;
     return lesson["progress"] as double? ?? 0.0;
-  }
-
-  void playVideo(String url) {
-    videoUrl.value = url; // store it in case you need it globally
-    Get.to(() => YouTubeVideoScreen(videoUrl: url));
   }
 }

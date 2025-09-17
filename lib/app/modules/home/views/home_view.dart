@@ -1,4 +1,5 @@
 import 'package:eztrainz/app/modules/home/controllers/home_controller.dart';
+import 'package:eztrainz/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -214,8 +215,7 @@ class HomeView extends GetView<HomeController> {
           width: 280,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(25),
-            color: Colors.yellow,
-            border: Border.all(color: Colors.amber.shade300, width: 1),
+            color: Colors.yellow[300]!,
           ),
           child: Padding(
             padding: const EdgeInsets.all(3.0),
@@ -414,7 +414,8 @@ class HomeView extends GetView<HomeController> {
               borderRadius: BorderRadius.circular(4),
               child: LinearProgressIndicator(
                 value: progress.clamp(0.0, 1.0),
-                backgroundColor: Colors.yellow,
+                backgroundColor: Colors.yellow[300]!,
+
                 valueColor: const AlwaysStoppedAnimation(Colors.blue),
               ),
             ),
@@ -452,9 +453,8 @@ class HomeView extends GetView<HomeController> {
               width: 60,
               height: 60,
               decoration: BoxDecoration(
-                color: watched
-                    ? Colors.green
-                    : const Color.fromARGB(255, 246, 245, 133),
+                color: watched ? Colors.green : Colors.yellow[300]!,
+
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Icon(
@@ -475,7 +475,7 @@ class HomeView extends GetView<HomeController> {
             ),
             trailing: _buildContentProgress(progress),
             onTap: () {
-              // Navigate to content screen
+              Get.toNamed(Routes.LIST_CONTENT);
             },
           ),
         ),
@@ -489,8 +489,9 @@ class HomeView extends GetView<HomeController> {
       children: [
         CircularProgressIndicator(
           value: progress.clamp(0.0, 1.0),
-          strokeWidth: 5,
-          backgroundColor: Colors.yellow,
+          strokeWidth: 6,
+          backgroundColor: Colors.yellow[300]!,
+
           valueColor: const AlwaysStoppedAnimation<Color>(Colors.blue),
         ),
         Padding(
