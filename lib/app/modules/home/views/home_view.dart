@@ -475,7 +475,7 @@ class HomeView extends GetView<HomeController> {
             ),
             trailing: _buildContentProgress(progress),
             onTap: () {
-              Get.toNamed(Routes.LIST_CONTENT);
+              Get.toNamed(Routes.LIST_CONTENT, arguments: contentItem);
             },
           ),
         ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../controllers/list_content_controller.dart';
 
@@ -9,6 +10,8 @@ class ListContentView extends GetView<ListContentController> {
   const ListContentView({super.key});
   @override
   Widget build(BuildContext context) {
+    final contentItem = Get.arguments as Map<String, dynamic>;
+
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
         statusBarColor: Colors.black,
@@ -27,8 +30,9 @@ class ListContentView extends GetView<ListContentController> {
           SizedBox(height: 20),
           _buildOptionSection(),
           SizedBox(height: 20),
-          // _buildDisplaySection(),
-          _buildQuestionCard(),
+          _buildDisplaySection(),
+          // _buildCardSection(),
+          // _buildCongratulationSection(),
           SizedBox(height: 20),
           _buildBottomMessage(),
         ],
@@ -39,9 +43,12 @@ class ListContentView extends GetView<ListContentController> {
   PreferredSizeWidget _buildAppBar() {
     return AppBar(
       backgroundColor: Colors.white,
-      leading: Padding(
-        padding: const EdgeInsets.only(left: 16),
-        child: Icon(Icons.arrow_back_ios, color: Colors.blue),
+      leading: GestureDetector(
+        onTap: () => Get.back(),
+        child: Padding(
+          padding: const EdgeInsets.only(left: 16),
+          child: Icon(Icons.arrow_back_ios, color: Colors.blue),
+        ),
       ),
       title: Image.asset(
         "assets/logo.png",
@@ -79,33 +86,20 @@ class ListContentView extends GetView<ListContentController> {
 
   Widget _buildVideoSection() {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      height: 200,
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: Color.fromARGB(255, 244, 249, 255),
+        color: const Color.fromARGB(255, 244, 249, 255),
         borderRadius: BorderRadius.circular(12),
       ),
-      child: Center(
-        child: Obx(
-          () => GestureDetector(
-            onTap: controller.playVideo,
-            child: Container(
-              width: 60,
-              height: 60,
-              decoration: BoxDecoration(
-                color: Colors.blue.withOpacity(0.8),
-                shape: BoxShape.circle,
-              ),
-              child: Icon(
-                controller.isVideoPlaying.value
-                    ? Icons.pause
-                    : Icons.play_arrow,
-                color: Colors.white,
-                size: 30,
-              ),
-            ),
+      child: Column(
+        children: [
+          YoutubePlayer(
+            controller: controller.ytController,
+            showVideoProgressIndicator: true,
           ),
-        ),
+          const SizedBox(height: 8),
+        ],
       ),
     );
   }
@@ -237,165 +231,94 @@ class ListContentView extends GetView<ListContentController> {
     );
   }
 
-  Widget _buildQuestionCard() {
+  Widget _buildCardSection() {
     return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(8)),
-      ),
-      color: Colors.yellow[200],
-      elevation: 3,
-      margin: EdgeInsets.all(16),
+      color: const Color.fromARGB(255, 246, 245, 133),
+      elevation: 4,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      margin: const EdgeInsets.all(16),
       child: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Question text
             Text(
-              'What are the 4 Kanjis we learned today?',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-                color: Colors.black87,
-              ),
+              controller.question,
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 12),
-
-            // Option A
-            KanjiOptionRow(
-              label: 'a)',
-              kanji: controller.kanjiOptions[0],
-              optionKey: 'a',
-            ),
-            SizedBox(height: 8),
-
-            // Option B (Empty)
-            KanjiOptionRow(label: 'b)', kanji: '', optionKey: 'b'),
-            SizedBox(height: 8),
-
-            // Option C
-            KanjiOptionRow(
-              label: 'c)',
-              kanji: controller.kanjiOptions[2],
-              optionKey: 'c',
-            ),
+            const SizedBox(height: 12),
+            ...List.generate(controller.options.length, (index) {
+              return Obx(() {
+                bool isSelected = controller.selectedOption.value == index;
+                return GestureDetector(
+                  onTap: () {
+                    controller.selectedOption.value = index;
+                    if (controller.options[index] == controller.answer) {
+                      controller.isAnswered.value = true;
+                    } else {
+                      controller.isAnswered.value = false;
+                    }
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: isSelected
+                          ? const Color.fromARGB(255, 225, 239, 253)
+                          : Colors.transparent,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "${String.fromCharCode(97 + index)}) ${controller.options[index]}",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: isSelected
+                                ? FontWeight.bold
+                                : FontWeight.normal,
+                          ),
+                        ),
+                        Icon(
+                          isSelected
+                              ? (controller.isAnswered.value
+                                    ? Icons.check_circle
+                                    : Icons.cancel)
+                              : Icons.cancel,
+                          color: isSelected
+                              ? (controller.isAnswered.value
+                                    ? Colors.green
+                                    : Colors.red)
+                              : Colors.transparent,
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              });
+            }),
           ],
         ),
       ),
     );
   }
-}
 
-class KanjiOptionRow extends StatefulWidget {
-  final String label;
-  final String kanji;
-  final String optionKey;
-
-  const KanjiOptionRow({
-    Key? key,
-    required this.label,
-    required this.kanji,
-    required this.optionKey,
-  }) : super(key: key);
-
-  @override
-  State<KanjiOptionRow> createState() => _KanjiOptionRowWithHoverState();
-}
-
-class _KanjiOptionRowWithHoverState extends State<KanjiOptionRow> {
-  bool _isHovered = false;
-  final ListContentController controller = Get.find();
-
-  @override
-  Widget build(BuildContext context) {
-    return MouseRegion(
-      onEnter: widget.kanji.isNotEmpty ? (_) => setState(() => _isHovered = true) : null,
-      onExit: widget.kanji.isNotEmpty ? (_) => setState(() => _isHovered = false) : null,
-      child: GestureDetector(
-        onTap: widget.kanji.isNotEmpty 
-            ? () => controller.selectKanjiOption(widget.kanji)
-            : null,
-        child: Obx(() => AnimatedContainer(
-          duration: Duration(milliseconds: 200),
-          padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-          decoration: BoxDecoration(
-            color: _isHovered && widget.kanji.isNotEmpty
-                ? Colors.white.withOpacity(0.3)
-                : Colors.transparent,
-            borderRadius: BorderRadius.circular(6),
-          ),
-          child: Row(
-            children: [
-              // Option label (a), b), c))
-              SizedBox(
-                width: 25,
-                child: Text(
-                  widget.label,
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black87,
-                  ),
-                ),
-              ),
-              SizedBox(width: 8),
-              
-              // Kanji container
-              AnimatedContainer(
-                duration: Duration(milliseconds: 200),
-                width: 40,
-                height: 40,
-                transform: Matrix4.identity()
-                  ..scale(_isHovered && widget.kanji.isNotEmpty ? 1.05 : 1.0),
-                decoration: BoxDecoration(
-                  color: controller.selectedKanji.value == widget.kanji && widget.kanji.isNotEmpty
-                      ? Colors.orange[300]
-                      : widget.kanji.isNotEmpty 
-                          ? (_isHovered ? Colors.blue[50] : Colors.white)
-                          : Colors.yellow[100],
-                  borderRadius: BorderRadius.circular(6),
-                  border: Border.all(
-                    color: controller.selectedKanji.value == widget.kanji && widget.kanji.isNotEmpty
-                        ? Colors.orange[400]!
-                        : _isHovered && widget.kanji.isNotEmpty
-                            ? Colors.blue[300]!
-                            : Colors.grey[300]!,
-                    width: 1.5,
-                  ),
-                  boxShadow: _isHovered && widget.kanji.isNotEmpty
-                      ? [
-                          BoxShadow(
-                            color: Colors.blue.withOpacity(0.2),
-                            blurRadius: 4,
-                            offset: Offset(0, 2),
-                          )
-                        ]
-                      : null,
-                ),
-                child: Center(
-                  child: widget.kanji.isNotEmpty
-                      ? Text(
-                          widget.kanji,
-                          style: TextStyle(
-                            fontSize: _isHovered ? 22 : 20,
-                            fontWeight: FontWeight.bold,
-                            color: _isHovered 
-                                ? Colors.blue[700] 
-                                : Colors.black87,
-                          ),
-                        )
-                      : Container(),
-                ),
-              ),
-            ],
-          ),
-        )),
+  Widget _buildCongratulationSection() {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Image.asset("assets/congratulations.png", width: 150, height: 150),
+          SizedBox(width: 10),
+        ],
       ),
     );
   }
 }
-
 
 class _buildOptionButton extends StatefulWidget {
   final String kanji;
