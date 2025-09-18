@@ -14,7 +14,6 @@ dependencies:
   get: ^4.7.2
   youtube_player_flutter: ^9.1.2
   flutter_native_splash: ^2.4.6
-  text_to_speech: ^0.2.3
 
 dev_dependencies:
   flutter_test:
