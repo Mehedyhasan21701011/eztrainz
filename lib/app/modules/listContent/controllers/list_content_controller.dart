@@ -171,7 +171,11 @@ class ListContentController extends GetxController {
 
     ytController = YoutubePlayerController(
       initialVideoId: videoId,
-      flags: const YoutubePlayerFlags(autoPlay: false, mute: false, loop: true),
+      flags: const YoutubePlayerFlags(
+        autoPlay: false,
+        mute: false,
+        loop: false,
+      ),
     );
   }
 
@@ -182,6 +186,8 @@ class ListContentController extends GetxController {
 
   /// Handle video progress changes
   /// Handle video progress changes
+  bool _pausedOnce = false; // Add this as a class-level variable
+
   void _onVideoProgressChanged() {
     final currentPos = ytController.value.position;
     final totalDuration = ytController.metadata.duration;
@@ -189,10 +195,12 @@ class ListContentController extends GetxController {
     _updateVideoProgress(currentPos, totalDuration);
     _checkWatchedStatus(currentPos, totalDuration);
 
-    // ✅ Stop video after 10 seconds
-    if (currentPos.inSeconds >= 5) {
+    // ✅ Stop video only once at 5 seconds
+    if (!_pausedOnce && currentPos.inSeconds >= 5) {
       ytController.pause();
-      displayVisibility.value = false;
+      displayVisibility.value = false; // Hide video section
+      cardVisibility.value = true; // Show question card
+      _pausedOnce = true; // Mark as paused
     }
   }
 

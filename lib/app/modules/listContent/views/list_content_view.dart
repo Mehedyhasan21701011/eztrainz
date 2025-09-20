@@ -1,3 +1,4 @@
+import 'package:eztrainz/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -121,7 +122,9 @@ class ListContentView extends GetView<ListContentController> {
     return AppBar(
       backgroundColor: Colors.white,
       leading: GestureDetector(
-        onTap: Get.back,
+        onTap: () {
+          Get.toNamed(Routes.HOME);
+        },
         child: const Padding(
           padding: EdgeInsets.only(left: 16),
           child: Icon(Icons.arrow_back_ios, color: Colors.blue),
@@ -239,7 +242,11 @@ class ListContentView extends GetView<ListContentController> {
                 final isSelected = selected == kanji;
 
                 return GestureDetector(
-                  onTap: () => controller.selectKanji(kanji),
+                  onTap: () => {
+                    controller.selectKanji(kanji),
+                    controller.displayVisibility.value = true,
+                    controller.cardVisibility.value = false,
+                  },
                   child: Card(
                     color: isSelected
                         ? Color.fromARGB(255, 246, 245, 133)
@@ -365,12 +372,21 @@ class ListContentView extends GetView<ListContentController> {
         ),
         child: Text(
           controller.displayVisibility.value
-              ? "あの山は高いです"
+              ? "Great! You've learned a new Kanji."
               : controller.cardVisibility.value
-              ? "Select the correct meaning"
-              : controller.isAnswered.value
-              ? "Contratulations! 🎉"
-              : "Try Again!",
+              ? controller.isAnsSelected.value
+                    ? controller.isAnswered.value
+                          ? "Correct! 🎉"
+                          : "Incorrect. Try again!"
+                    : "Select the correct meaning"
+              : "Contratulations! 🎉",
+          // controller.displayVisibility.value
+          //     ? "あの山は高いです"
+          //     : controller.cardVisibility.value
+          //     ? "Select the correct meaning"
+          //     : controller.isAnswered.value
+          //     ? "Contratulations! 🎉"
+          //     : "Try Again!",
           style: TextStyle(
             fontSize: 16,
             color: Colors.blue[400],
@@ -458,7 +474,7 @@ class ListContentView extends GetView<ListContentController> {
       controller.isAnswered.value = true;
       Future.delayed(const Duration(seconds: 1), () {
         controller.cardVisibility.value = false;
-        Future.delayed(const Duration(seconds: 3), () {
+        Future.delayed(const Duration(seconds: 2), () {
           controller.displayVisibility.value = true;
         });
       });
