@@ -20,12 +20,12 @@ class HomeController extends GetxController {
             "title": "Kanji",
           },
           {
-            "url": "https://www.youtube.com/shorts/tLZjL-dMH_g",
+            "url": "https://www.youtube.com/shorts/amTmnnqQf_E",
             "watched": false,
             "title": "Vucabolary Grammer",
           },
           {
-            "url": "https://www.youtube.com/shorts/tLZjL-dMH_g",
+            "url": "https://www.youtube.com/shorts/WNcizMEGL6w",
             "watched": false,
             "title": "Listening Practice",
           },
@@ -36,7 +36,7 @@ class HomeController extends GetxController {
         "progress": 0.0,
         "content": [
           {
-            "url": "https://www.youtube.com/shorts/abc123",
+            "url": "https://www.youtube.com/shorts/WNcizMEGL6w",
             "watched": false,
             "title": "Kanji",
           },

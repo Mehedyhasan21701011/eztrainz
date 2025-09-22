@@ -162,6 +162,7 @@ class ListContentController extends GetxController {
     }
   }
 
+
   /// Setup YouTube controller with error handling
   void _setupYouTubeController() {
     final videoId = YoutubePlayer.convertUrlToId(url);
