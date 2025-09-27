@@ -124,6 +124,7 @@ class ListContentView extends GetView<ListContentController> {
       leading: GestureDetector(
         onTap: () {
           Get.toNamed(Routes.HOME);
+          //just for test
         },
         child: const Padding(
           padding: EdgeInsets.only(left: 16),
