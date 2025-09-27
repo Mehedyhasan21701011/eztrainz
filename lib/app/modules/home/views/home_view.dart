@@ -43,6 +43,54 @@ class HomeView extends GetView<HomeController> {
     );
   }
 
+  PreferredSizeWidget _buildAppBar() {
+    return AppBar(
+      backgroundColor: Colors.white,
+      leading: Padding(
+        padding: const EdgeInsets.only(left: 16),
+        child: Image.asset(
+          "assets/logo2.png",
+          height: 36,
+          fit: BoxFit.contain,
+          errorBuilder: (context, error, stackTrace) {
+            return const Icon(Icons.apps, size: 36, color: Colors.blue);
+          },
+        ),
+      ),
+      title: Image.asset(
+        "assets/logo.png",
+        width: 150,
+        fit: BoxFit.contain,
+        errorBuilder: (context, error, stackTrace) {
+          return const Text(
+            "EzTrainz",
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Colors.blue,
+            ),
+          );
+        },
+      ),
+      centerTitle: true,
+      actions: [
+        GestureDetector(
+          onTap: () {
+          
+          },
+          child: Padding(
+            padding: const EdgeInsets.only(right: 16),
+            child: CircleAvatar(
+              backgroundColor: const Color.fromARGB(255, 238, 244, 250),
+              radius: 20,
+              child: const Icon(Icons.person, size: 30, color: Colors.blue),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
   Widget _buildPlayGamesSection() {
     return Column(
       children: [
@@ -66,7 +114,7 @@ class HomeView extends GetView<HomeController> {
         const SizedBox(height: 10),
         GestureDetector(
           onTap: () {
-            // TODO: Navigate to games page
+            
           },
           child: ClipRRect(
             borderRadius: BorderRadius.circular(12),
@@ -235,28 +283,15 @@ class HomeView extends GetView<HomeController> {
     final lesson = lessons[index] as Map<String, dynamic>;
     final lessonId = lesson["id"] ?? index;
 
-    // Safely cast content to List<Map<String, dynamic>>
-    final content =
-        (lesson["content"] as List?)
-            ?.map((e) => e as Map<String, dynamic>)
-            .toList() ??
-        [];
-
-    return Obx(() {
-      final controller = Get.find<HomeController>();
-
-      double progress = controller.getProgressForLesson(index) ?? 0.0;
-
-      // ✅ Force progress to 70% for first lesson
-      if (index == 0) {
-        progress = 0.7;
-      }
-
-      final isExpanded = controller.expandedIndex.value == index;
-
-      final isUnlocked =
-          index == 0 ||
-          (controller.getProgressForLesson(index - 1) ?? 0.0) == 1.0;
+    return GetBuilder<HomeController>(
+      id: 'lesson-$index', // Use GetBuilder for more control
+      builder: (controller) {
+        final progress = controller.getProgressForLesson(index);
+        final isExpanded = controller.expandedIndex.value == index;
+        final isUnlocked =
+            index == 0 ||
+            (controller.getProgressForLesson(index - 1)) == 1.0;
+        final content = (lesson["content"] as List?) ?? [];
 
       return Builder(
         builder: (builderContext) {

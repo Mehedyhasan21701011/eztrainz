@@ -117,32 +117,76 @@ class ListContentView extends GetView<ListContentController> {
     );
   }
 
+  PreferredSizeWidget _buildAppBar() {
+    return AppBar(
+      backgroundColor: Colors.white,
+      leading: GestureDetector(
+        onTap: () {
+          Get.toNamed(Routes.HOME);
+        },
+        child: const Padding(
+          padding: EdgeInsets.only(left: 16),
+          child: Icon(Icons.arrow_back_ios, color: Colors.blue),
+        ),
+      ),
+      title: Image.asset(
+        "assets/logo.png",
+        width: 150,
+        fit: BoxFit.contain,
+        errorBuilder: (context, error, stackTrace) {
+          return const Text(
+            "EzTrainz",
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Colors.blue,
+            ),
+          );
+        },
+      ),
+      centerTitle: true,
+      actions: [
+        GestureDetector(
+          onTap: () {
+
+          },
+          child: const Padding(
+            padding: EdgeInsets.only(right: 16),
+            child: CircleAvatar(
+              backgroundColor: Color.fromARGB(255, 238, 244, 250),
+              radius: 20,
+              child: Icon(Icons.person, size: 30, color: Colors.blue),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
   Widget _buildVideoSection() {
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(12),
-              child: AspectRatio(
-                aspectRatio: 16 / 9,
-                child: YoutubePlayer(
-                  controller: controller.ytController,
-                  showVideoProgressIndicator: false,
-                  progressIndicatorColor: Colors.blueAccent,
-                  progressColors: ProgressBarColors(
-                    playedColor: Colors.blueAccent,
-                    handleColor: Colors.blueAccent,
-                  ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: AspectRatio(
+              aspectRatio: 16 / 9,
+              child: YoutubePlayer(
+                controller: controller.ytController,
+                showVideoProgressIndicator: false,
+                progressIndicatorColor: Colors.blueAccent,
+                progressColors: ProgressBarColors(
+                  playedColor: Colors.blueAccent,
+                  handleColor: Colors.blueAccent,
                 ),
               ),
             ),
-
-            const SizedBox(height: 12),
-          ],
-        ),
+          ),
+      
+          const SizedBox(height: 12),
+        ],
       ),
     );
   }
@@ -241,15 +285,13 @@ class ListContentView extends GetView<ListContentController> {
       children: [
         // Big Kanji character inside a styled container
         Obx(
-          () => Container(
-            child: Text(
-              controller.currentKanji.value,
-              style: TextStyle(
-                fontSize: 80,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF3193F5),
-                letterSpacing: 2,
-              ),
+          () => Text(
+            controller.currentKanji.value,
+            style: TextStyle(
+              fontSize: 60,
+              fontWeight: FontWeight.bold,
+              color: Colors.blue.shade700,
+              letterSpacing: 2,
             ),
           ),
         ),
