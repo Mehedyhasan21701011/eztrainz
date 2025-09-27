@@ -6,10 +6,8 @@ import 'package:get/get.dart';
 class WordpageController extends GetxController {
   var allWords = <Map<String, dynamic>>[].obs;
   var filteredWords = <Map<String, dynamic>>[].obs;
-
   var searchQuery = ''.obs;
   final RxString selectedCategory = "".obs;
-
   final VocabolaryController vgController = Get.find<VocabolaryController>();
 
   @override
@@ -20,19 +18,49 @@ class WordpageController extends GetxController {
   }
 
   Future<void> loadWords() async {
-    final String jsonString = await rootBundle.loadString('assets/words.json');
-    final data = json.decode(jsonString);
+    try {
+      final String jsonString = await rootBundle.loadString(
+        'assets/words.json',
+      );
+      final data = json.decode(jsonString);
 
-    final key = selectedCategory.value.trim().toLowerCase();
+      // Map the category to the correct JSON key
+      String jsonKey = _mapCategoryToJsonKey(selectedCategory.value);
 
-    if (data.containsKey(key)) {
-      final List<dynamic> rawList = data[key];
-
-      allWords.assignAll(rawList.cast<Map<String, dynamic>>());
-      filteredWords.assignAll(allWords);
-    } else {
+      if (data.containsKey(jsonKey)) {
+        final List<dynamic> rawList = data[jsonKey];
+        allWords.assignAll(rawList.cast<Map<String, dynamic>>());
+        filteredWords.assignAll(allWords);
+      } else {
+        allWords.clear();
+        filteredWords.clear();
+      }
+    } catch (e) {
       allWords.clear();
       filteredWords.clear();
+    }
+  }
+
+  String _mapCategoryToJsonKey(String category) {
+    // Map the display category names to JSON keys
+    switch (category.toLowerCase().trim()) {
+      case 'nouns':
+      case 'noun':
+        return 'nouns';
+      case 'pronouns':
+      case 'pronoun':
+        return 'pronouns';
+      case 'verbs':
+      case 'verb':
+        return 'verbs';
+      case 'adjectives':
+      case 'adjective':
+        return 'adjectives';
+      case 'adverbs':
+      case 'adverb':
+        return 'adverbs';
+      default:
+        return category.toLowerCase().trim();
     }
   }
 
@@ -44,7 +72,15 @@ class WordpageController extends GetxController {
       filteredWords.assignAll(
         allWords.where((word) {
           final meaning = (word['meaning'] ?? '').toString().toLowerCase();
-          return meaning.contains(query.toLowerCase());
+          final kanji = (word['kanji'] ?? '').toString().toLowerCase();
+          final hiragana = (word['hiragana'] ?? '').toString().toLowerCase();
+          final romaji = (word['romaji'] ?? '').toString().toLowerCase();
+
+          final queryLower = query.toLowerCase();
+          return meaning.contains(queryLower) ||
+              kanji.contains(queryLower) ||
+              hiragana.contains(queryLower) ||
+              romaji.contains(queryLower);
         }).toList(),
       );
     }
@@ -53,5 +89,20 @@ class WordpageController extends GetxController {
   void addWord(Map<String, dynamic> word) {
     allWords.add(word);
     filterWords(searchQuery.value);
+    update(); // Notify listeners
+  }
+
+  void removeWord(int index) {
+    if (index >= 0 && index < filteredWords.length) {
+      final wordToRemove = filteredWords[index];
+      allWords.remove(wordToRemove);
+      filterWords(searchQuery.value);
+      update(); // Notify listeners
+    }
+  }
+
+  void clearSearch() {
+    searchQuery.value = '';
+    filteredWords.assignAll(allWords);
   }
 }

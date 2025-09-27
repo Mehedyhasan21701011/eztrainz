@@ -14,8 +14,12 @@ import '../modules/onboardingscreen/bindings/onboardingscreen_binding.dart';
 import '../modules/onboardingscreen/views/onboardingscreen_view.dart';
 import '../modules/practicegrammer/bindings/practicegrammer_binding.dart';
 import '../modules/practicegrammer/views/practicegrammer_view.dart';
+import '../modules/secondonboardingpage/bindings/secondonboardingpage_binding.dart';
+import '../modules/secondonboardingpage/views/secondonboardingpage_view.dart';
 import '../modules/splashScreen/views/splash_screen_view.dart';
 import '../modules/splashscreen/controllers/splash_screen_controller.dart';
+import '../modules/thirdonboardingpage/bindings/thirdonboardingpage_binding.dart';
+import '../modules/thirdonboardingpage/views/thirdonboardingpage_view.dart';
 import '../modules/vocabolarygrammer/bindings/vocabolarygrammer_binding.dart';
 import '../modules/vocabolarygrammer/views/vocabolarygrammer_view.dart';
 import '../modules/wordpage/bindings/wordpage_binding.dart';
@@ -80,6 +84,16 @@ class AppPages {
       name: _Paths.PRACTICEGRAMMER,
       page: () => const PracticegrammerView(),
       binding: PracticegrammerBinding(),
+    ),
+    GetPage(
+      name: _Paths.SECONDONBOARDINGPAGE,
+      page: () => const SecondonboardingpageView(),
+      binding: SecondonboardingpageBinding(),
+    ),
+    GetPage(
+      name: _Paths.THIRDONBOARDINGPAGE,
+      page: () => const ThirdonboardingpageView(),
+      binding: ThirdonboardingpageBinding(),
     ),
   ];
 }

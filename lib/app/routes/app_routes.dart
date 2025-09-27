@@ -13,6 +13,8 @@ abstract class Routes {
   static const GRAMMERPAGE = _Paths.GRAMMERPAGE;
   static const LEARNGRAMMER = _Paths.LEARNGRAMMER;
   static const PRACTICEGRAMMER = _Paths.PRACTICEGRAMMER;
+  static const SECONDONBOARDINGPAGE = _Paths.SECONDONBOARDINGPAGE;
+  static const THIRDONBOARDINGPAGE = _Paths.THIRDONBOARDINGPAGE;
 }
 
 abstract class _Paths {
@@ -27,4 +29,6 @@ abstract class _Paths {
   static const GRAMMERPAGE = '/grammerpage';
   static const LEARNGRAMMER = '/learngrammer';
   static const PRACTICEGRAMMER = '/practicegrammer';
+  static const SECONDONBOARDINGPAGE = '/secondonboardingpage';
+  static const THIRDONBOARDINGPAGE = '/thirdonboardingpage';
 }

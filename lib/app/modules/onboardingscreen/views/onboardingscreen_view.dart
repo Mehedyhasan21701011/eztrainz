@@ -55,7 +55,7 @@ class OnboardingscreenView extends GetView<OnboardingscreenController> {
               GestureDetector(
                 onTap: () {
                   Get.offNamed(
-                    Routes.HOME,
+                    Routes.SECONDONBOARDINGPAGE,
                   ); // Navigate to Home and remove onboarding from stack
                 },
 
@@ -65,13 +65,6 @@ class OnboardingscreenView extends GetView<OnboardingscreenController> {
                   decoration: BoxDecoration(
                     color: const Color(0xFFFFFC00), // bright yellow
                     borderRadius: BorderRadius.circular(12),
-                    // boxShadow: [
-                    //   BoxShadow(
-                    //     color: Colors.black.withOpacity(0.2),
-                    //     blurRadius: 6,
-                    //     offset: const Offset(0, 3),
-                    //   ),
-                    // ],
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,

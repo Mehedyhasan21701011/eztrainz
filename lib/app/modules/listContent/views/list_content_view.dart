@@ -1,9 +1,9 @@
 import 'package:eztrainz/app/utils/style/styles.dart';
 import 'package:eztrainz/app/utils/widget/appbar.dart';
+import 'package:eztrainz/app/utils/widget/videosection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import '../controllers/list_content_controller.dart';
 
 class ListContentView extends GetView<ListContentController> {
@@ -31,7 +31,7 @@ class ListContentView extends GetView<ListContentController> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            _buildVideoSection(),
+            buildVideoSection(controller.ytController),
             const SizedBox(height: 10),
             _buildTitleSection(),
             const SizedBox(height: 10),
@@ -117,33 +117,7 @@ class ListContentView extends GetView<ListContentController> {
     );
   }
 
-  Widget _buildVideoSection() {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(12),
-            child: AspectRatio(
-              aspectRatio: 16 / 9,
-              child: YoutubePlayer(
-                controller: controller.ytController,
-                showVideoProgressIndicator: false,
-                progressIndicatorColor: Colors.blueAccent,
-                progressColors: ProgressBarColors(
-                  playedColor: Colors.blueAccent,
-                  handleColor: Colors.blueAccent,
-                ),
-              ),
-            ),
-          ),
-
-          const SizedBox(height: 12),
-        ],
-      ),
-    );
-  }
+  
 
   Widget _buildTitleSection() {
     return Padding(

@@ -53,7 +53,7 @@ class WordpageView extends GetView<WordpageController> {
                         onTap: () {
                           Get.dialog(
                             AlertDialog(
-                              backgroundColor: Colors.white,
+                              backgroundColor: AppColors.cardBackground,
                               content: buildWordDialogWithoutAddIcon(word),
                             ),
                           );
@@ -97,7 +97,6 @@ class WordpageView extends GetView<WordpageController> {
               }),
             ),
 
-            // Add New Word Button
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Container(

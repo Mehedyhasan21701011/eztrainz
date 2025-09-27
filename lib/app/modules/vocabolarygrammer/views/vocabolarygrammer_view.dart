@@ -312,65 +312,6 @@ class VocabolaryView extends GetView<VocabolaryController> {
     );
   }
 
-  // Widget buildWordDetails(Map<String, dynamic> word) {
-  //   return Row(
-  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //     children: [
-  //       Column(
-  //         crossAxisAlignment: CrossAxisAlignment.start,
-  //         children: [
-  //           buildWordRow("Kanji", word['kanji']),
-  //           buildWordRow("Romaji", word['romaji']),
-  //         ],
-  //       ),
-  //       Column(
-  //         crossAxisAlignment: CrossAxisAlignment.start,
-  //         children: [
-  //           buildWordRow("Hiragana", word['hiragana']),
-  //           buildWordRow("Meaning", word['meaning']),
-  //         ],
-  //       ),
-  //       GestureDetector(
-  //         onTap: controller.playAudio,
-  //         child: Image.asset("assets/mike.png", width: 24, height: 24),
-  //       ),
-  //     ],
-  //   );
-  // }
-
-  // Widget buildWordRow(String label, String? value, {bool isBold = false}) {
-  //   return Row(
-  //     children: [
-  //       Text(label, style: _titleStyle),
-  //       SizedBox(width: 10),
-  //       Text(
-  //         value ?? '',
-  //         style: isBold
-  //             ? _highlightStyle
-  //             : _titleStyle.copyWith(color: Colors.blue),
-  //       ),
-  //     ],
-  //   );
-  // }
-
-  // Widget buildSentence(Map<String, dynamic> word) {
-  //   return Column(
-  //     crossAxisAlignment: CrossAxisAlignment.center,
-  //     children: [
-  //       const SizedBox(height: 10),
-  //       Text(word['sentence']['japanese'] ?? '', style: _highlightStyle),
-  //       const SizedBox(height: 10),
-  //       Row(
-  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //         children: [
-  //           Text(word['sentence']['romaji'] ?? '', style: _titleStyle),
-  //           Text(word['sentence']['english'] ?? '', style: _titleStyle),
-  //         ],
-  //       ),
-  //     ],
-  //   );
-  // }
-
   Widget _buildAddToFavoritesButton() {
     return GestureDetector(
       onTap: () {
