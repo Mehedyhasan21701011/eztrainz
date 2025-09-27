@@ -7,7 +7,7 @@ import 'app/routes/app_pages.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // ✅ Set global status bar style
+  //  Set global status bar style
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Colors.black, // Black background
@@ -16,7 +16,7 @@ void main() async {
     ),
   );
 
-  // ✅ Initialize ThemeService with GetX
+  //  Initialize ThemeService with GetX
   await Get.putAsync(() async => ThemeService());
 
   runApp(const MyApp());

@@ -73,7 +73,7 @@ class HomeView extends GetView<HomeController> {
       actions: [
         GestureDetector(
           onTap: () {
-            // TODO: Navigate to Profile page
+          
           },
           child: Padding(
             padding: const EdgeInsets.only(right: 16),
@@ -118,7 +118,7 @@ class HomeView extends GetView<HomeController> {
         const SizedBox(height: 16),
         GestureDetector(
           onTap: () {
-            // TODO: Navigate to games page
+            
           },
           child: ClipRRect(
             borderRadius: BorderRadius.circular(12),
@@ -322,11 +322,11 @@ class HomeView extends GetView<HomeController> {
     return GetBuilder<HomeController>(
       id: 'lesson-$index', // Use GetBuilder for more control
       builder: (controller) {
-        final progress = controller.getProgressForLesson(index) ?? 0.0;
+        final progress = controller.getProgressForLesson(index);
         final isExpanded = controller.expandedIndex.value == index;
         final isUnlocked =
             index == 0 ||
-            (controller.getProgressForLesson(index - 1) ?? 0.0) == 1.0;
+            (controller.getProgressForLesson(index - 1)) == 1.0;
         final content = (lesson["content"] as List?) ?? [];
 
         return Container(
@@ -436,7 +436,6 @@ class HomeView extends GetView<HomeController> {
 
   List<Widget> _buildLessonContent(List content, double progress) {
     return content.asMap().entries.map((entry) {
-      final contentIndex = entry.key;
       final contentItem = entry.value;
       final watched = contentItem["watched"] as bool? ?? false;
 

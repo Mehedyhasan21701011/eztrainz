@@ -149,7 +149,7 @@ class ListContentView extends GetView<ListContentController> {
       actions: [
         GestureDetector(
           onTap: () {
-            // TODO: Navigate to Profile page
+
           },
           child: const Padding(
             padding: EdgeInsets.only(right: 16),
@@ -167,29 +167,27 @@ class ListContentView extends GetView<ListContentController> {
   Widget _buildVideoSection() {
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(12),
-              child: AspectRatio(
-                aspectRatio: 16 / 9,
-                child: YoutubePlayer(
-                  controller: controller.ytController,
-                  showVideoProgressIndicator: false,
-                  progressIndicatorColor: Colors.blueAccent,
-                  progressColors: ProgressBarColors(
-                    playedColor: Colors.blueAccent,
-                    handleColor: Colors.blueAccent,
-                  ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: AspectRatio(
+              aspectRatio: 16 / 9,
+              child: YoutubePlayer(
+                controller: controller.ytController,
+                showVideoProgressIndicator: false,
+                progressIndicatorColor: Colors.blueAccent,
+                progressColors: ProgressBarColors(
+                  playedColor: Colors.blueAccent,
+                  handleColor: Colors.blueAccent,
                 ),
               ),
             ),
-
-            const SizedBox(height: 12),
-          ],
-        ),
+          ),
+      
+          const SizedBox(height: 12),
+        ],
       ),
     );
   }
@@ -287,15 +285,13 @@ class ListContentView extends GetView<ListContentController> {
       children: [
         // Big Kanji character inside a styled container
         Obx(
-          () => Container(
-            child: Text(
-              controller.currentKanji.value,
-              style: TextStyle(
-                fontSize: 60,
-                fontWeight: FontWeight.bold,
-                color: Colors.blue.shade700,
-                letterSpacing: 2,
-              ),
+          () => Text(
+            controller.currentKanji.value,
+            style: TextStyle(
+              fontSize: 60,
+              fontWeight: FontWeight.bold,
+              color: Colors.blue.shade700,
+              letterSpacing: 2,
             ),
           ),
         ),
