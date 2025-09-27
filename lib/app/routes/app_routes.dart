@@ -7,6 +7,12 @@ abstract class Routes {
   static const SPLASH_SCREEN = _Paths.SPLASH_SCREEN;
   static const ONBOARDINGSCREEN = _Paths.ONBOARDINGSCREEN;
   static const LIST_CONTENT = _Paths.LIST_CONTENT;
+  static const VOCABOLARYGRAMMER = _Paths.VOCABOLARYGRAMMER;
+  static const WORDPAGE = _Paths.WORDPAGE;
+  static const GAMEPAGE = _Paths.GAMEPAGE;
+  static const GRAMMERPAGE = _Paths.GRAMMERPAGE;
+  static const LEARNGRAMMER = _Paths.LEARNGRAMMER;
+  static const PRACTICEGRAMMER = _Paths.PRACTICEGRAMMER;
 }
 
 abstract class _Paths {
@@ -15,4 +21,10 @@ abstract class _Paths {
   static const SPLASH_SCREEN = '/splash-screen';
   static const ONBOARDINGSCREEN = '/onboardingscreen';
   static const LIST_CONTENT = '/list-content';
+  static const VOCABOLARYGRAMMER = '/vocabolarygrammer';
+  static const WORDPAGE = '/wordpage';
+  static const GAMEPAGE = '/gamepage';
+  static const GRAMMERPAGE = '/grammerpage';
+  static const LEARNGRAMMER = '/learngrammer';
+  static const PRACTICEGRAMMER = '/practicegrammer';
 }

@@ -1,0 +1,23 @@
+{
+  "nouns": [
+    "Cat", "Dog", "House", "Book", "Teacher", "Car", "Tree", "Computer", "City", "Friend",
+    "River", "Mountain", "School", "Student", "Phone", "Table", "Chair", "Flower", "Sun", "Moon",
+    "Ocean", "Bird", "Plane", "Train", "Country", "Language", "Music", "Game", "Food", "Water",
+    "Door", "Window", "Garden", "Street", "Cloud", "Rain", "Star", "Dream", "Idea", "Heart",
+    "Village", "Bridge", "Map", "Letter", "Picture", "Song", "Child", "Family", "Bookstore", "Market"
+  ],
+  "pronouns": [
+    "I", "You", "He", "She", "It", "We", "They", "Me", "Us", "Him",
+    "Her", "Them", "My", "Your", "His", "Our", "Their", "Mine", "Yours", "Hers",
+    "Ours", "Theirs", "This", "That", "These", "Those", "Who", "Whom", "Whose", "Which",
+    "What", "Anyone", "Someone", "Everyone", "No one", "Anybody", "Somebody", "Everybody", "Nobody", "Each",
+    "Either", "Neither", "Nothing", "Something", "Everything", "None", "Himself", "Herself", "Itself", "Themselves"
+  ],
+  "verbs": [
+    "Run", "Walk", "Eat", "Drink", "Read", "Write", "Speak", "Listen", "Play", "Work",
+    "Study", "Sleep", "Drive", "Fly", "Sing", "Dance", "Jump", "Think", "Learn", "Teach",
+    "Cook", "Build", "Draw", "Paint", "Swim", "Climb", "Grow", "Watch", "Buy", "Sell",
+    "Open", "Close", "Start", "Stop", "Begin", "End", "Help", "Call", "Love", "Hate",
+    "Smile", "Cry", "Meet", "Send", "Receive", "Give", "Take", "Break", "Fix", "Push"
+  ]
+}

@@ -1,4 +1,5 @@
 import 'package:eztrainz/app/routes/app_pages.dart';
+import 'package:eztrainz/app/utils/style/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -34,26 +35,21 @@ class OnboardingscreenView extends GetView<OnboardingscreenController> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const SizedBox(height: 80), // space under appbar
+              const SizedBox(height: 40), // space under appbar
               // Hero Text
               Column(
                 children: [
                   Text(
                     "EZPZ Japanesy!",
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 32,
-                      color: Colors.blue,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 1.2,
-                    ),
+                    style: Heading.heading2,
                   ),
-                  const SizedBox(height: 12),
+                  SizedBox(height: 12),
                 ],
               ),
 
               // Illustration / Logo2
-              Image.asset("assets/logo2.png", height: 250),
+              Image.asset("assets/logo2.png", height: 320, width: 320),
 
               // Get Started Button
               GestureDetector(
@@ -67,19 +63,15 @@ class OnboardingscreenView extends GetView<OnboardingscreenController> {
                   width: double.infinity,
                   height: 55,
                   decoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                      colors: [Colors.yellow, Colors.orangeAccent],
-                      begin: Alignment.centerLeft,
-                      end: Alignment.centerRight,
-                    ),
+                    color: const Color(0xFFFFFC00), // bright yellow
                     borderRadius: BorderRadius.circular(12),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.2),
-                        blurRadius: 6,
-                        offset: const Offset(0, 3),
-                      ),
-                    ],
+                    // boxShadow: [
+                    //   BoxShadow(
+                    //     color: Colors.black.withOpacity(0.2),
+                    //     blurRadius: 6,
+                    //     offset: const Offset(0, 3),
+                    //   ),
+                    // ],
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -93,7 +85,11 @@ class OnboardingscreenView extends GetView<OnboardingscreenController> {
                         ),
                       ),
                       const SizedBox(width: 16),
-                      Image.asset("assets/arrow.png", width: 24, height: 24),
+                      Image.asset(
+                        "assets/start_arrow.png",
+                        width: 24,
+                        height: 24,
+                      ),
                     ],
                   ),
                 ),

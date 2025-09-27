@@ -24,8 +24,8 @@ class ListContentController extends GetxController {
   /// Reactive states for Kanji lesson
   final RxString currentKanji = '山'.obs;
   final RxString kanjiMeaning = 'Mountain'.obs;
-  final RxString kunyomi = 'やま / Yama'.obs;
-  final RxString onyomi = 'サン / San'.obs;
+  final RxString kunyomi = 'やま / yama'.obs;
+  final RxString onyomi = 'サン / san'.obs;
 
   final RxBool isVideoPlaying = false.obs;
   final RxString lessonTitle = 'Kanji Lesson 1'.obs;
@@ -34,51 +34,52 @@ class ListContentController extends GetxController {
   final RxInt currentLessonIndex = 0.obs;
   final RxBool isLoading = false.obs;
 
-  /// Sample lesson data - made immutable
+  /// ✅ Meaningful Kanji lesson data
   static const List<Map<String, dynamic>> _lessonsData = [
     {
       'kanji': '国',
-      'meaning': 'Book',
-      'kunyomi': 'やま / Yama',
-      'onyomi': 'サン / San',
-      'title': 'Kanji Lesson 1',
+      'meaning': 'Country, Nation',
+      'kunyomi': 'くに / kuni',
+      'onyomi': 'コク / koku',
+      'title': 'Kanji Lesson 1 - 国',
       'options': ['国', '年', '本'],
     },
     {
       'kanji': '年',
-      'meaning': 'Mountain',
-      'kunyomi': 'やま / Yama',
-      'onyomi': 'サン / San',
-      'title': 'Kanji Lesson 1',
-      'options': ['国', '年', '本'],
+      'meaning': 'Year',
+      'kunyomi': 'とし / toshi',
+      'onyomi': 'ネン / nen',
+      'title': 'Kanji Lesson 2 - 年',
+      'options': ['国', '年', '中'],
     },
     {
       'kanji': '水',
       'meaning': 'Water',
-      'kunyomi': 'みず / Mizu',
-      'onyomi': 'スイ / Sui',
-      'title': 'Kanji Lesson 2',
-      'options': ['火', '土', '木'],
+      'kunyomi': 'みず / mizu',
+      'onyomi': 'スイ / sui',
+      'title': 'Kanji Lesson 3 - 水',
+      'options': ['水', '火', '木'],
     },
     {
       'kanji': '山',
-      'meaning': 'Person',
-      'kunyomi': 'ひと / Hito',
-      'onyomi': 'ジン / Jin',
-      'title': 'Kanji Lesson 3',
-      'options': ['大', '小', '上'],
+      'meaning': 'Mountain',
+      'kunyomi': 'やま / yama',
+      'onyomi': 'サン / san',
+      'title': 'Kanji Lesson 4 - 山',
+      'options': ['山', '川', '田'],
     },
     {
       'kanji': '大',
-      'meaning': 'Person',
-      'kunyomi': 'ひと / Hito',
-      'onyomi': 'ジン / Jin',
-      'title': 'Kanji Lesson 3',
-      'options': ['大', '小', '上'],
+      'meaning': 'Big, Large',
+      'kunyomi': 'おお / oo',
+      'onyomi': 'ダイ / dai',
+      'title': 'Kanji Lesson 5 - 大',
+      'options': ['大', '小', '中'],
     },
   ];
 
   List<Map<String, dynamic>> get lessons => _lessonsData;
+
   // Card quiz properties
   final String question = "What are the 4 Kanjis we learned today?";
   final String answer = "国";
@@ -96,27 +97,22 @@ class ListContentController extends GetxController {
   String get progressText =>
       '${currentLessonIndex.value + 1} / ${lessons.length}';
 
-  // Video properties - made nullable initially
+  // Video properties
   String url = '';
   String title = '';
   final RxBool watched = false.obs;
 
   late YoutubePlayerController ytController;
-
-  // Reactive video position and progress
   final Rx<Duration> currentPosition = Duration.zero.obs;
   final RxDouble progressPercent = 0.0.obs;
 
   @override
   void onInit() {
     super.onInit();
-
-    // Check if arguments exist before initializing
     if (Get.arguments == null) {
       _handleError('No content arguments provided');
       return;
     }
-
     _initializeVideo();
   }
 
@@ -126,7 +122,6 @@ class ListContentController extends GetxController {
     super.onClose();
   }
 
-  /// Initialize video controller and setup listeners
   void _initializeVideo() {
     try {
       final arguments = Get.arguments;
@@ -134,7 +129,6 @@ class ListContentController extends GetxController {
         _handleError('No arguments provided');
         return;
       }
-
       final contentItem = arguments is Map<String, dynamic>
           ? arguments
           : <String, dynamic>{};
@@ -147,7 +141,6 @@ class ListContentController extends GetxController {
     }
   }
 
-  /// Extract video data from arguments
   void _extractVideoData(Map<String, dynamic> contentItem) {
     final urlValue = contentItem['url'];
     final titleValue = contentItem['title'];
@@ -162,8 +155,6 @@ class ListContentController extends GetxController {
     }
   }
 
-
-  /// Setup YouTube controller with error handling
   void _setupYouTubeController() {
     final videoId = YoutubePlayer.convertUrlToId(url);
     if (videoId == null || videoId.isEmpty) {
@@ -180,14 +171,11 @@ class ListContentController extends GetxController {
     );
   }
 
-  /// Setup video progress listener
+  bool _pausedOnce = false;
+
   void _setupVideoListener() {
     ytController.addListener(_onVideoProgressChanged);
   }
-
-  /// Handle video progress changes
-  /// Handle video progress changes
-  bool _pausedOnce = false; // Add this as a class-level variable
 
   void _onVideoProgressChanged() {
     final currentPos = ytController.value.position;
@@ -196,26 +184,25 @@ class ListContentController extends GetxController {
     _updateVideoProgress(currentPos, totalDuration);
     _checkWatchedStatus(currentPos, totalDuration);
 
-    // ✅ Stop video only once at 5 seconds
     if (!_pausedOnce && currentPos.inSeconds >= 5) {
       ytController.pause();
-      displayVisibility.value = false; // Hide video section
-      cardVisibility.value = true; // Show question card
-      _pausedOnce = true; // Mark as paused
+      displayVisibility.value = false;
+      cardVisibility.value = true;
+      _pausedOnce = true;
     }
   }
 
-  /// Update video progress values
   void _updateVideoProgress(Duration currentPos, Duration totalDuration) {
     currentPosition.value = currentPos;
-
-    if (totalDuration.inSeconds > 0) {
-      progressPercent.value =
-          currentPos.inMilliseconds / totalDuration.inMilliseconds;
-    }
+    final arguments = Get.arguments;
+    final contentItem = arguments is Map<String, dynamic>
+        ? arguments
+        : <String, dynamic>{};
+    contentItem['progress'] = totalDuration.inSeconds > 0
+        ? currentPos.inMilliseconds / totalDuration.inMilliseconds
+        : 0.0;
   }
 
-  /// Check if video should be marked as watched
   void _checkWatchedStatus(Duration currentPos, Duration totalDuration) {
     if (!watched.value &&
         totalDuration.inSeconds > 0 &&
@@ -224,13 +211,11 @@ class ListContentController extends GetxController {
     }
   }
 
-  /// Mark video as completely watched
   void _markVideoAsWatched() {
     watched.value = true;
     debugPrint("✅ Video watched completely!");
   }
 
-  /// Kanji selection with validation
   void selectKanjiOption(String kanji) {
     if (kanji.isNotEmpty && kanjiOptions.contains(kanji)) {
       selectedKanji.value = kanji;
@@ -239,7 +224,6 @@ class ListContentController extends GetxController {
     }
   }
 
-  /// Play audio with improved UX
   void playAudio(String type) {
     if (!_isValidAudioType(type)) {
       debugPrint('Warning: Invalid audio type: $type');
@@ -251,17 +235,14 @@ class ListContentController extends GetxController {
     _simulateAudioPlayback(pronunciation);
   }
 
-  /// Validate audio type
   bool _isValidAudioType(String type) {
     return type == 'kunyomi' || type == 'onyomi';
   }
 
-  /// Get pronunciation based on type
   String _getPronunciation(String type) {
     return type == 'kunyomi' ? kunyomi.value : onyomi.value;
   }
 
-  /// Show audio playing snackbar
   void _showAudioSnackbar(String type, String pronunciation) {
     Get.snackbar(
       'Audio Playing',
@@ -274,13 +255,11 @@ class ListContentController extends GetxController {
     );
   }
 
-  /// Simulate audio playback
   Future<void> _simulateAudioPlayback(String pronunciation) async {
     await Future.delayed(const Duration(milliseconds: 1000));
     debugPrint('Playing audio: $pronunciation');
   }
 
-  /// Handle errors with user feedback
   void _handleError(String message) {
     debugPrint('Error: $message');
     Get.snackbar(
@@ -294,7 +273,6 @@ class ListContentController extends GetxController {
     );
   }
 
-  /// Clean up resources
   void _disposeResources() {
     try {
       ytController.removeListener(_onVideoProgressChanged);
@@ -304,7 +282,6 @@ class ListContentController extends GetxController {
     }
   }
 
-  /// Reset quiz state
   void resetQuiz() {
     selectedOption.value = -1;
     isAnswered.value = false;
@@ -312,7 +289,6 @@ class ListContentController extends GetxController {
     isAnsSelected.value = false;
   }
 
-  /// Get current lesson data
   Map<String, dynamic>? getCurrentLessonData() {
     if (currentLessonIndex.value >= 0 &&
         currentLessonIndex.value < lessons.length) {
@@ -321,7 +297,6 @@ class ListContentController extends GetxController {
     return null;
   }
 
-  /// Navigate to next lesson
   void nextLesson() {
     if (!isLastLesson) {
       currentLessonIndex.value++;
@@ -330,7 +305,6 @@ class ListContentController extends GetxController {
     }
   }
 
-  /// Navigate to previous lesson
   void previousLesson() {
     if (!isFirstLesson) {
       currentLessonIndex.value--;
@@ -339,23 +313,15 @@ class ListContentController extends GetxController {
     }
   }
 
-  /// Load lesson data for current index
   void _loadLessonData() {
     final lessonData = getCurrentLessonData();
     if (lessonData != null) {
-      final kanjiValue = lessonData['kanji'];
-      final meaningValue = lessonData['meaning'];
-      final kunyomiValue = lessonData['kunyomi'];
-      final onyomiValue = lessonData['onyomi'];
-      final titleValue = lessonData['title'];
+      currentKanji.value = lessonData['kanji'] ?? '';
+      kanjiMeaning.value = lessonData['meaning'] ?? '';
+      kunyomi.value = lessonData['kunyomi'] ?? '';
+      onyomi.value = lessonData['onyomi'] ?? '';
+      lessonTitle.value = lessonData['title'] ?? '';
       final optionsList = lessonData['options'];
-
-      currentKanji.value = kanjiValue is String ? kanjiValue : '';
-      kanjiMeaning.value = meaningValue is String ? meaningValue : '';
-      kunyomi.value = kunyomiValue is String ? kunyomiValue : '';
-      onyomi.value = onyomiValue is String ? onyomiValue : '';
-      lessonTitle.value = titleValue is String ? titleValue : '';
-
       if (optionsList is List) {
         kanjiOptions.assignAll(optionsList.whereType<String>().toList());
       }

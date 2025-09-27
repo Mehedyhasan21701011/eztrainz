@@ -1,10 +1,9 @@
-import 'package:eztrainz/app/routes/app_pages.dart';
+import 'package:eztrainz/app/utils/style/styles.dart';
+import 'package:eztrainz/app/utils/widget/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import 'package:get/get.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
-
 import '../controllers/list_content_controller.dart';
 
 class ListContentView extends GetView<ListContentController> {
@@ -28,7 +27,7 @@ class ListContentView extends GetView<ListContentController> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: _buildAppBar(),
+      appBar: appbar(),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -118,52 +117,6 @@ class ListContentView extends GetView<ListContentController> {
     );
   }
 
-  PreferredSizeWidget _buildAppBar() {
-    return AppBar(
-      backgroundColor: Colors.white,
-      leading: GestureDetector(
-        onTap: () {
-          Get.toNamed(Routes.HOME);
-        },
-        child: const Padding(
-          padding: EdgeInsets.only(left: 16),
-          child: Icon(Icons.arrow_back_ios, color: Colors.blue),
-        ),
-      ),
-      title: Image.asset(
-        "assets/logo.png",
-        width: 150,
-        fit: BoxFit.contain,
-        errorBuilder: (context, error, stackTrace) {
-          return const Text(
-            "EzTrainz",
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: Colors.blue,
-            ),
-          );
-        },
-      ),
-      centerTitle: true,
-      actions: [
-        GestureDetector(
-          onTap: () {
-            // TODO: Navigate to Profile page
-          },
-          child: const Padding(
-            padding: EdgeInsets.only(right: 16),
-            child: CircleAvatar(
-              backgroundColor: Color.fromARGB(255, 238, 244, 250),
-              radius: 20,
-              child: Icon(Icons.person, size: 30, color: Colors.blue),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
   Widget _buildVideoSection() {
     return Padding(
       padding: const EdgeInsets.all(16.0),
@@ -195,23 +148,24 @@ class ListContentView extends GetView<ListContentController> {
   }
 
   Widget _buildTitleSection() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Obx(
-            () => Text(
-              controller.lessonTitle.value,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-                color: Color.fromARGB(221, 32, 31, 31),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Obx(() {
+        final title = controller.lessonTitle.value;
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            // Lesson Title
+            Expanded(
+              child: Text(
+                title,
+                style: Heading.heading3,
+                overflow: TextOverflow.ellipsis,
               ),
             ),
-          ),
-        ),
-      ],
+          ],
+        );
+      }),
     );
   }
 
@@ -248,9 +202,11 @@ class ListContentView extends GetView<ListContentController> {
                     controller.cardVisibility.value = false,
                   },
                   child: Card(
+                    elevation: 0, // removes shadow
+                    surfaceTintColor: Colors.transparent,
                     color: isSelected
-                        ? Color.fromARGB(255, 246, 245, 133)
-                        : const Color.fromARGB(255, 244, 249, 255),
+                        ? const Color(0xFFF6F585)
+                        : const Color(0xFFC4E0FD).withOpacity(0.25),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -265,9 +221,7 @@ class ListContentView extends GetView<ListContentController> {
                           style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
-                            color: isSelected
-                                ? Colors.black
-                                : Colors.grey.shade700,
+                            color: Colors.black87,
                           ),
                         ),
                       ),
@@ -291,17 +245,15 @@ class ListContentView extends GetView<ListContentController> {
             child: Text(
               controller.currentKanji.value,
               style: TextStyle(
-                fontSize: 60,
+                fontSize: 80,
                 fontWeight: FontWeight.bold,
-                color: Colors.blue.shade700,
+                color: Color(0xFF3193F5),
                 letterSpacing: 2,
               ),
             ),
           ),
         ),
-        const SizedBox(height: 16),
-
-        // Meaning with nice typography
+        const SizedBox(height: 5),
         Obx(
           () => Text(
             controller.kanjiMeaning.value,
@@ -331,29 +283,85 @@ class ListContentView extends GetView<ListContentController> {
               children: [
                 const Text("Kun'yomi"),
                 const SizedBox(height: 5),
-                Obx(
-                  () => PronunciationButton(
-                    pronunciation: controller.kunyomi.value,
-                    color: Colors.yellow[300]!,
+                Obx(() {
+                  final kunyomi = controller.kunyomi.value;
+                  final parts = kunyomi.split('/');
+
+                  final firstPart = parts.isNotEmpty ? parts.first : '';
+                  final secondPart = parts.length > 1
+                      ? kunyomi.substring(kunyomi.indexOf('/'))
+                      : '';
+
+                  return PronunciationButton(
+                    color: const Color(0xFFF6F585),
                     onTap: () => controller.playAudio('kunyomi'),
-                  ),
-                ),
+                    child: RichText(
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: firstPart,
+                            style: const TextStyle(
+                              color: Colors.blue,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          TextSpan(
+                            text: secondPart,
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 18,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                }),
               ],
             ),
           ),
-          const SizedBox(width: 16),
+          const SizedBox(width: 8),
           Expanded(
             child: Column(
               children: [
                 const Text("On'yomi"),
                 const SizedBox(height: 5),
-                Obx(
-                  () => PronunciationButton(
-                    pronunciation: controller.onyomi.value,
-                    color: Colors.yellow[300]!,
-                    onTap: () => controller.playAudio('onyomi'),
-                  ),
-                ),
+                Obx(() {
+                  final onyomi = controller.onyomi.value;
+                  final parts = onyomi.split('/');
+
+                  final firstPart = parts.isNotEmpty ? parts.first : '';
+                  final secondPart = parts.length > 1
+                      ? onyomi.substring(onyomi.indexOf('/'))
+                      : '';
+
+                  return PronunciationButton(
+                    color: const Color(0xFFF6F585),
+                    onTap: () => controller.playAudio('kunyomi'),
+                    child: RichText(
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: firstPart,
+                            style: const TextStyle(
+                              color: Colors.blue,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          TextSpan(
+                            text: secondPart,
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 18,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                }),
               ],
             ),
           ),
@@ -365,34 +373,32 @@ class ListContentView extends GetView<ListContentController> {
   Widget _buildBottomMessage() {
     return Obx(
       () => Container(
-        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 8),
+        margin: EdgeInsets.symmetric(horizontal: 16),
+        width: double.infinity,
         decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 244, 249, 255),
+          color: const Color(0xFFC4E0FD).withOpacity(0.25),
           borderRadius: BorderRadius.circular(30),
         ),
-        child: Text(
-          controller.displayVisibility.value
-              ? "Great! You've learned a new Kanji."
-              : controller.cardVisibility.value
-              ? controller.isAnsSelected.value
-                    ? controller.isAnswered.value
-                          ? "Correct! 🎉"
-                          : "Incorrect. Try again!"
-                    : "Select the correct meaning"
-              : "Contratulations! 🎉",
-          // controller.displayVisibility.value
-          //     ? "あの山は高いです"
-          //     : controller.cardVisibility.value
-          //     ? "Select the correct meaning"
-          //     : controller.isAnswered.value
-          //     ? "Contratulations! 🎉"
-          //     : "Try Again!",
-          style: TextStyle(
-            fontSize: 16,
-            color: Colors.blue[400],
-            fontWeight: FontWeight.w500,
+        child: Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: Text(
+            controller.displayVisibility.value
+                ? "あの山は高いです。"
+                : controller.cardVisibility.value
+                ? controller.isAnsSelected.value
+                      ? controller.isAnswered.value
+                            ? "Correct! 🎉"
+                            : "Incorrect. Try again!"
+                      : "Select the correct meaning"
+                : "Contratulations! 🎉",
+
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.blue[400],
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: TextAlign.center,
           ),
-          textAlign: TextAlign.center,
         ),
       ),
     );
@@ -400,7 +406,7 @@ class ListContentView extends GetView<ListContentController> {
 
   Widget _buildCardSection() {
     return Card(
-      color: const Color.fromARGB(255, 246, 245, 133),
+      color: const Color(0xFFF6F585),
       elevation: 4,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       margin: const EdgeInsets.all(16),
@@ -412,9 +418,9 @@ class ListContentView extends GetView<ListContentController> {
           children: [
             Text(
               controller.question,
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 4),
             ...List.generate(controller.options.length, (index) {
               return _buildOptionItem(index);
             }),
@@ -431,7 +437,7 @@ class ListContentView extends GetView<ListContentController> {
         onTap: () => _handleOptionTap(index),
         child: Container(
           width: double.infinity,
-          padding: const EdgeInsets.all(8),
+          padding: const EdgeInsets.all(4),
           decoration: BoxDecoration(
             color: isSelected
                 ? const Color.fromARGB(255, 225, 239, 253)
@@ -441,12 +447,26 @@ class ListContentView extends GetView<ListContentController> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                "${String.fromCharCode(97 + index)}) ${controller.options[index]}",
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                ),
+              Row(
+                children: [
+                  Text(
+                    "${String.fromCharCode(97 + index)})",
+                    style: TextStyle(
+                      color: Colors.black.withOpacity(1),
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Text(
+                    "${controller.options[index]}",
+                    style: TextStyle(
+                      color: Color(0xFF1D2126).withOpacity(0.6),
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
               ),
               _buildOptionIcon(isSelected),
             ],
@@ -460,9 +480,10 @@ class ListContentView extends GetView<ListContentController> {
     if (!isSelected) {
       return const Icon(Icons.cancel, color: Colors.transparent);
     }
-    return Icon(
-      controller.isAnswered.value ? Icons.check_circle : Icons.cancel,
-      color: controller.isAnswered.value ? Colors.green : Colors.red,
+    return Image.asset(
+      controller.isAnswered.value ? "assets/right.png" : "assets/wrong.png",
+      height: 24,
+      width: 24,
     );
   }
 
@@ -499,13 +520,15 @@ class ListContentView extends GetView<ListContentController> {
 }
 
 class PronunciationButton extends StatelessWidget {
-  final String pronunciation;
+  final String? pronunciation;
+  final Widget? child;
   final Color color;
   final VoidCallback onTap;
 
   const PronunciationButton({
     super.key,
-    required this.pronunciation,
+    this.pronunciation,
+    this.child,
     required this.color,
     required this.onTap,
   });
@@ -519,24 +542,24 @@ class PronunciationButton extends StatelessWidget {
           color: color,
           borderRadius: BorderRadius.circular(30),
         ),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: const EdgeInsets.symmetric(vertical: 8),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Expanded(
-              child: Center(
-                child: Text(
-                  pronunciation,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black87,
+            Center(
+              child:
+                  child ??
+                  Text(
+                    pronunciation ?? '',
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black87,
+                    ),
                   ),
-                ),
-              ),
             ),
-            const SizedBox(width: 4),
-            const Icon(Icons.volume_up, color: Colors.blue, size: 20),
+            SizedBox(width: 8),
+            Image.asset("assets/mike.png", height: 24, width: 24),
           ],
         ),
       ),

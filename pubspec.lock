@@ -312,6 +312,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.16.0"
+  number_pagination:
+    dependency: "direct main"
+    description:
+      name: number_pagination
+      sha256: "75d3a28616196e7c8df431d0fb7c48e811e462155f4cf3b5b4167b3408421327"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.6"
   path:
     dependency: transitive
     description:
@@ -437,6 +445,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.1"
+  wrapbuilder:
+    dependency: "direct main"
+    description:
+      name: wrapbuilder
+      sha256: "807a3c4200d9e8d7c99f87b3d2e3d6add4b53bde8e5fac8b2be0e1062bba23d2"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.1"
   xml:
     dependency: transitive
     description:
