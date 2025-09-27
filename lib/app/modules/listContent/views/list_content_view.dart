@@ -1,3 +1,4 @@
+import 'package:eztrainz/app/routes/app_pages.dart';
 import 'package:eztrainz/app/utils/style/styles.dart';
 import 'package:eztrainz/app/utils/widget/appbar.dart';
 import 'package:flutter/material.dart';
