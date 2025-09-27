@@ -8,8 +8,8 @@ class ListContentController extends GetxController {
   static const int _audioSnackbarDuration = 2;
 
   /// Kanji options for the current lesson
-  final RxList<String> kanjiOptions = <String>['国', '年', '水', '山', '大'].obs;
-  final RxString selectedKanji = '国'.obs;
+  final RxList<String> kanjiOptions = <String>['日', '月', '人', '山', '水'].obs;
+  final RxString selectedKanji = '日'.obs;
 
   void selectKanji(String kanji) {
     selectedKanji.value = kanji;
@@ -21,11 +21,11 @@ class ListContentController extends GetxController {
     lessonTitle.value = lesson['title'];
   }
 
-  /// Reactive states for Kanji lesson
-  final RxString currentKanji = '山'.obs;
-  final RxString kanjiMeaning = 'Mountain'.obs;
-  final RxString kunyomi = 'やま / yama'.obs;
-  final RxString onyomi = 'サン / san'.obs;
+  /// ✅ Reactive states for Kanji lesson
+  final RxString currentKanji = '日'.obs;
+  final RxString kanjiMeaning = 'Sun, Day'.obs;
+  final RxString kunyomi = 'ひ / hi'.obs;
+  final RxString onyomi = 'ニチ / nichi'.obs;
 
   final RxBool isVideoPlaying = false.obs;
   final RxString lessonTitle = 'Kanji Lesson 1'.obs;
@@ -34,47 +34,47 @@ class ListContentController extends GetxController {
   final RxInt currentLessonIndex = 0.obs;
   final RxBool isLoading = false.obs;
 
-  /// ✅ Meaningful Kanji lesson data
+  /// ✅ Meaningful Kanji lesson data (JLPT N5 Level)
   static const List<Map<String, dynamic>> _lessonsData = [
     {
-      'kanji': '国',
-      'meaning': 'Country, Nation',
-      'kunyomi': 'くに / kuni',
-      'onyomi': 'コク / koku',
-      'title': 'Kanji Lesson 1 - 国',
-      'options': ['国', '年', '本'],
+      'kanji': '日',
+      'meaning': 'Sun, Day',
+      'kunyomi': 'ひ / hi',
+      'onyomi': 'ニチ / nichi',
+      'title': 'Kanji Lesson 1',
+      'options': ['日', '月', '火'],
     },
     {
-      'kanji': '年',
-      'meaning': 'Year',
-      'kunyomi': 'とし / toshi',
-      'onyomi': 'ネン / nen',
-      'title': 'Kanji Lesson 2 - 年',
-      'options': ['国', '年', '中'],
+      'kanji': '月',
+      'meaning': 'Moon, Month',
+      'kunyomi': 'つき / tsuki',
+      'onyomi': 'ゲツ / getsu',
+      'title': 'Kanji Lesson 1',
+      'options': ['月', '日', '木'],
     },
     {
-      'kanji': '水',
-      'meaning': 'Water',
-      'kunyomi': 'みず / mizu',
-      'onyomi': 'スイ / sui',
-      'title': 'Kanji Lesson 3 - 水',
-      'options': ['水', '火', '木'],
+      'kanji': '人',
+      'meaning': 'Person',
+      'kunyomi': 'ひと / hito',
+      'onyomi': 'ジン / jin',
+      'title': 'Kanji Lesson 1',
+      'options': ['人', '大', '子'],
     },
     {
       'kanji': '山',
       'meaning': 'Mountain',
       'kunyomi': 'やま / yama',
       'onyomi': 'サン / san',
-      'title': 'Kanji Lesson 4 - 山',
+      'title': 'Kanji Lesson 1',
       'options': ['山', '川', '田'],
     },
     {
-      'kanji': '大',
-      'meaning': 'Big, Large',
-      'kunyomi': 'おお / oo',
-      'onyomi': 'ダイ / dai',
-      'title': 'Kanji Lesson 5 - 大',
-      'options': ['大', '小', '中'],
+      'kanji': '水',
+      'meaning': 'Water',
+      'kunyomi': 'みず / mizu',
+      'onyomi': 'スイ / sui',
+      'title': 'Kanji Lesson 1',
+      'options': ['水', '火', '木'],
     },
   ];
 

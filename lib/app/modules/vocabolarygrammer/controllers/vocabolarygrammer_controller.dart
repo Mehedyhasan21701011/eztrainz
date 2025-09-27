@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:get/get.dart';
 import 'package:flutter/services.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
@@ -29,7 +31,6 @@ class VocabolaryController extends GetxController {
 
     // ✅ React to tab changes and update video dynamically
     ever(selectedTab, (_) {
-      print("Tab changed to: ${selectedTab.value}");
       _initializeYoutubeController();
     });
 
@@ -263,8 +264,9 @@ class VocabolaryController extends GetxController {
 
   // Navigation
   void nextWord() {
-    if (currentWordIndex.value < todaysWords.length - 1)
+    if (currentWordIndex.value < todaysWords.length - 1) {
       currentWordIndex.value++;
+    }
   }
 
   void previousWord() {
@@ -272,8 +274,9 @@ class VocabolaryController extends GetxController {
   }
 
   void goToWord(int index) {
-    if (index >= 0 && index < todaysWords.length)
+    if (index >= 0 && index < todaysWords.length) {
       currentWordIndex.value = index;
+    }
   }
 
   // Audio
@@ -281,7 +284,6 @@ class VocabolaryController extends GetxController {
     isPlaying.value = true;
     HapticFeedback.lightImpact();
     Future.delayed(const Duration(seconds: 2), () => isPlaying.value = false);
-    print("Playing audio for: ${getCurrentWord()['romaji']}");
   }
 
   // Search

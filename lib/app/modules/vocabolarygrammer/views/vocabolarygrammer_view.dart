@@ -3,6 +3,7 @@ import 'package:eztrainz/app/routes/app_pages.dart';
 import 'package:eztrainz/app/utils/style/styles.dart';
 import 'package:eztrainz/app/utils/widget/addbutton.dart';
 import 'package:eztrainz/app/utils/widget/appbar.dart';
+import 'package:eztrainz/app/utils/widget/buildworddialogbox.dart';
 import 'package:eztrainz/app/utils/widget/dailog.dart';
 import 'package:eztrainz/app/utils/widget/headingtext.dart';
 import 'package:eztrainz/app/utils/widget/search.dart';
@@ -12,14 +13,6 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class VocabolaryView extends GetView<VocabolaryController> {
   const VocabolaryView({super.key});
-
-  static const _titleStyle = TextStyle(fontSize: 16, color: Colors.black87);
-
-  static const _highlightStyle = TextStyle(
-    fontSize: 16,
-    color: Colors.blue,
-    fontWeight: FontWeight.bold,
-  );
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +42,7 @@ class VocabolaryView extends GetView<VocabolaryController> {
         children: [
           SizedBox(height: 16),
           headingText("Master Japanese Grammar with Easy Steps"),
+          SizedBox(height: 8),
           buildCard(
             "assets/tree.png",
             "Learn Grammar",
@@ -297,12 +291,12 @@ class VocabolaryView extends GetView<VocabolaryController> {
                         ),
                       ),
                       const SizedBox(width: 8),
-                      Expanded(child: _buildWordDetails(currentWord)),
+                      Expanded(child: buildWordDetails(currentWord)),
                     ],
                   ),
                   const SizedBox(height: 12),
                   if (currentWord['sentence'] != null)
-                    _buildSentence(currentWord),
+                    buildSentence(currentWord),
                   const SizedBox(height: 8),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -318,64 +312,64 @@ class VocabolaryView extends GetView<VocabolaryController> {
     );
   }
 
-  Widget _buildWordDetails(Map<String, dynamic> word) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildWordRow("Kanji", word['kanji']),
-            _buildWordRow("Romaji", word['romaji']),
-          ],
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildWordRow("Hiragana", word['hiragana']),
-            _buildWordRow("Meaning", word['meaning']),
-          ],
-        ),
-        GestureDetector(
-          onTap: controller.playAudio,
-          child: Image.asset("assets/mike.png", width: 24, height: 24),
-        ),
-      ],
-    );
-  }
+  // Widget buildWordDetails(Map<String, dynamic> word) {
+  //   return Row(
+  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //     children: [
+  //       Column(
+  //         crossAxisAlignment: CrossAxisAlignment.start,
+  //         children: [
+  //           buildWordRow("Kanji", word['kanji']),
+  //           buildWordRow("Romaji", word['romaji']),
+  //         ],
+  //       ),
+  //       Column(
+  //         crossAxisAlignment: CrossAxisAlignment.start,
+  //         children: [
+  //           buildWordRow("Hiragana", word['hiragana']),
+  //           buildWordRow("Meaning", word['meaning']),
+  //         ],
+  //       ),
+  //       GestureDetector(
+  //         onTap: controller.playAudio,
+  //         child: Image.asset("assets/mike.png", width: 24, height: 24),
+  //       ),
+  //     ],
+  //   );
+  // }
 
-  Widget _buildWordRow(String label, String? value, {bool isBold = false}) {
-    return Row(
-      children: [
-        Text(label, style: _titleStyle),
-        SizedBox(width: 10),
-        Text(
-          value ?? '',
-          style: isBold
-              ? _highlightStyle
-              : _titleStyle.copyWith(color: Colors.blue),
-        ),
-      ],
-    );
-  }
+  // Widget buildWordRow(String label, String? value, {bool isBold = false}) {
+  //   return Row(
+  //     children: [
+  //       Text(label, style: _titleStyle),
+  //       SizedBox(width: 10),
+  //       Text(
+  //         value ?? '',
+  //         style: isBold
+  //             ? _highlightStyle
+  //             : _titleStyle.copyWith(color: Colors.blue),
+  //       ),
+  //     ],
+  //   );
+  // }
 
-  Widget _buildSentence(Map<String, dynamic> word) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        const SizedBox(height: 10),
-        Text(word['sentence']['japanese'] ?? '', style: _highlightStyle),
-        const SizedBox(height: 10),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(word['sentence']['romaji'] ?? '', style: _titleStyle),
-            Text(word['sentence']['english'] ?? '', style: _titleStyle),
-          ],
-        ),
-      ],
-    );
-  }
+  // Widget buildSentence(Map<String, dynamic> word) {
+  //   return Column(
+  //     crossAxisAlignment: CrossAxisAlignment.center,
+  //     children: [
+  //       const SizedBox(height: 10),
+  //       Text(word['sentence']['japanese'] ?? '', style: _highlightStyle),
+  //       const SizedBox(height: 10),
+  //       Row(
+  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //         children: [
+  //           Text(word['sentence']['romaji'] ?? '', style: _titleStyle),
+  //           Text(word['sentence']['english'] ?? '', style: _titleStyle),
+  //         ],
+  //       ),
+  //     ],
+  //   );
+  // }
 
   Widget _buildAddToFavoritesButton() {
     return GestureDetector(
@@ -395,21 +389,24 @@ class VocabolaryView extends GetView<VocabolaryController> {
       int end = (start + 3).clamp(0, total);
       final visibleIndexes = List.generate(end - start, (i) => start + i);
 
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _buildNavButton(
-            Icons.arrow_back_ios,
-            controller.hasPreviousWord,
-            controller.previousWord,
-          ),
-          ...visibleIndexes.map((index) => _buildPageIndicator(index)),
-          _buildNavButton(
-            Icons.arrow_forward_ios,
-            controller.hasNextWord,
-            controller.nextWord,
-          ),
-        ],
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            _buildNavButton(
+              Icons.arrow_back_ios,
+              controller.hasPreviousWord,
+              controller.previousWord,
+            ),
+            ...visibleIndexes.map((index) => _buildPageIndicator(index)),
+            _buildNavButton(
+              Icons.arrow_forward_ios,
+              controller.hasNextWord,
+              controller.nextWord,
+            ),
+          ],
+        ),
       );
     });
   }

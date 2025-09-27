@@ -2,7 +2,7 @@ import 'package:eztrainz/app/modules/wordpage/controllers/wordpage_controller.da
 import 'package:eztrainz/app/utils/style/styles.dart';
 import 'package:eztrainz/app/utils/widget/addbutton.dart';
 import 'package:eztrainz/app/utils/widget/appbar.dart';
-import 'package:eztrainz/app/utils/widget/dailog.dart';
+import 'package:eztrainz/app/utils/widget/buildworddialogboxwithoutaddicon.dart';
 import 'package:eztrainz/app/utils/widget/search.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -47,26 +47,47 @@ class WordpageView extends GetView<WordpageController> {
                     spacing: 6,
                     runSpacing: 6,
                     children: controller.filteredWords.map((word) {
-                      return Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 6,
-                        ),
-                        decoration: BoxDecoration(
-                          color: AppColors.secondaryButton,
-                          borderRadius: BorderRadius.circular(
-                            24,
-                          ), // ✅ control radius here
-                          border: Border.all(
-                            color: Colors.transparent, // ✅ remove border
-                            width: 0,
+                      final meaning = word['meaning'] ?? '';
+
+                      return GestureDetector(
+                        onTap: () {
+                          Get.dialog(
+                            AlertDialog(
+                              backgroundColor: Colors.white,
+                              content: buildWordDialogWithoutAddIcon(word),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 8,
+                            horizontal: 20,
                           ),
-                        ),
-                        child: Text(
-                          word,
-                          style: TextStyle(
-                            color: Colors.black.withOpacity(0.8),
-                            fontSize: 14,
+                          decoration: BoxDecoration(
+                            color: AppColors.secondaryButton,
+                            borderRadius: BorderRadius.circular(16),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.05),
+                                blurRadius: 4,
+                                offset: const Offset(2, 2),
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                meaning,
+                                textAlign: TextAlign.center,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.black.withOpacity(0.8),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       );
@@ -110,25 +131,20 @@ class WordpageView extends GetView<WordpageController> {
     );
   }
 
-  void _showAddWordDialog(BuildContext context) {
-    final TextEditingController textController = TextEditingController();
-    Get.dialog(
+  Future buildDialogBox() {
+    return Get.dialog(
       AlertDialog(
-        title: const Text("Add New Word"),
-        content: TextField(
-          controller: textController,
-          decoration: const InputDecoration(hintText: "Enter word"),
-        ),
+        backgroundColor: Colors.white,
+        title: const Text('Add to Favorites'),
+        content: const Text('Do you want to add this word to your favorites?'),
         actions: [
-          TextButton(onPressed: () => Get.back(), child: const Text("Cancel")),
-          ElevatedButton(
-            onPressed: () {
-              if (textController.text.isNotEmpty) {
-                controller.addWord(textController.text);
-                Get.back();
-              }
-            },
-            child: const Text("Add"),
+          TextButton(
+            onPressed: Get.back,
+            child: const Text('Cancel', style: TextStyle(color: Colors.blue)),
+          ),
+          TextButton(
+            onPressed: Get.back,
+            child: const Text('Add', style: TextStyle(color: Colors.blue)),
           ),
         ],
       ),

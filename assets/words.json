@@ -1,23 +1,430 @@
 {
   "nouns": [
-    "Cat", "Dog", "House", "Book", "Teacher", "Car", "Tree", "Computer", "City", "Friend",
-    "River", "Mountain", "School", "Student", "Phone", "Table", "Chair", "Flower", "Sun", "Moon",
-    "Ocean", "Bird", "Plane", "Train", "Country", "Language", "Music", "Game", "Food", "Water",
-    "Door", "Window", "Garden", "Street", "Cloud", "Rain", "Star", "Dream", "Idea", "Heart",
-    "Village", "Bridge", "Map", "Letter", "Picture", "Song", "Child", "Family", "Bookstore", "Market"
+    {
+      "id": 1,
+      "kanji": "木",
+      "hiragana": "き",
+      "romaji": "ki",
+      "meaning": "Cat",
+      "image": "assets/tree.png",
+      "audio": "Cat.mp3",
+      "sentence": {
+        "japanese": "これはCatです。",
+        "romaji": "Kore wa Cat desu.",
+        "english": "This is a Cat."
+      }
+    },
+    {
+      "id": 2,
+      "kanji": "木",
+      "hiragana": "き",
+      "romaji": "ki",
+      "meaning": "Dog",
+      "image": "assets/tree.png",
+      "audio": "Dog.mp3",
+      "sentence": {
+        "japanese": "これはDogです。",
+        "romaji": "Kore wa Dog desu.",
+        "english": "This is a Dog."
+      }
+    },
+    {
+      "id": 3,
+      "kanji": "木",
+      "hiragana": "き",
+      "romaji": "ki",
+      "meaning": "House",
+      "image": "assets/Hotree.png",
+      "audio": "House.mp3",
+      "sentence": {
+        "japanese": "これはHouseです。",
+        "romaji": "Kore wa House desu.",
+        "english": "This is a House."
+      }
+    },
+    {
+      "id": 4,
+      "kanji": "木",
+      "hiragana": "き",
+      "romaji": "ki",
+      "meaning": "Book",
+      "image": "assets/Btree.png",
+      "audio": "Book.mp3",
+      "sentence": {
+        "japanese": "これはBookです。",
+        "romaji": "Kore wa Book desu.",
+        "english": "This is a Book."
+      }
+    },
+    {
+      "id": 5,
+      "kanji": "木",
+      "hiragana": "き",
+      "romaji": "ki",
+      "meaning": "Teacher",
+      "image": "assets/Teactree.png",
+      "audio": "Teacher.mp3",
+      "sentence": {
+        "japanese": "これはTeacherです。",
+        "romaji": "Kore wa Teacher desu.",
+        "english": "This is a Teacher."
+      }
+    },
+    {
+      "id": 6,
+      "kanji": "木",
+      "hiragana": "き",
+      "romaji": "ki",
+      "meaning": "Car",
+      "image": "assets/tree.png",
+      "audio": "Car.mp3",
+      "sentence": {
+        "japanese": "これはCarです。",
+        "romaji": "Kore wa Car desu.",
+        "english": "This is a Car."
+      }
+    },
+    {
+      "id": 7,
+      "kanji": "木",
+      "hiragana": "き",
+      "romaji": "ki",
+      "meaning": "Tree",
+      "image": "assets/Ttree.png",
+      "audio": "Tree.mp3",
+      "sentence": {
+        "japanese": "これはTreeです。",
+        "romaji": "Kore wa Tree desu.",
+        "english": "This is a Tree."
+      }
+    },
+    {
+      "id": 8,
+      "kanji": "木",
+      "hiragana": "き",
+      "romaji": "ki",
+      "meaning": "Computer",
+      "image": "assets/Computree.png",
+      "audio": "Computer.mp3",
+      "sentence": {
+        "japanese": "これはComputerです。",
+        "romaji": "Kore wa Computer desu.",
+        "english": "This is a Computer."
+      }
+    },
+    {
+      "id": 9,
+      "kanji": "木",
+      "hiragana": "き",
+      "romaji": "ki",
+      "meaning": "City",
+      "image": "assets/Ctree.png",
+      "audio": "City.mp3",
+      "sentence": {
+        "japanese": "これはCityです。",
+        "romaji": "Kore wa City desu.",
+        "english": "This is a City."
+      }
+    },
+    {
+      "id": 10,
+      "kanji": "木",
+      "hiragana": "き",
+      "romaji": "ki",
+      "meaning": "Friend",
+      "image": "assets/Fritree.png",
+      "audio": "Friend.mp3",
+      "sentence": {
+        "japanese": "これはFriendです。",
+        "romaji": "Kore wa Friend desu.",
+        "english": "This is a Friend."
+      }
+    }
   ],
+
   "pronouns": [
-    "I", "You", "He", "She", "It", "We", "They", "Me", "Us", "Him",
-    "Her", "Them", "My", "Your", "His", "Our", "Their", "Mine", "Yours", "Hers",
-    "Ours", "Theirs", "This", "That", "These", "Those", "Who", "Whom", "Whose", "Which",
-    "What", "Anyone", "Someone", "Everyone", "No one", "Anybody", "Somebody", "Everybody", "Nobody", "Each",
-    "Either", "Neither", "Nothing", "Something", "Everything", "None", "Himself", "Herself", "Itself", "Themselves"
+    {
+      "id": 1,
+      "kanji": "木",
+      "hiragana": "き",
+      "romaji": "ki",
+      "meaning": "I",
+      "image": "assettree.png",
+      "audio": "I.mp3",
+      "sentence": {
+        "japanese": "これはIです。",
+        "romaji": "Kore wa I desu.",
+        "english": "This is I."
+      }
+    },
+    {
+      "id": 2,
+      "kanji": "木",
+      "hiragana": "き",
+      "romaji": "ki",
+      "meaning": "You",
+      "image": "assets/tree.png",
+      "audio": "You.mp3",
+      "sentence": {
+        "japanese": "これはYouです。",
+        "romaji": "Kore wa You desu.",
+        "english": "This is You."
+      }
+    },
+    {
+      "id": 3,
+      "kanji": "木",
+      "hiragana": "き",
+      "romaji": "ki",
+      "meaning": "He",
+      "image": "assetstree.png",
+      "audio": "He.mp3",
+      "sentence": {
+        "japanese": "これはHeです。",
+        "romaji": "Kore wa He desu.",
+        "english": "This is He."
+      }
+    },
+    {
+      "id": 4,
+      "kanji": "木",
+      "hiragana": "き",
+      "romaji": "ki",
+      "meaning": "She",
+      "image": "assets/tree.png",
+      "audio": "She.mp3",
+      "sentence": {
+        "japanese": "これはSheです。",
+        "romaji": "Kore wa She desu.",
+        "english": "This is She."
+      }
+    },
+    {
+      "id": 5,
+      "kanji": "木",
+      "hiragana": "き",
+      "romaji": "ki",
+      "meaning": "It",
+      "image": "assetstree.png",
+      "audio": "It.mp3",
+      "sentence": {
+        "japanese": "これはItです。",
+        "romaji": "Kore wa It desu.",
+        "english": "This is It."
+      }
+    },
+    {
+      "id": 6,
+      "kanji": "木",
+      "hiragana": "き",
+      "romaji": "ki",
+      "meaning": "We",
+      "image": "assetstree.png",
+      "audio": "We.mp3",
+      "sentence": {
+        "japanese": "これはWeです。",
+        "romaji": "Kore wa We desu.",
+        "english": "This is We."
+      }
+    },
+    {
+      "id": 7,
+      "kanji": "木",
+      "hiragana": "き",
+      "romaji": "ki",
+      "meaning": "They",
+      "image": "assets/Ttree.png",
+      "audio": "They.mp3",
+      "sentence": {
+        "japanese": "これはTheyです。",
+        "romaji": "Kore wa They desu.",
+        "english": "This is They."
+      }
+    },
+    {
+      "id": 8,
+      "kanji": "木",
+      "hiragana": "き",
+      "romaji": "ki",
+      "meaning": "Me",
+      "image": "assetstree.png",
+      "audio": "Me.mp3",
+      "sentence": {
+        "japanese": "これはMeです。",
+        "romaji": "Kore wa Me desu.",
+        "english": "This is Me."
+      }
+    },
+    {
+      "id": 9,
+      "kanji": "木",
+      "hiragana": "き",
+      "romaji": "ki",
+      "meaning": "Us",
+      "image": "assetstree.png",
+      "audio": "Us.mp3",
+      "sentence": {
+        "japanese": "これはUsです。",
+        "romaji": "Kore wa Us desu.",
+        "english": "This is Us."
+      }
+    },
+    {
+      "id": 10,
+      "kanji": "木",
+      "hiragana": "き",
+      "romaji": "ki",
+      "meaning": "Him",
+      "image": "assets/tree.png",
+      "audio": "Him.mp3",
+      "sentence": {
+        "japanese": "これはHimです。",
+        "romaji": "Kore wa Him desu.",
+        "english": "This is Him."
+      }
+    }
   ],
+
   "verbs": [
-    "Run", "Walk", "Eat", "Drink", "Read", "Write", "Speak", "Listen", "Play", "Work",
-    "Study", "Sleep", "Drive", "Fly", "Sing", "Dance", "Jump", "Think", "Learn", "Teach",
-    "Cook", "Build", "Draw", "Paint", "Swim", "Climb", "Grow", "Watch", "Buy", "Sell",
-    "Open", "Close", "Start", "Stop", "Begin", "End", "Help", "Call", "Love", "Hate",
-    "Smile", "Cry", "Meet", "Send", "Receive", "Give", "Take", "Break", "Fix", "Push"
+    {
+      "id": 1,
+      "kanji": "木",
+      "hiragana": "き",
+      "romaji": "ki",
+      "meaning": "Run",
+      "image": "assets/tree.png",
+      "audio": "Run.mp3",
+      "sentence": {
+        "japanese": "これはRunです。",
+        "romaji": "Kore wa Run desu.",
+        "english": "This is Run."
+      }
+    },
+    {
+      "id": 2,
+      "kanji": "木",
+      "hiragana": "き",
+      "romaji": "ki",
+      "meaning": "Walk",
+      "image": "assets/Wtree.png",
+      "audio": "Walk.mp3",
+      "sentence": {
+        "japanese": "これはWalkです。",
+        "romaji": "Kore wa Walk desu.",
+        "english": "This is Walk."
+      }
+    },
+    {
+      "id": 3,
+      "kanji": "木",
+      "hiragana": "き",
+      "romaji": "ki",
+      "meaning": "Eat",
+      "image": "assets/tree.png",
+      "audio": "Eat.mp3",
+      "sentence": {
+        "japanese": "これはEatです。",
+        "romaji": "Kore wa Eat desu.",
+        "english": "This is Eat."
+      }
+    },
+    {
+      "id": 4,
+      "kanji": "木",
+      "hiragana": "き",
+      "romaji": "ki",
+      "meaning": "Drink",
+      "image": "assets/Drtree.png",
+      "audio": "Drink.mp3",
+      "sentence": {
+        "japanese": "これはDrinkです。",
+        "romaji": "Kore wa Drink desu.",
+        "english": "This is Drink."
+      }
+    },
+    {
+      "id": 5,
+      "kanji": "木",
+      "hiragana": "き",
+      "romaji": "ki",
+      "meaning": "Read",
+      "image": "assets/Rtree.png",
+      "audio": "Read.mp3",
+      "sentence": {
+        "japanese": "これはReadです。",
+        "romaji": "Kore wa Read desu.",
+        "english": "This is Read."
+      }
+    },
+    {
+      "id": 6,
+      "kanji": "木",
+      "hiragana": "き",
+      "romaji": "ki",
+      "meaning": "Write",
+      "image": "assets/Wrtree.png",
+      "audio": "Write.mp3",
+      "sentence": {
+        "japanese": "これはWriteです。",
+        "romaji": "Kore wa Write desu.",
+        "english": "This is Write."
+      }
+    },
+    {
+      "id": 7,
+      "kanji": "木",
+      "hiragana": "き",
+      "romaji": "ki",
+      "meaning": "Speak",
+      "image": "assets/Sptree.png",
+      "audio": "Speak.mp3",
+      "sentence": {
+        "japanese": "これはSpeakです。",
+        "romaji": "Kore wa Speak desu.",
+        "english": "This is Speak."
+      }
+    },
+    {
+      "id": 8,
+      "kanji": "木",
+      "hiragana": "き",
+      "romaji": "ki",
+      "meaning": "Listen",
+      "image": "assets/Listree.png",
+      "audio": "Listen.mp3",
+      "sentence": {
+        "japanese": "これはListenです。",
+        "romaji": "Kore wa Listen desu.",
+        "english": "This is Listen."
+      }
+    },
+    {
+      "id": 9,
+      "kanji": "木",
+      "hiragana": "き",
+      "romaji": "ki",
+      "meaning": "Play",
+      "image": "assets/Ptree.png",
+      "audio": "Play.mp3",
+      "sentence": {
+        "japanese": "これはPlayです。",
+        "romaji": "Kore wa Play desu.",
+        "english": "This is Play."
+      }
+    },
+    {
+      "id": 10,
+      "kanji": "木",
+      "hiragana": "き",
+      "romaji": "ki",
+      "meaning": "Work",
+      "image": "assets/Wtree.png",
+      "audio": "Work.mp3",
+      "sentence": {
+        "japanese": "これはWorkです。",
+        "romaji": "Kore wa Work desu.",
+        "english": "This is Work."
+      }
+    }
   ]
 }

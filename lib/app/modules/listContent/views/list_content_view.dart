@@ -1,4 +1,3 @@
-import 'package:eztrainz/app/routes/app_pages.dart';
 import 'package:eztrainz/app/utils/style/styles.dart';
 import 'package:eztrainz/app/utils/widget/appbar.dart';
 import 'package:flutter/material.dart';
@@ -118,53 +117,6 @@ class ListContentView extends GetView<ListContentController> {
     );
   }
 
-  PreferredSizeWidget _buildAppBar() {
-    return AppBar(
-      backgroundColor: Colors.white,
-      leading: GestureDetector(
-        onTap: () {
-          Get.toNamed(Routes.HOME);
-          //just for test
-        },
-        child: const Padding(
-          padding: EdgeInsets.only(left: 16),
-          child: Icon(Icons.arrow_back_ios, color: Colors.blue),
-        ),
-      ),
-      title: Image.asset(
-        "assets/logo.png",
-        width: 150,
-        fit: BoxFit.contain,
-        errorBuilder: (context, error, stackTrace) {
-          return const Text(
-            "EzTrainz",
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: Colors.blue,
-            ),
-          );
-        },
-      ),
-      centerTitle: true,
-      actions: [
-        GestureDetector(
-          onTap: () {
-
-          },
-          child: const Padding(
-            padding: EdgeInsets.only(right: 16),
-            child: CircleAvatar(
-              backgroundColor: Color.fromARGB(255, 238, 244, 250),
-              radius: 20,
-              child: Icon(Icons.person, size: 30, color: Colors.blue),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
   Widget _buildVideoSection() {
     return Padding(
       padding: const EdgeInsets.all(16.0),
@@ -186,7 +138,7 @@ class ListContentView extends GetView<ListContentController> {
               ),
             ),
           ),
-      
+
           const SizedBox(height: 12),
         ],
       ),
@@ -339,25 +291,30 @@ class ListContentView extends GetView<ListContentController> {
                   return PronunciationButton(
                     color: const Color(0xFFF6F585),
                     onTap: () => controller.playAudio('kunyomi'),
-                    child: RichText(
-                      text: TextSpan(
-                        children: [
-                          TextSpan(
-                            text: firstPart,
-                            style: const TextStyle(
-                              color: Colors.blue,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
+                    child: Tooltip(
+                      message: kunyomi, // full text on hover
+                      child: Text.rich(
+                        TextSpan(
+                          children: [
+                            TextSpan(
+                              text: firstPart,
+                              style: const TextStyle(
+                                color: Colors.blue,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                          TextSpan(
-                            text: secondPart,
-                            style: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 18,
+                            TextSpan(
+                              text: secondPart,
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 18,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
                       ),
                     ),
                   );
@@ -382,26 +339,32 @@ class ListContentView extends GetView<ListContentController> {
 
                   return PronunciationButton(
                     color: const Color(0xFFF6F585),
-                    onTap: () => controller.playAudio('kunyomi'),
-                    child: RichText(
-                      text: TextSpan(
-                        children: [
-                          TextSpan(
-                            text: firstPart,
-                            style: const TextStyle(
-                              color: Colors.blue,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
+                    onTap: () =>
+                        controller.playAudio('onyomi'), // fixed from kunyomi
+                    child: Tooltip(
+                      message: onyomi,
+                      child: Text.rich(
+                        TextSpan(
+                          children: [
+                            TextSpan(
+                              text: firstPart,
+                              style: const TextStyle(
+                                color: Colors.blue,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                          TextSpan(
-                            text: secondPart,
-                            style: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 18,
+                            TextSpan(
+                              text: secondPart,
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 18,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
                       ),
                     ),
                   );
@@ -417,24 +380,24 @@ class ListContentView extends GetView<ListContentController> {
   Widget _buildBottomMessage() {
     return Obx(
       () => Container(
-        margin: EdgeInsets.symmetric(horizontal: 16),
+        margin: EdgeInsets.symmetric(horizontal: 20),
         width: double.infinity,
         decoration: BoxDecoration(
           color: const Color(0xFFC4E0FD).withOpacity(0.25),
           borderRadius: BorderRadius.circular(30),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(4.0),
+          padding: const EdgeInsets.symmetric(vertical: 8),
           child: Text(
             controller.displayVisibility.value
                 ? "あの山は高いです。"
                 : controller.cardVisibility.value
                 ? controller.isAnsSelected.value
                       ? controller.isAnswered.value
-                            ? "Correct! 🎉"
-                            : "Incorrect. Try again!"
-                      : "Select the correct meaning"
-                : "Contratulations! 🎉",
+                            ? "Choose the right answer"
+                            : "Try again"
+                      : "Choose the right answer"
+                : "Contratulations!",
 
             style: TextStyle(
               fontSize: 16,
@@ -503,7 +466,7 @@ class ListContentView extends GetView<ListContentController> {
                   ),
                   SizedBox(width: 10),
                   Text(
-                    "${controller.options[index]}",
+                    controller.options[index],
                     style: TextStyle(
                       color: Color(0xFF1D2126).withOpacity(0.6),
                       fontSize: 24,

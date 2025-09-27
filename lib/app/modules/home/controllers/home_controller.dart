@@ -258,8 +258,9 @@ class HomeController extends GetxController {
     final lesson = lessons[lessonIndex];
     final content = lesson["content"] as List?;
 
-    if (content == null || contentIndex < 0 || contentIndex >= content.length)
+    if (content == null || contentIndex < 0 || contentIndex >= content.length) {
       return;
+    }
 
     // Mark as watched
     content[contentIndex]["watched"] = true;

@@ -43,53 +43,6 @@ class HomeView extends GetView<HomeController> {
     );
   }
 
-  PreferredSizeWidget _buildAppBar() {
-    return AppBar(
-      backgroundColor: Colors.white,
-      leading: Padding(
-        padding: const EdgeInsets.only(left: 16),
-        child: Image.asset(
-          "assets/logo2.png",
-          height: 36,
-          fit: BoxFit.contain,
-          errorBuilder: (context, error, stackTrace) {
-            return const Icon(Icons.apps, size: 36, color: Colors.blue);
-          },
-        ),
-      ),
-      title: Image.asset(
-        "assets/logo.png",
-        width: 150,
-        fit: BoxFit.contain,
-        errorBuilder: (context, error, stackTrace) {
-          return const Text(
-            "EzTrainz",
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: Colors.blue,
-            ),
-          );
-        },
-      ),
-      centerTitle: true,
-      actions: [
-        GestureDetector(
-          onTap: () {
-          
-          },
-          child: Padding(
-            padding: const EdgeInsets.only(right: 16),
-            child: CircleAvatar(
-              backgroundColor: const Color.fromARGB(255, 238, 244, 250),
-              radius: 20,
-              child: const Icon(Icons.person, size: 30, color: Colors.blue),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
 
   Widget _buildPlayGamesSection() {
     return Column(
@@ -189,7 +142,7 @@ class HomeView extends GetView<HomeController> {
                 // Safe access with null check
                 final selectedLevel = controller.selectedLevel.value;
                 final isSelected =
-                    selectedLevel != null && selectedLevel == level;
+                    selectedLevel == level;
 
                 return Expanded(
                   child: GestureDetector(
@@ -270,7 +223,7 @@ class HomeView extends GetView<HomeController> {
   }
 
   Widget _buildLessonsListView(List lessons) {
-    final selectedLevel = controller.selectedLevel.value ?? 'default';
+    final selectedLevel = controller.selectedLevel.value;
 
     return ListView.builder(
       key: ValueKey('lessons-$selectedLevel'),
@@ -311,7 +264,7 @@ class HomeView extends GetView<HomeController> {
                   ).copyWith(dividerColor: Colors.transparent),
                   child: ExpansionTile(
                     key: PageStorageKey(
-                      'expansion-${controller.selectedLevel.value ?? 'default'}-$lessonId',
+                      'expansion-${controller.selectedLevel.value}-$lessonId',
                     ),
                     initiallyExpanded: isExpanded,
                     onExpansionChanged: (expanded) {
@@ -485,7 +438,6 @@ class HomeView extends GetView<HomeController> {
                 Get.toNamed(Routes.VOCABOLARYGRAMMER);
               } else {
                 // Do nothing or show a message
-                print("No action defined for: $title");
               }
             },
           ),
