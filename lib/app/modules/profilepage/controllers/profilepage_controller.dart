@@ -7,7 +7,7 @@ class ProfileController extends GetxController {
   final userName = 'John Doe'.obs;
   final userEmail = 'johndoe@gmail.com'.obs;
   final userLevel = 'N5'.obs;
-  final progressPercentage = 60.0.obs;
+  final progressPercentage = 70.0.obs;
   final lessonsDone = 5.obs;
   final gamesCompleted = 25.obs;
 

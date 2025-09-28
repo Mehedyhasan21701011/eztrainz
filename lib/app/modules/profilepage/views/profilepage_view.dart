@@ -311,7 +311,7 @@ class ProfileView extends GetView<ProfileController> {
                     },
                   ),
                   borderData: FlBorderData(show: false),
-                  barGroups: controller.weeklyStudyData.value,
+                  barGroups: controller.weeklyStudyData,
                 ),
               ),
             ),
