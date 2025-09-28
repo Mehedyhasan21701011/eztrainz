@@ -11,7 +11,7 @@ class SecondonboardingpageController extends GetxController {
   }
 
   void _initializeYoutubeController() {
-    const Url = "https://www.youtube.com/shorts/tLZjL-dMH_g";
+    const Url = "https://www.youtube.com/watch?v=ivRsYsVPPJ4";
     final videoId = YoutubePlayer.convertUrlToId(Url);
 
     if (videoId == null) return;

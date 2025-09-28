@@ -117,8 +117,6 @@ class ListContentView extends GetView<ListContentController> {
     );
   }
 
-  
-
   Widget _buildTitleSection() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -364,7 +362,7 @@ class ListContentView extends GetView<ListContentController> {
           padding: const EdgeInsets.symmetric(vertical: 8),
           child: Text(
             controller.displayVisibility.value
-                ? "あの山は高いです。"
+                ? controller.selectedexample.value
                 : controller.cardVisibility.value
                 ? controller.isAnsSelected.value
                       ? controller.isAnswered.value

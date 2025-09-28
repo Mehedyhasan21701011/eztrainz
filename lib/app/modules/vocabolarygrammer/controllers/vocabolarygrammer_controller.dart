@@ -43,8 +43,9 @@ class VocabolaryController extends GetxController {
   }
 
   void _initializeYoutubeController() {
-    const grammarUrl = "https://www.youtube.com/shorts/tLZjL-dMH_g";
-    const vocabUrl = "https://www.youtube.com/shorts/amTmnnqQf_E";
+    const vocabUrl = "https://www.youtube.com/watch?v=1QBBa0pds8k";
+    const grammarUrl =
+        "https://www.youtube.com/watch?v=SPXQ8Bx-O_g&list=PLKOA3pgec-PYUd-aX8ArRqgfX8jvtJy6- ";
 
     final selectedUrl = selectedTab.value == "Grammar" ? grammarUrl : vocabUrl;
     final videoId = YoutubePlayer.convertUrlToId(selectedUrl);
@@ -100,48 +101,6 @@ class VocabolaryController extends GetxController {
           "japanese": "水を飲みます。",
           "romaji": "Mizu wo nomimasu.",
           "english": "I drink water.",
-        },
-      },
-      {
-        "id": 3,
-        "kanji": "本",
-        "hiragana": "ほん",
-        "romaji": "hon",
-        "meaning": "book",
-        "image": "assets/book.png",
-        "audio": "hon.mp3",
-        "sentence": {
-          "japanese": "本を読みます。",
-          "romaji": "Hon wo yomimasu.",
-          "english": "I read a book.",
-        },
-      },
-      {
-        "id": 3,
-        "kanji": "本",
-        "hiragana": "ほん",
-        "romaji": "hon",
-        "meaning": "book",
-        "image": "assets/book.png",
-        "audio": "hon.mp3",
-        "sentence": {
-          "japanese": "本を読みます。",
-          "romaji": "Hon wo yomimasu.",
-          "english": "I read a book.",
-        },
-      },
-      {
-        "id": 3,
-        "kanji": "本",
-        "hiragana": "ほん",
-        "romaji": "hon",
-        "meaning": "book",
-        "image": "assets/book.png",
-        "audio": "hon.mp3",
-        "sentence": {
-          "japanese": "本を読みます。",
-          "romaji": "Hon wo yomimasu.",
-          "english": "I read a book.",
         },
       },
       {

@@ -5,11 +5,15 @@ import 'package:get/get.dart';
 PreferredSizeWidget appbar() {
   return AppBar(
     backgroundColor: Colors.white,
+    scrolledUnderElevation: 0,
     leading: GestureDetector(
       onTap: () {
         Get.toNamed(Routes.HOME);
       },
-      child: Icon(Icons.arrow_back_ios, color: Colors.blue),
+      child: Padding(
+        padding: const EdgeInsets.only(left: 8.0),
+        child: Icon(Icons.arrow_back_ios, size: 30, color: Colors.blue),
+      ),
     ),
     title: Image.asset(
       "assets/logo.png",
@@ -41,7 +45,7 @@ PreferredSizeWidget appbar() {
             },
             child: CircleAvatar(
               backgroundColor: const Color(0xFFEEF4FA),
-              radius: 20,
+              radius: 18,
               child: Image.asset("assets/profile.png", fit: BoxFit.contain),
             ),
           ),

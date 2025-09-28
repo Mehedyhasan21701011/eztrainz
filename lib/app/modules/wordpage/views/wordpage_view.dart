@@ -59,6 +59,7 @@ class WordpageView extends GetView<WordpageController> {
                           );
                         },
                         child: Container(
+                          width: 100,
                           padding: const EdgeInsets.symmetric(
                             vertical: 8,
                             horizontal: 20,

@@ -19,6 +19,7 @@ class ListContentController extends GetxController {
     kunyomi.value = lesson['kunyomi'];
     onyomi.value = lesson['onyomi'];
     lessonTitle.value = lesson['title'];
+    selectedexample.value = lesson['example'];
   }
 
   /// ✅ Reactive states for Kanji lesson
@@ -26,6 +27,7 @@ class ListContentController extends GetxController {
   final RxString kanjiMeaning = 'Sun, Day'.obs;
   final RxString kunyomi = 'ひ / hi'.obs;
   final RxString onyomi = 'ニチ / nichi'.obs;
+  final RxString selectedexample = 'あの山は高いです'.obs;
 
   final RxBool isVideoPlaying = false.obs;
   final RxString lessonTitle = 'Kanji Lesson 1'.obs;
@@ -43,6 +45,7 @@ class ListContentController extends GetxController {
       'onyomi': 'ニチ / nichi',
       'title': 'Kanji Lesson 1',
       'options': ['日', '月', '火'],
+      'example': 'あの山は高いです',
     },
     {
       'kanji': '月',
@@ -51,6 +54,7 @@ class ListContentController extends GetxController {
       'onyomi': 'ゲツ / getsu',
       'title': 'Kanji Lesson 1',
       'options': ['月', '日', '木'],
+      'example': '山は高ですあのい',
     },
     {
       'kanji': '人',
@@ -59,6 +63,7 @@ class ListContentController extends GetxController {
       'onyomi': 'ジン / jin',
       'title': 'Kanji Lesson 1',
       'options': ['人', '大', '子'],
+      'example': 'での山あ高いはす',
     },
     {
       'kanji': '山',
@@ -67,6 +72,7 @@ class ListContentController extends GetxController {
       'onyomi': 'サン / san',
       'title': 'Kanji Lesson 1',
       'options': ['山', '川', '田'],
+      'example': 'の山はあの山はす',
     },
     {
       'kanji': '水',
@@ -75,6 +81,7 @@ class ListContentController extends GetxController {
       'onyomi': 'スイ / sui',
       'title': 'Kanji Lesson 1',
       'options': ['水', '火', '木'],
+      'example': 'の山いです山山',
     },
   ];
 

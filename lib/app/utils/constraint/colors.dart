@@ -11,9 +11,7 @@ class AppColor {
   static const Color background = Color(0xFFF5F5F5);
   static const Color buttonBackground = Color(0xFFE1EFFD);
   static const Color cardBackground = Color(0xFFE1EFFD);
-  static const Color textDark = Color(0xFF333333);
-  static const Color textLight = Color(0xFFFFFFFF);
-  static const Color secondaryButton = Color(0xFFE1EFFD);
+ 
 
   static const titleStyle = TextStyle(fontSize: 16, color: Colors.black87);
   static const highlightStyle = TextStyle(

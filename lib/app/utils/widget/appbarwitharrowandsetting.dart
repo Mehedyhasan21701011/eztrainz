@@ -1,3 +1,4 @@
+import 'package:eztrainz/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -9,7 +10,7 @@ PreferredSizeWidget appBarWithArrowAndSetting() {
     scrolledUnderElevation: 0,
     leading: GestureDetector(
       onTap: () {
-        Get.back();
+        Get.toNamed(Routes.HOME);
       },
       child: Padding(
         padding: const EdgeInsets.only(left: 8.0),

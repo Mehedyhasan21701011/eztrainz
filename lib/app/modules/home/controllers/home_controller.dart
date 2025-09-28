@@ -14,7 +14,8 @@ class HomeController extends GetxController {
         "progress": 0.0,
         "content": [
           {
-            "url": "https://www.youtube.com/shorts/tLZjL-dMH_g",
+            "url":
+                "https://www.youtube.com/watch?v=w0nP5wFEYhU&list=PLoTQRR5Zh5qLiZiGwpmvJWZnp5hddBLQV ",
             "watched": false,
             "title": "Kanji",
             "progress": 0.0,

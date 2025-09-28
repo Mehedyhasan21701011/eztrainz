@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 /// Builds a professional-looking AppBar with a mascot/logo and profile avatar.
 PreferredSizeWidget buildAppBarWithMascott() {
   return AppBar(
-    elevation: 0,
+    scrolledUnderElevation: 0,
     backgroundColor: Colors.white,
     leading: Padding(
       padding: const EdgeInsets.only(left: 16),

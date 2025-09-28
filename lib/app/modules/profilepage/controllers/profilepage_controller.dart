@@ -23,7 +23,7 @@ class ProfileController extends GetxController {
 
   void initializeWeeklyData() {
     // Sample weekly study data (hours)
-    final studyHours = [4.0, 6.0, 4.5, 6.5, 4.7, 3.0, 3.8];
+    final studyHours = [2.0, 3.0, 2.5, 3.5, 2.7, 1.5, 1.8];
 
     weeklyStudyData.value = studyHours.asMap().entries.map((entry) {
       return BarChartGroupData(
