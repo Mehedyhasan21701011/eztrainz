@@ -12,8 +12,14 @@ import '../modules/listContent/bindings/list_content_binding.dart';
 import '../modules/listContent/views/list_content_view.dart';
 import '../modules/onboardingscreen/bindings/onboardingscreen_binding.dart';
 import '../modules/onboardingscreen/views/onboardingscreen_view.dart';
+import '../modules/particlepage/bindings/particlepage_binding.dart';
+import '../modules/particlepage/views/particlepage_view.dart';
 import '../modules/practicegrammer/bindings/practicegrammer_binding.dart';
 import '../modules/practicegrammer/views/practicegrammer_view.dart';
+import '../modules/profilepage/bindings/profilepage_binding.dart';
+import '../modules/profilepage/views/profilepage_view.dart';
+import '../modules/registerpage/bindings/registerpage_binding.dart';
+import '../modules/registerpage/views/registerpage_view.dart';
 import '../modules/secondonboardingpage/bindings/secondonboardingpage_binding.dart';
 import '../modules/secondonboardingpage/views/secondonboardingpage_view.dart';
 import '../modules/splashScreen/views/splash_screen_view.dart';
@@ -94,6 +100,21 @@ class AppPages {
       name: _Paths.THIRDONBOARDINGPAGE,
       page: () => const ThirdonboardingpageView(),
       binding: ThirdonboardingpageBinding(),
+    ),
+    GetPage(
+      name: _Paths.REGISTERPAGE,
+      page: () => const RegistrationView(),
+      binding: RegisterpageBinding(),
+    ),
+    GetPage(
+      name: _Paths.PROFILEPAGE,
+      page: () => const ProfileView(),
+      binding: ProfilepageBinding(),
+    ),
+    GetPage(
+      name: _Paths.PARTICLEPAGE,
+      page: () => const ParticlepageView(),
+      binding: ParticlepageBinding(),
     ),
   ];
 }

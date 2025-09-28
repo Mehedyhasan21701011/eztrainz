@@ -1,4 +1,6 @@
+import 'package:eztrainz/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 /// Builds a professional-looking AppBar with a mascot/logo and profile avatar.
 PreferredSizeWidget buildAppBarWithMascott() {
@@ -37,7 +39,9 @@ PreferredSizeWidget buildAppBarWithMascott() {
       Padding(
         padding: const EdgeInsets.only(right: 16),
         child: GestureDetector(
-          onTap: (){},
+          onTap: () {
+            Get.toNamed(Routes.PROFILEPAGE);
+          },
           child: CircleAvatar(
             backgroundColor: const Color(0xFFEEF4FA),
             radius: 20,

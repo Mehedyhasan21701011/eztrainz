@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 /// Builds a professional-looking AppBar with a mascot/logo and profile avatar.
-PreferredSizeWidget appBarWithSetting() {
+PreferredSizeWidget appBarWithArrowAndSetting() {
   return AppBar(
     elevation: 0,
     backgroundColor: Colors.white,
-    leading: Padding(
-      padding: const EdgeInsets.only(left: 16),
-      child: Image.asset(
-        "assets/logo2.png",
-        height: 30,
-        width: 30,
-        fit: BoxFit.contain,
-        errorBuilder: (context, error, stackTrace) {
-          return const Icon(Icons.apps, size: 30, color: Colors.blue);
-        },
+    scrolledUnderElevation: 0,
+    leading: GestureDetector(
+      onTap: () {
+        Get.back();
+      },
+      child: Padding(
+        padding: const EdgeInsets.only(left: 8.0),
+        child: Icon(Icons.arrow_back_ios, size: 30, color: Colors.blue),
       ),
     ),
     title: Image.asset(

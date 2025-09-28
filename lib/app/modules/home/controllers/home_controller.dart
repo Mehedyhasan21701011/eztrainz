@@ -232,6 +232,7 @@ class HomeController extends GetxController {
     final lesson = lessons[lessonIndex];
     final content = lesson["content"] as List?;
     if (content == null || content.isEmpty) return 0.0;
+    if (lessonIndex == 0) return 0.7;
     return lesson["progress"] as double? ?? 0.0;
   }
 

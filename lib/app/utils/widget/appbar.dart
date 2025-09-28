@@ -35,10 +35,15 @@ PreferredSizeWidget appbar() {
         },
         child: Padding(
           padding: const EdgeInsets.only(right: 16),
-          child: CircleAvatar(
-            backgroundColor: const Color(0xFFEEF4FA),
-            radius: 20,
-            child: Image.asset("assets/profile.png", fit: BoxFit.contain),
+          child: GestureDetector(
+            onTap: () {
+              Get.toNamed(Routes.PROFILEPAGE);
+            },
+            child: CircleAvatar(
+              backgroundColor: const Color(0xFFEEF4FA),
+              radius: 20,
+              child: Image.asset("assets/profile.png", fit: BoxFit.contain),
+            ),
           ),
         ),
       ),

@@ -19,9 +19,10 @@ class OnboardingscreenView extends GetView<OnboardingscreenController> {
     );
 
     return Scaffold(
+      backgroundColor: Colors.white,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: Colors.transparent, // blend with background
+        backgroundColor: Colors.white, // blend with background
         elevation: 0,
         title: Image.asset("assets/logo.png", width: 180),
         centerTitle: true,

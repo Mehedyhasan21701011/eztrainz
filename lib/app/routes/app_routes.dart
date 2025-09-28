@@ -15,6 +15,9 @@ abstract class Routes {
   static const PRACTICEGRAMMER = _Paths.PRACTICEGRAMMER;
   static const SECONDONBOARDINGPAGE = _Paths.SECONDONBOARDINGPAGE;
   static const THIRDONBOARDINGPAGE = _Paths.THIRDONBOARDINGPAGE;
+  static const REGISTERPAGE = _Paths.REGISTERPAGE;
+  static const PROFILEPAGE = _Paths.PROFILEPAGE;
+  static const PARTICLEPAGE = _Paths.PARTICLEPAGE;
 }
 
 abstract class _Paths {
@@ -31,4 +34,7 @@ abstract class _Paths {
   static const PRACTICEGRAMMER = '/practicegrammer';
   static const SECONDONBOARDINGPAGE = '/secondonboardingpage';
   static const THIRDONBOARDINGPAGE = '/thirdonboardingpage';
+  static const REGISTERPAGE = '/registerpage';
+  static const PROFILEPAGE = '/profilepage';
+  static const PARTICLEPAGE = '/particlepage';
 }
