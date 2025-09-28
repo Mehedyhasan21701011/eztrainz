@@ -1,5 +1,6 @@
 import 'package:eztrainz/app/modules/vocabolarygrammer/controllers/vocabolarygrammer_controller.dart';
 import 'package:eztrainz/app/routes/app_pages.dart';
+import 'package:eztrainz/app/utils/constant/colors.dart';
 import 'package:eztrainz/app/utils/style/styles.dart';
 import 'package:eztrainz/app/utils/widget/addbutton.dart';
 import 'package:eztrainz/app/utils/widget/appbar.dart';
