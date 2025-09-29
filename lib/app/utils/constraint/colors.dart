@@ -8,7 +8,6 @@ class AppColor {
   static const Color secondaryButtonBackground = Color(0xFFFFFC00);
   static const Color secondaryButtonText = Color(0xFF3193F5);
 
-  static const Color background = Color(0xFFF5F5F5);
   static const Color buttonBackground = Color(0xFFE1EFFD);
   static const Color cardBackground = Color(0xFFE1EFFD);
  

@@ -1,9 +1,6 @@
 import 'package:get/get.dart';
-
 import '../modules/gamepage/bindings/gamepage_binding.dart';
 import '../modules/gamepage/views/gamepage_view.dart';
-import '../modules/grammerpage/bindings/grammerpage_binding.dart';
-import '../modules/grammerpage/views/grammerpage_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/learngrammer/bindings/learngrammer_binding.dart';
@@ -76,11 +73,7 @@ class AppPages {
       page: () => const GamepageView(),
       binding: GamepageBinding(),
     ),
-    GetPage(
-      name: _Paths.GRAMMERPAGE,
-      page: () => const GrammerpageView(),
-      binding: GrammerpageBinding(),
-    ),
+
     GetPage(
       name: _Paths.LEARNGRAMMER,
       page: () => const LearngrammerView(),
@@ -113,7 +106,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.PARTICLEPAGE,
-      page: () => const ParticlepageView(),
+      page: () => const ParticlesView(),
       binding: ParticlepageBinding(),
     ),
   ];

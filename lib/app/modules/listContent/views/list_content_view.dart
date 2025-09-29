@@ -1,3 +1,4 @@
+import 'package:eztrainz/app/routes/app_pages.dart';
 import 'package:eztrainz/app/utils/style/styles.dart';
 import 'package:eztrainz/app/utils/widget/appbar.dart';
 import 'package:eztrainz/app/utils/widget/videosection.dart';
@@ -27,7 +28,13 @@ class ListContentView extends GetView<ListContentController> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: appbar(),
+      appBar: appBar(
+        leftIconPath: "assets/logo2.png",
+        rightIconPath: "assets/profile.png",
+        onRightIconTap: () {
+          Get.toNamed(Routes.PROFILEPAGE);
+        },
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [

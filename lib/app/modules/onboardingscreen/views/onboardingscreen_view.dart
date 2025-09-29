@@ -1,5 +1,7 @@
 import 'package:eztrainz/app/routes/app_pages.dart';
-import 'package:eztrainz/app/utils/style/styles.dart';
+import 'package:eztrainz/app/utils/widget/appbar.dart';
+import 'package:eztrainz/app/utils/widget/largetext.dart';
+import 'package:eztrainz/app/utils/widget/primarybutton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -21,12 +23,7 @@ class OnboardingscreenView extends GetView<OnboardingscreenController> {
     return Scaffold(
       backgroundColor: Colors.white,
       extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        backgroundColor: Colors.white, // blend with background
-        elevation: 0,
-        title: Image.asset("assets/logo.png", width: 180),
-        centerTitle: true,
-      ),
+      appBar: appBar(),
       body: Container(
         width: double.infinity,
         height: double.infinity,
@@ -40,53 +37,18 @@ class OnboardingscreenView extends GetView<OnboardingscreenController> {
               // Hero Text
               Column(
                 children: [
-                  Text(
-                    "EZPZ Japanesy!",
-                    textAlign: TextAlign.center,
-                    style: Heading.heading2,
-                  ),
+                  largeText("EZPZ Japanesy!", letterSpace: 1.2),
                   SizedBox(height: 12),
                 ],
               ),
-
-              // Illustration / Logo2
               Image.asset("assets/logo2.png", height: 320, width: 320),
-
-              // Get Started Button
-              GestureDetector(
+              primaryButton(
+                "Get Started",
+                width: double.infinity,
+                imgPath: "assets/start_arrow.png",
                 onTap: () {
-                  Get.offNamed(
-                    Routes.SECONDONBOARDINGPAGE,
-                  ); // Navigate to Home and remove onboarding from stack
+                  Get.offNamed(Routes.SECONDONBOARDINGPAGE);
                 },
-
-                child: Container(
-                  width: double.infinity,
-                  height: 55,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFFFFC00), // bright yellow
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        "Get Started",
-                        style: TextStyle(
-                          color: Colors.blue,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(width: 16),
-                      Image.asset(
-                        "assets/start_arrow.png",
-                        width: 24,
-                        height: 24,
-                      ),
-                    ],
-                  ),
-                ),
               ),
             ],
           ),

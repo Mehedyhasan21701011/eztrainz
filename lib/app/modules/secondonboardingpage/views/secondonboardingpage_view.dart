@@ -1,5 +1,8 @@
 import 'package:eztrainz/app/routes/app_pages.dart';
-import 'package:eztrainz/app/utils/widget/bannarheading.dart';
+import 'package:eztrainz/app/utils/widget/appbar.dart';
+import 'package:eztrainz/app/utils/widget/mediumtext.dart';
+import 'package:eztrainz/app/utils/widget/routebutton.dart';
+import 'package:eztrainz/app/utils/widget/smalltext.dart';
 import 'package:eztrainz/app/utils/widget/videosection.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,15 +10,12 @@ import '../controllers/secondonboardingpage_controller.dart';
 
 class SecondonboardingpageView extends GetView<SecondonboardingpageController> {
   const SecondonboardingpageView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Image.asset("assets/logo.png", width: 140),
-        centerTitle: true,
-      ),
+      appBar: appBar(),
       body: Column(
         children: [
           SizedBox(height: 50),
@@ -28,54 +28,32 @@ class SecondonboardingpageView extends GetView<SecondonboardingpageController> {
           SizedBox(height: 20),
           buildVideoSection(controller.ytController),
           SizedBox(height: 20),
-          bannerHeading("Japanese Made Eazy!"),
+          mediumText("Japanese Made Eazy!"),
           SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Center(
-              child: Text(
+              child: smallText(
                 "With EZTrainz you can now learn Japanese from anywhere at your time and pace.",
-                textAlign: TextAlign.center, // center-align text
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.black.withOpacity(0.8),
-                  height: 1.5, // optional line spacing
-                ),
+                textAlign: TextAlign.center,
               ),
             ),
           ),
           Spacer(),
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Expanded(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Get.toNamed(Routes.THIRDONBOARDINGPAGE);
-                    },
-                    child: Text(
-                      "Next",
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.black.withOpacity(0.7),
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 8),
-                  GestureDetector(
-                    onTap: () {
-                      Get.toNamed(Routes.THIRDONBOARDINGPAGE);
-                    },
-                    child: Image.asset(
-                      "assets/start_arrow.png",
-                      width: 24,
-                      height: 24,
-                    ),
-                  ),
-                ],
-              ),
+            child: Row(
+              // ✅ Removed Expanded wrapper
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                routeButton(
+                  "Next",
+                  onpress: () {
+                    Get.toNamed(Routes.THIRDONBOARDINGPAGE);
+                  },
+                  imgPath: "assets/start_arrow.png",
+                ),
+              ],
             ),
           ),
         ],

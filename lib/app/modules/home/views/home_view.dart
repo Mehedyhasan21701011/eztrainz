@@ -1,7 +1,7 @@
 import 'package:eztrainz/app/modules/home/controllers/home_controller.dart';
 import 'package:eztrainz/app/routes/app_pages.dart';
 import 'package:eztrainz/app/utils/style/styles.dart';
-import 'package:eztrainz/app/utils/widget/appbarwithlogo.dart';
+import 'package:eztrainz/app/utils/widget/appbar.dart';
 import 'package:eztrainz/app/utils/widget/search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,7 +23,13 @@ class HomeView extends GetView<HomeController> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: buildAppBarWithMascott(),
+      appBar: appBar(
+        leftIconPath: "assets/logo2.png",
+        rightIconPath: "assets/profile.png",
+        onRightIconTap: () {
+          Get.toNamed(Routes.PROFILEPAGE);
+        },
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -42,7 +48,6 @@ class HomeView extends GetView<HomeController> {
       ),
     );
   }
-
 
   Widget _buildPlayGamesSection() {
     return Column(
@@ -67,7 +72,7 @@ class HomeView extends GetView<HomeController> {
         const SizedBox(height: 10),
         GestureDetector(
           onTap: () {
-            
+            Get.toNamed(Routes.GAMEPAGE);
           },
           child: ClipRRect(
             borderRadius: BorderRadius.circular(12),
@@ -141,8 +146,7 @@ class HomeView extends GetView<HomeController> {
               children: ["N5", "N4", "N3"].map((level) {
                 // Safe access with null check
                 final selectedLevel = controller.selectedLevel.value;
-                final isSelected =
-                    selectedLevel == level;
+                final isSelected = selectedLevel == level;
 
                 return Expanded(
                   child: GestureDetector(
@@ -242,63 +246,63 @@ class HomeView extends GetView<HomeController> {
         final progress = controller.getProgressForLesson(index);
         final isExpanded = controller.expandedIndex.value == index;
         final isUnlocked =
-            index == 0 ||
-            (controller.getProgressForLesson(index - 1)) == 1.0;
+            index == 0 || (controller.getProgressForLesson(index - 1)) == 1.0;
         final content = (lesson["content"] as List?) ?? [];
 
-      return Builder(
-        builder: (builderContext) {
-          return Container(
-            margin: const EdgeInsets.only(bottom: 8),
-            decoration: BoxDecoration(
-              color: const Color(0xFFE1EFFD),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: IgnorePointer(
-              ignoring: !isUnlocked,
-              child: Opacity(
-                opacity: 1,
-                child: Theme(
-                  data: Theme.of(
-                    builderContext,
-                  ).copyWith(dividerColor: Colors.transparent),
-                  child: ExpansionTile(
-                    key: PageStorageKey(
-                      'expansion-${controller.selectedLevel.value}-$lessonId',
-                    ),
-                    initiallyExpanded: isExpanded,
-                    onExpansionChanged: (expanded) {
-                      WidgetsBinding.instance.addPostFrameCallback((_) {
-                        controller.toggleExpand(expanded ? index : null);
-                      });
-                    },
-                    title: _buildLessonTitle(lesson, index, isUnlocked),
-                    subtitle: _buildLessonProgress(
-                      progress,
-                    ), // ✅ Updated progress
-                    trailing: Image.asset(
-                      isUnlocked ? "assets/unlock.png" : "assets/lock.png",
-                      height: 24,
-                      width: 24,
-                      errorBuilder: (context, error, stackTrace) {
-                        return Icon(
-                          isUnlocked ? Icons.lock_open : Icons.lock,
-                          size: 24,
-                        );
+        return Builder(
+          builder: (builderContext) {
+            return Container(
+              margin: const EdgeInsets.only(bottom: 8),
+              decoration: BoxDecoration(
+                color: const Color(0xFFE1EFFD),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: IgnorePointer(
+                ignoring: !isUnlocked,
+                child: Opacity(
+                  opacity: 1,
+                  child: Theme(
+                    data: Theme.of(
+                      builderContext,
+                    ).copyWith(dividerColor: Colors.transparent),
+                    child: ExpansionTile(
+                      key: PageStorageKey(
+                        'expansion-${controller.selectedLevel.value}-$lessonId',
+                      ),
+                      initiallyExpanded: isExpanded,
+                      onExpansionChanged: (expanded) {
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                          controller.toggleExpand(expanded ? index : null);
+                        });
                       },
+                      title: _buildLessonTitle(lesson, index, isUnlocked),
+                      subtitle: _buildLessonProgress(
+                        progress,
+                      ), // ✅ Updated progress
+                      trailing: Image.asset(
+                        isUnlocked ? "assets/unlock.png" : "assets/lock.png",
+                        height: 24,
+                        width: 24,
+                        errorBuilder: (context, error, stackTrace) {
+                          return Icon(
+                            isUnlocked ? Icons.lock_open : Icons.lock,
+                            size: 24,
+                          );
+                        },
+                      ),
+                      children: _buildLessonContent(
+                        content,
+                        progress,
+                      ), // ✅ Updated progress
                     ),
-                    children: _buildLessonContent(
-                      content,
-                      progress,
-                    ), // ✅ Updated progress
                   ),
                 ),
               ),
-            ),
-          );
-        },
-      );
-    });
+            );
+          },
+        );
+      },
+    );
   }
 
   Widget _buildLessonTitle(Map lesson, int index, bool isUnlocked) {

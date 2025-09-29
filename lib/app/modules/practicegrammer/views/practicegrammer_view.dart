@@ -1,3 +1,5 @@
+import 'package:eztrainz/app/routes/app_pages.dart';
+import 'package:eztrainz/app/utils/widget/appbar.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -9,9 +11,12 @@ class PracticegrammerView extends GetView<PracticegrammerController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('PracticegrammerView'),
-        centerTitle: true,
+      appBar: appBar(
+        leftIconPath: "assets/leftArrow.png",
+        rightIconPath: "assets/profile.png",
+        onRightIconTap: () {
+          Get.toNamed(Routes.PROFILEPAGE);
+        },
       ),
       body: const Center(
         child: Text(

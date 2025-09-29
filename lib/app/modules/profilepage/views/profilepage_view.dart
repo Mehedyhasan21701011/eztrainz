@@ -1,6 +1,7 @@
 import 'package:eztrainz/app/modules/profilepage/controllers/profilepage_controller.dart';
+import 'package:eztrainz/app/routes/app_pages.dart';
 import 'package:eztrainz/app/utils/constraint/colors.dart';
-import 'package:eztrainz/app/utils/widget/appbarwitharrowandsetting.dart';
+import 'package:eztrainz/app/utils/widget/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -12,7 +13,13 @@ class ProfileView extends GetView<ProfileController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: appBarWithArrowAndSetting(),
+      appBar: appBar(
+        leftIconPath: "assets/leftArrow.png",
+        rightIconPath: "assets/setting.png",
+        onRightIconTap: () {
+          Get.toNamed(Routes.PROFILEPAGE);
+        },
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -311,7 +318,7 @@ class ProfileView extends GetView<ProfileController> {
                     },
                   ),
                   borderData: FlBorderData(show: false),
-                  barGroups: controller.weeklyStudyData,
+                  barGroups: controller.weeklyStudyData.value,
                 ),
               ),
             ),

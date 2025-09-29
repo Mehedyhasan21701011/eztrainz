@@ -1,8 +1,9 @@
 import 'package:eztrainz/app/modules/wordpage/controllers/wordpage_controller.dart';
+import 'package:eztrainz/app/routes/app_pages.dart';
 import 'package:eztrainz/app/utils/style/styles.dart';
-import 'package:eztrainz/app/utils/widget/addbutton.dart';
 import 'package:eztrainz/app/utils/widget/appbar.dart';
 import 'package:eztrainz/app/utils/widget/buildworddialogboxwithoutaddicon.dart';
+import 'package:eztrainz/app/utils/widget/primarybutton.dart';
 import 'package:eztrainz/app/utils/widget/search.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,7 +15,13 @@ class WordpageView extends GetView<WordpageController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: appbar(),
+      appBar: appBar(
+        leftIconPath: "assets/leftArrow.png",
+        rightIconPath: "assets/profile.png",
+        onRightIconTap: () {
+          Get.toNamed(Routes.PROFILEPAGE);
+        },
+      ),
       body: SafeArea(
         child: Column(
           children: [
@@ -100,29 +107,12 @@ class WordpageView extends GetView<WordpageController> {
 
             Padding(
               padding: const EdgeInsets.all(16.0),
-              child: Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: AppColors.buttonSecondary,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      "Add a new word",
-                      style: TextStyle(fontSize: 18, color: AppColors.primary),
-                    ),
-                    const SizedBox(width: 16),
-                    GestureDetector(
-                      onTap: () {
-                        buildDialogBox();
-                      },
-                      child: buildAddButton(),
-                    ),
-                  ],
-                ),
+              child: primaryButton(
+                "Add a new word",
+                imgPath: "assets/add.png",
+                onTap: () {
+                  buildDialogBox();
+                },
               ),
             ),
           ],

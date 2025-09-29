@@ -1,8 +1,9 @@
 import 'package:eztrainz/app/routes/app_pages.dart';
 import 'package:eztrainz/app/utils/style/styles.dart';
-import 'package:eztrainz/app/utils/widget/appbarwithonlylogo.dart';
-import 'package:eztrainz/app/utils/widget/bannarheading.dart';
+import 'package:eztrainz/app/utils/widget/appbar.dart';
 import 'package:eztrainz/app/utils/widget/heading2.dart';
+import 'package:eztrainz/app/utils/widget/mediumtext.dart';
+import 'package:eztrainz/app/utils/widget/routebutton.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/thirdonboardingpage_controller.dart';
@@ -14,7 +15,7 @@ class ThirdonboardingpageView extends GetView<ThirdonboardingpageController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: appbarWithOnlyLogo(),
+      appBar: appBar(),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -24,7 +25,7 @@ class ThirdonboardingpageView extends GetView<ThirdonboardingpageController> {
               const SizedBox(height: 10),
 
               // Header
-              Center(child: bannerHeading("Help us know you better")),
+              Center(child: mediumText("Help us know you better")),
 
               const SizedBox(height: 20),
 
@@ -423,48 +424,22 @@ class ThirdonboardingpageView extends GetView<ThirdonboardingpageController> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        GestureDetector(
-          onTap: () => _handleNextButtonTap(),
-          child: Text(
-            "Next",
-            style: TextStyle(
-              fontSize: 16,
-              color: Colors.black.withOpacity(0.7),
-            ),
-          ),
-        ),
-        const SizedBox(width: 8),
-        GestureDetector(
-          onTap: () => _handleNextButtonTap(),
-          child: Image.asset(
-            "assets/start_arrow.png",
-            width: 24,
-            height: 24,
-            errorBuilder: (context, error, stackTrace) {
-              return const Icon(
-                Icons.arrow_forward,
-                size: 24,
-                color: Colors.blue,
-              );
-            },
-          ),
+        routeButton(
+          "Next",
+          onpress: () {
+            handleNextButtonTap();
+          },
+          imgPath: "assets/start_arrow.png",
         ),
       ],
     );
   }
 
-  void _handleNextButtonTap() {
-    // Validate all fields before proceeding
+  void handleNextButtonTap() {
     if (_validateForm()) {
-      // Save user data or perform any necessary operations
-      // final userData = controller.getUserData();
-      // For debugging
-
-      // Navigate to next page
       Get.toNamed(Routes.REGISTERPAGE);
     } else {
-      controller
-          .validateAndContinue(); // This will show appropriate error messages
+      controller.validateAndContinue();
     }
   }
 

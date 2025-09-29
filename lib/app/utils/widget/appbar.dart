@@ -2,18 +2,33 @@ import 'package:eztrainz/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-PreferredSizeWidget appbar() {
+PreferredSizeWidget appBar({
+  String? leftIconPath,
+  String? rightIconPath,
+  VoidCallback? onRightIconTap,
+}) {
   return AppBar(
     backgroundColor: Colors.white,
     scrolledUnderElevation: 0,
-    leading: GestureDetector(
+    leading: InkWell(
       onTap: () {
-        Get.toNamed(Routes.HOME);
+        if (Get.previousRoute.isNotEmpty) {
+          Get.back();
+        } else {
+          Get.offNamed(Routes.HOME);
+        }
       },
-      child: Padding(
-        padding: const EdgeInsets.only(left: 8.0),
-        child: Icon(Icons.arrow_back_ios, size: 30, color: Colors.blue),
-      ),
+      child: leftIconPath != null
+          ? Padding(
+              padding: const EdgeInsets.all(12),
+              child: Image.asset(
+                leftIconPath,
+                width: 32,
+                height: 32,
+                fit: BoxFit.contain,
+              ),
+            )
+          : const SizedBox(),
     ),
     title: Image.asset(
       "assets/logo.png",
@@ -32,25 +47,20 @@ PreferredSizeWidget appbar() {
     ),
     centerTitle: true,
     actions: [
-      GestureDetector(
-        onTap: () {
-          // ✅ Navigate to Profile page
-          // Get.toNamed('/profile'); // Or Get.to(ProfileView());
-        },
-        child: Padding(
-          padding: const EdgeInsets.only(right: 16),
-          child: GestureDetector(
-            onTap: () {
-              Get.toNamed(Routes.PROFILEPAGE);
-            },
-            child: CircleAvatar(
-              backgroundColor: const Color(0xFFEEF4FA),
-              radius: 18,
-              child: Image.asset("assets/profile.png", fit: BoxFit.contain),
+      if (rightIconPath != null)
+        InkWell(
+          borderRadius: BorderRadius.circular(50),
+          onTap: onRightIconTap,
+          child: Padding(
+            padding: const EdgeInsets.only(right: 12),
+            child: Image.asset(
+              rightIconPath,
+              width: 32,
+              height: 32,
+              fit: BoxFit.contain,
             ),
           ),
         ),
-      ),
     ],
   );
 }

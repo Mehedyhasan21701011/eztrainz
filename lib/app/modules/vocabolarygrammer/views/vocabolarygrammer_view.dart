@@ -1,10 +1,8 @@
 import 'package:eztrainz/app/modules/vocabolarygrammer/controllers/vocabolarygrammer_controller.dart';
 import 'package:eztrainz/app/routes/app_pages.dart';
 import 'package:eztrainz/app/utils/style/styles.dart';
-import 'package:eztrainz/app/utils/widget/addbutton.dart';
 import 'package:eztrainz/app/utils/widget/appbar.dart';
 import 'package:eztrainz/app/utils/widget/buildworddialogbox.dart';
-import 'package:eztrainz/app/utils/widget/dailog.dart';
 import 'package:eztrainz/app/utils/widget/headingtext.dart';
 import 'package:eztrainz/app/utils/widget/search.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +16,13 @@ class VocabolaryView extends GetView<VocabolaryController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: appbar(),
+      appBar: appBar(
+        leftIconPath: "assets/leftArrow.png",
+        rightIconPath: "assets/profile.png",
+        onRightIconTap: () {
+          Get.toNamed(Routes.PROFILEPAGE);
+        },
+      ),
       body: ListView(
         padding: EdgeInsets.zero, // cleaner
         children: [
@@ -300,7 +304,9 @@ class VocabolaryView extends GetView<VocabolaryController> {
                   const SizedBox(height: 8),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
-                    children: [_buildAddToFavoritesButton()],
+                    children: [
+                      Image.asset("assets/add.png", width: 24, height: 24),
+                    ],
                   ),
                 ],
               ),
@@ -309,15 +315,6 @@ class VocabolaryView extends GetView<VocabolaryController> {
           const SizedBox(height: 8),
         ],
       ),
-    );
-  }
-
-  Widget _buildAddToFavoritesButton() {
-    return GestureDetector(
-      onTap: () {
-        buildDialogBox();
-      },
-      child: buildAddButton(),
     );
   }
 

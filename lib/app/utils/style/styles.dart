@@ -43,12 +43,6 @@ class AppSpacing {
 }
 
 class Heading {
-  static const TextStyle heading2 = TextStyle(
-    fontSize: 32,
-    color: Colors.blue,
-    fontWeight: FontWeight.bold,
-    letterSpacing: 1.2,
-  );
   static const TextStyle heading3 = TextStyle(
     fontSize: 24,
     color: Color.fromARGB(221, 32, 31, 31),

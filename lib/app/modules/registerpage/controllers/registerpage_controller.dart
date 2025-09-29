@@ -7,7 +7,7 @@ class RegistrationController extends GetxController {
   final passwordController = TextEditingController();
 
   // Observable variables
-  var isPasswordVisible = false.obs;
+  RxBool isPasswordVisible = false.obs;
   var rememberMe = false.obs;
   var isLoading = false.obs;
 

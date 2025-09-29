@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Widget bannerHeading(String text) {
+Widget mediumText(String text) {
   return Text(
     text,
     style: TextStyle(
