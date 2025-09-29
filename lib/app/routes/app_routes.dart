@@ -18,6 +18,9 @@ abstract class Routes {
   static const REGISTERPAGE = _Paths.REGISTERPAGE;
   static const PROFILEPAGE = _Paths.PROFILEPAGE;
   static const PARTICLEPAGE = _Paths.PARTICLEPAGE;
+  static const COURSEOVERVIEW = _Paths.COURSEOVERVIEW;
+  static const PURCHASEDETAILS = _Paths.PURCHASEDETAILS;
+  static const PAMENTSUCCESS = _Paths.PAMENTSUCCESS;
 }
 
 abstract class _Paths {
@@ -37,4 +40,7 @@ abstract class _Paths {
   static const REGISTERPAGE = '/registerpage';
   static const PROFILEPAGE = '/profilepage';
   static const PARTICLEPAGE = '/particlepage';
+  static const COURSEOVERVIEW = '/courseoverview';
+  static const PURCHASEDETAILS = '/purchasedetails';
+  static const PAMENTSUCCESS = '/pamentsuccess';
 }

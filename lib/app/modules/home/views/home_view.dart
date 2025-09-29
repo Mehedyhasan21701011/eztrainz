@@ -88,7 +88,7 @@ class HomeView extends GetView<HomeController> {
                       end: Alignment.bottomRight,
                     ),
                   ),
-                  child: const Center(
+                  child: Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

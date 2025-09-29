@@ -1,4 +1,7 @@
 import 'package:get/get.dart';
+
+import '../modules/courseoverview/bindings/courseoverview_binding.dart';
+import '../modules/courseoverview/views/courseoverview_view.dart';
 import '../modules/gamepage/bindings/gamepage_binding.dart';
 import '../modules/gamepage/views/gamepage_view.dart';
 import '../modules/home/bindings/home_binding.dart';
@@ -9,12 +12,16 @@ import '../modules/listContent/bindings/list_content_binding.dart';
 import '../modules/listContent/views/list_content_view.dart';
 import '../modules/onboardingscreen/bindings/onboardingscreen_binding.dart';
 import '../modules/onboardingscreen/views/onboardingscreen_view.dart';
+import '../modules/pamentsuccess/bindings/pamentsuccess_binding.dart';
+import '../modules/pamentsuccess/views/pamentsuccess_view.dart';
 import '../modules/particlepage/bindings/particlepage_binding.dart';
 import '../modules/particlepage/views/particlepage_view.dart';
 import '../modules/practicegrammer/bindings/practicegrammer_binding.dart';
 import '../modules/practicegrammer/views/practicegrammer_view.dart';
 import '../modules/profilepage/bindings/profilepage_binding.dart';
 import '../modules/profilepage/views/profilepage_view.dart';
+import '../modules/purchasedetails/bindings/purchasedetails_binding.dart';
+import '../modules/purchasedetails/views/purchasedetails_view.dart';
 import '../modules/registerpage/bindings/registerpage_binding.dart';
 import '../modules/registerpage/views/registerpage_view.dart';
 import '../modules/secondonboardingpage/bindings/secondonboardingpage_binding.dart';
@@ -33,7 +40,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.SPLASH_SCREEN;
+  static const INITIAL = Routes.COURSEOVERVIEW;
 
   static final routes = [
     GetPage(
@@ -73,7 +80,6 @@ class AppPages {
       page: () => const GamepageView(),
       binding: GamepageBinding(),
     ),
-
     GetPage(
       name: _Paths.LEARNGRAMMER,
       page: () => const LearngrammerView(),
@@ -108,6 +114,21 @@ class AppPages {
       name: _Paths.PARTICLEPAGE,
       page: () => const ParticlesView(),
       binding: ParticlepageBinding(),
+    ),
+    GetPage(
+      name: _Paths.COURSEOVERVIEW,
+      page: () => const CourseoverviewView(),
+      binding: CourseoverviewBinding(),
+    ),
+    GetPage(
+      name: _Paths.PURCHASEDETAILS,
+      page: () => const PurchasedetailsView(),
+      binding: PurchasedetailsBinding(),
+    ),
+    GetPage(
+      name: _Paths.PAMENTSUCCESS,
+      page: () => const PamentsuccessView(),
+      binding: PamentsuccessBinding(),
     ),
   ];
 }
