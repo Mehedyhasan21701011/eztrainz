@@ -13,14 +13,6 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     // Set system UI overlay style
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        statusBarColor: Colors.black,
-        statusBarIconBrightness: Brightness.light,
-        statusBarBrightness: Brightness.light,
-      ),
-    );
-
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: appBar(

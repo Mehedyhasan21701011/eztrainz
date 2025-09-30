@@ -105,7 +105,7 @@ class ListContentController extends GetxController {
       '${currentLessonIndex.value + 1} / ${lessons.length}';
 
   // Video properties
-  String url = '';
+  final RxString url = ''.obs;
   String title = '';
   final RxBool watched = false.obs;
 
@@ -141,7 +141,6 @@ class ListContentController extends GetxController {
           : <String, dynamic>{};
 
       _extractVideoData(contentItem);
-      _setupYouTubeController();
       _setupVideoListener();
     } catch (e) {
       _handleError('Failed to initialize video: $e');
@@ -153,29 +152,13 @@ class ListContentController extends GetxController {
     final titleValue = contentItem['title'];
     final watchedValue = contentItem['watched'];
 
-    url = urlValue is String ? urlValue : '';
+    url.value = urlValue is String ? urlValue : '';
     title = titleValue is String ? titleValue : 'Unknown Title';
     watched.value = watchedValue is bool ? watchedValue : false;
 
     if (url.isEmpty) {
       throw Exception('Video URL is empty');
     }
-  }
-
-  void _setupYouTubeController() {
-    final videoId = YoutubePlayer.convertUrlToId(url);
-    if (videoId == null || videoId.isEmpty) {
-      throw Exception('Invalid YouTube URL: $url');
-    }
-
-    ytController = YoutubePlayerController(
-      initialVideoId: videoId,
-      flags: const YoutubePlayerFlags(
-        autoPlay: false,
-        mute: false,
-        loop: false,
-      ),
-    );
   }
 
   bool _pausedOnce = false;

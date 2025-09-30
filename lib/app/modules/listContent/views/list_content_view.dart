@@ -1,7 +1,7 @@
 import 'package:eztrainz/app/routes/app_pages.dart';
 import 'package:eztrainz/app/utils/style/styles.dart';
 import 'package:eztrainz/app/utils/widget/appbar.dart';
-import 'package:eztrainz/app/utils/widget/videosection.dart';
+import 'package:eztrainz/app/utils/widget/youtube.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -38,7 +38,7 @@ class ListContentView extends GetView<ListContentController> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            buildVideoSection(controller.ytController),
+            YouTubeVideoWidget(videoUrl: controller.url),
             const SizedBox(height: 10),
             _buildTitleSection(),
             const SizedBox(height: 10),

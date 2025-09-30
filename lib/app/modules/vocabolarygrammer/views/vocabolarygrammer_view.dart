@@ -5,6 +5,7 @@ import 'package:eztrainz/app/utils/widget/appbar.dart';
 import 'package:eztrainz/app/utils/widget/buildworddialogbox.dart';
 import 'package:eztrainz/app/utils/widget/headingtext.dart';
 import 'package:eztrainz/app/utils/widget/search.dart';
+import 'package:eztrainz/app/utils/widget/youtube.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
@@ -226,27 +227,10 @@ class VocabolaryView extends GetView<VocabolaryController> {
   }
 
   Widget _buildVideoSection() {
-    return GetBuilder<VocabolaryController>(
-      builder: (controller) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: YoutubePlayerBuilder(
-            player: YoutubePlayer(
-              controller: controller.ytController!,
-              showVideoProgressIndicator: true,
-              progressIndicatorColor: Colors.blueAccent,
-              progressColors: const ProgressBarColors(
-                playedColor: Colors.blueAccent,
-                handleColor: Colors.blueAccent,
-              ),
-            ),
-            builder: (context, player) => ClipRRect(
-              borderRadius: BorderRadius.circular(12),
-              child: AspectRatio(aspectRatio: 16 / 9, child: player),
-            ),
-          ),
-        );
-      },
+    final controller = Get.find<VocabolaryController>();
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: YouTubeVideoWidget(videoUrl: controller.selectedUrl),
     );
   }
 

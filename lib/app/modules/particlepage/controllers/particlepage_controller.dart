@@ -4,125 +4,237 @@ class Particle {
   final String symbol;
   final String meaning;
   final String pronunciation;
-  final String example;
-  final String exampleTranslation;
+  final List<String> examples; // Changed from String to List<String>
+  final String structure;
+  final String hiragana;
+  final String explanation;
 
   Particle({
     required this.symbol,
     required this.meaning,
     required this.pronunciation,
-    required this.example,
-    required this.exampleTranslation,
+    required this.examples, // Updated
+    required this.structure,
+    required this.hiragana,
+    required this.explanation,
   });
 }
 
 class ParticlesController extends GetxController {
-  // List of particle items with enhanced data
+  var selectedIndex = 0.obs; // 0 = Structure, 1 = Verb
+
+  // ✅ JSON-like card data
+
   final List<Particle> particles = [
     Particle(
       symbol: 'は',
       meaning: 'Topic Marker',
       pronunciation: 'wa',
-      example: '私は学生です。',
-      exampleTranslation: 'I am a student.',
+      hiragana: 'は',
+      structure: 'Noun + は + Predicate',
+      examples: [
+        '私は学生です。(I am a student.)',
+        '今日は暑いです。(Today is hot.)',
+        'この本は面白いです。(This book is interesting.)',
+      ],
+      explanation:
+          'The を particle marks the direct object of a verb. It shows what  receives the action. ',
     ),
     Particle(
       symbol: 'が',
       meaning: 'Subject Marker',
       pronunciation: 'ga',
-      example: '雨が降っています。',
-      exampleTranslation: 'It is raining.',
+      hiragana: 'が',
+      structure: 'Subject + が + Verb',
+      examples: [
+        '雨が降っています。(It is raining.)',
+        '猫が好きです。(I like cats.)',
+        '誰が来ますか？(Who is coming?)',
+      ],
+      explanation:
+          'The を particle marks the direct object of a verb. It shows what  receives the action. ',
     ),
     Particle(
       symbol: 'を',
       meaning: 'Object Marker',
       pronunciation: 'wo/o',
-      example: '本を読みます。',
-      exampleTranslation: 'I read a book.',
+      hiragana: 'を',
+      structure: 'Noun + を + Verb',
+      examples: [
+        '本を読みます。(I read a book.)',
+        'ご飯を食べます。(I eat rice.)',
+        '映画を見ます。(I watch a movie.)',
+      ],
+      explanation:
+          'The を particle marks the direct object of a verb. It shows what  receives the action. ',
     ),
     Particle(
       symbol: 'に',
-      meaning: 'Direction',
+      meaning: 'Direction/Time',
       pronunciation: 'ni',
-      example: '学校に行きます。',
-      exampleTranslation: 'I go to school.',
+      hiragana: 'に',
+      structure: 'Place/Time + に + Verb',
+      examples: [
+        '学校に行きます。(I go to school.)',
+        '七時に起きます。(I wake up at 7 o\'clock.)',
+        '友達に会います。(I meet a friend.)',
+      ],
+      explanation:
+          'The を particle marks the direct object of a verb. It shows what  receives the action. ',
     ),
     Particle(
       symbol: 'で',
       meaning: 'Place of Action/Means',
       pronunciation: 'de',
-      example: '図書館で勉強します。',
-      exampleTranslation: 'I study at the library.',
+      hiragana: 'で',
+      structure: 'Place + で + Verb',
+      examples: [
+        '図書館で勉強します。(I study at the library.)',
+        'バスで行きます。(I go by bus.)',
+        '家で映画を見ます。(I watch a movie at home.)',
+      ],
+      explanation:
+          'The を particle marks the direct object of a verb. It shows what  receives the action. ',
     ),
     Particle(
       symbol: 'へ',
       meaning: 'Direction/Goal',
       pronunciation: 'he/e',
-      example: '東京へ行きます。',
-      exampleTranslation: 'I go to Tokyo.',
+      hiragana: 'へ',
+      structure: 'Destination + へ + Verb',
+      examples: [
+        '東京へ行きます。(I go to Tokyo.)',
+        '学校へ向かいます。(I head to school.)',
+        '友達の家へ行きます。(I go to a friend\'s house.)',
+      ],
+      explanation:
+          'The を particle marks the direct object of a verb. It shows what  receives the action. ',
     ),
     Particle(
       symbol: 'と',
       meaning: 'And/With',
       pronunciation: 'to',
-      example: '友達と映画を見ます。',
-      exampleTranslation: 'I watch movies with friends.',
+      hiragana: 'と',
+      structure: 'Noun + と + Noun / Noun + と + Verb',
+      examples: [
+        '友達と映画を見ます。(I watch movies with friends.)',
+        'リンゴとバナナを買いました。(I bought apples and bananas.)',
+        '母と話します。(I talk with my mother.)',
+      ],
+      explanation:
+          'The を particle marks the direct object of a verb. It shows what  receives the action. ',
     ),
     Particle(
       symbol: 'も',
       meaning: 'Also/Too',
       pronunciation: 'mo',
-      example: '私も行きます。',
-      exampleTranslation: 'I will go too.',
+      hiragana: 'も',
+      structure: 'Noun + も + Verb',
+      examples: [
+        '私も行きます。(I will go too.)',
+        '彼も来ました。(He also came.)',
+        '猫も好きです。(I also like cats.)',
+      ],
+      explanation:
+          'The を particle marks the direct object of a verb. It shows what  receives the action. ',
     ),
     Particle(
       symbol: 'から',
       meaning: 'From/Because',
       pronunciation: 'kara',
-      example: '駅から歩きます。',
-      exampleTranslation: 'I walk from the station.',
+      hiragana: 'から',
+      structure: 'Starting Point + から + Action / Reason + から + Result',
+      examples: [
+        '駅から歩きます。(I walk from the station.)',
+        '雨だから行きません。(I won\'t go because it\'s raining.)',
+        '九時から授業があります。(There is class from 9 o\'clock.)',
+      ],
+      explanation:
+          'The を particle marks the direct object of a verb. It shows what  receives the action. ',
     ),
     Particle(
       symbol: 'まで',
       meaning: 'Until/To',
       pronunciation: 'made',
-      example: '5時まで働きます。',
-      exampleTranslation: 'I work until 5 o\'clock.',
+      hiragana: 'まで',
+      structure: 'Ending Point + まで + Action',
+      examples: [
+        '5時まで働きます。(I work until 5 o\'clock.)',
+        '駅まで歩きます。(I walk to the station.)',
+        '授業は三時までです。(Class is until 3 o\'clock.)',
+      ],
+      explanation:
+          'The を particle marks the direct object of a verb. It shows what  receives the action. ',
     ),
     Particle(
       symbol: 'や',
       meaning: 'And/etc',
       pronunciation: 'ya',
-      example: 'りんごやバナナを買います。',
-      exampleTranslation: 'I buy apples, bananas, etc.',
+      hiragana: 'や',
+      structure: 'Noun + や + Noun + など',
+      examples: [
+        'りんごやバナナを買います。(I buy apples, bananas, etc.)',
+        '本やノートがあります。(There are books and notebooks.)',
+        '猫や犬が好きです。(I like cats and dogs.)',
+      ],
+      explanation:
+          'The を particle marks the direct object of a verb. It shows what  receives the action. ',
     ),
     Particle(
       symbol: 'の',
       meaning: 'Possessive/Modifier',
       pronunciation: 'no',
-      example: '私の本です。',
-      exampleTranslation: 'It is my book.',
+      hiragana: 'の',
+      structure: 'Owner + の + Object',
+      examples: [
+        '私の本です。(It is my book.)',
+        '彼の家は大きいです。(His house is big.)',
+        '猫の耳は小さいです。(A cat\'s ears are small.)',
+      ],
+      explanation:
+          'The を particle marks the direct object of a verb. It shows what  receives the action. ',
     ),
     Particle(
       symbol: 'か',
       meaning: 'Question Marker',
       pronunciation: 'ka',
-      example: '元気ですか？',
-      exampleTranslation: 'Are you well?',
+      hiragana: 'か',
+      structure: 'Statement + か',
+      examples: [
+        '元気ですか？(Are you well?)',
+        'これは本ですか？(Is this a book?)',
+        '明日行きますか？(Will you go tomorrow?)',
+      ],
+      explanation:
+          'The を particle marks the direct object of a verb. It shows what  receives the action. ',
     ),
     Particle(
       symbol: 'ね',
       meaning: 'Confirmation Tag',
       pronunciation: 'ne',
-      example: '美しいですね。',
-      exampleTranslation: 'It\'s beautiful, isn\'t it?',
+      hiragana: 'ね',
+      structure: 'Statement + ね',
+      examples: [
+        '美しいですね。(It\'s beautiful, isn\'t it?)',
+        '寒いですね。(It\'s cold, isn\'t it?)',
+        '楽しいですね。(It\'s fun, isn\'t it?)',
+      ],
+      explanation:
+          'The を particle marks the direct object of a verb. It shows what  receives the action. ',
     ),
     Particle(
       symbol: 'よ',
       meaning: 'Assertion/Emphasis',
       pronunciation: 'yo',
-      example: '頑張って！',
-      exampleTranslation: 'Do your best!',
+      hiragana: 'よ',
+      structure: 'Statement + よ',
+      examples: [
+        '頑張って！(Do your best!)',
+        'これは本当ですよ。(This is true!)',
+        '見てくださいよ。(Look at this!)',
+      ],
+      explanation:
+          'The を particle marks the direct object of a verb. It shows what  receives the action. ',
     ),
   ];
 
@@ -204,5 +316,10 @@ class ParticlesController extends GetxController {
     return currentPageItems[index];
   }
 
-
+  @override
+  // ignore: unnecessary_overrides
+  void onInit() {
+    super.onInit();
+    // Any initialization logic
+  }
 }

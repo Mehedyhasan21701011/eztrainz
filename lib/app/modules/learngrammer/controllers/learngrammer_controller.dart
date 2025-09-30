@@ -1,27 +1,39 @@
 import 'package:get/get.dart';
 
-class Particle {
-  final String symbol;
-  final String meaning;
-  final String pronunciation;
-  final String example;
-  final String exampleTranslation;
+class Verb {
+  final String english;
+  final String kanji;
   final String hiragana;
+  final String romaji;
+  final String explanation;
+  final List<Conjugation> conjugations;
 
-  Particle({
-    required this.symbol,
-    required this.meaning,
-    required this.pronunciation,
-    required this.example,
-    required this.exampleTranslation,
+  Verb({
+    required this.english,
+    required this.kanji,
     required this.hiragana,
+    required this.romaji,
+    required this.explanation,
+    required this.conjugations,
+  });
+}
+
+class Conjugation {
+  final String form;
+  final String japanese;
+  final String meaning;
+
+  Conjugation({
+    required this.form,
+    required this.japanese,
+    required this.meaning,
   });
 }
 
 class LearngrammerController extends GetxController {
   var selectedIndex = 0.obs; // 0 = Structure, 1 = Verb
 
-  // ✅ JSON-like card data
+  /// Grammar cards
   final List<Map<String, String>> grammarCards = [
     {
       "title": "Sentence Foundation",
@@ -45,183 +57,248 @@ class LearngrammerController extends GetxController {
     },
   ];
 
-  final List<Particle> particles = [
-    Particle(
-      symbol: 'は',
-      meaning: 'Topic Marker',
-      pronunciation: 'wa',
-      hiragana: 'は',
-      example: '私は学生です。',
-      exampleTranslation: 'I am a student.',
+  /// Verb list
+  var verbs = <Verb>[
+    Verb(
+      english: "Wash",
+      kanji: "洗う",
+      hiragana: "あらう",
+      romaji: "arau",
+      explanation:
+          "Use this verb when talking about washing things like hands, dishes, or clothes.",
+      conjugations: [
+        Conjugation(form: "Dictionary", japanese: "洗う", meaning: "to wash"),
+        Conjugation(form: "Polite", japanese: "洗います", meaning: "I wash"),
+        Conjugation(
+          form: "Polite Past",
+          japanese: "洗いました",
+          meaning: "I washed",
+        ),
+      ],
     ),
-    Particle(
-      symbol: 'が',
-      meaning: 'Subject Marker',
-      pronunciation: 'ga',
-      hiragana: 'が',
-      example: '雨が降っています。',
-      exampleTranslation: 'It is raining.',
+    Verb(
+      english: "Eat",
+      kanji: "食べる",
+      hiragana: "たべる",
+      romaji: "taberu",
+      explanation: "Use this verb when talking about eating food.",
+      conjugations: [
+        Conjugation(form: "Dictionary", japanese: "食べる", meaning: "to eat"),
+        Conjugation(form: "Polite", japanese: "食べます", meaning: "I eat"),
+        Conjugation(form: "Polite Past", japanese: "食べました", meaning: "I ate"),
+      ],
     ),
-    Particle(
-      symbol: 'を',
-      meaning: 'Object Marker',
-      pronunciation: 'wo/o',
-      hiragana: 'を',
-      example: '本を読みます。',
-      exampleTranslation: 'I read a book.',
+    Verb(
+      english: "Drink",
+      kanji: "飲む",
+      hiragana: "のむ",
+      romaji: "nomu",
+      explanation: "Use this verb when talking about drinking liquids.",
+      conjugations: [
+        Conjugation(form: "Dictionary", japanese: "飲む", meaning: "to drink"),
+        Conjugation(form: "Polite", japanese: "飲みます", meaning: "I drink"),
+        Conjugation(form: "Polite Past", japanese: "飲みました", meaning: "I drank"),
+      ],
     ),
-    Particle(
-      symbol: 'に',
-      meaning: 'Direction',
-      pronunciation: 'ni',
-      hiragana: 'に',
-      example: '学校に行きます。',
-      exampleTranslation: 'I go to school.',
+    Verb(
+      english: "Go",
+      kanji: "行く",
+      hiragana: "いく",
+      romaji: "iku",
+      explanation: "Use this verb when talking about going somewhere.",
+      conjugations: [
+        Conjugation(form: "Dictionary", japanese: "行く", meaning: "to go"),
+        Conjugation(form: "Polite", japanese: "行きます", meaning: "I go"),
+        Conjugation(form: "Polite Past", japanese: "行きました", meaning: "I went"),
+      ],
     ),
-    Particle(
-      symbol: 'で',
-      meaning: 'Place of Action/Means',
-      pronunciation: 'de',
-      hiragana: 'で',
-      example: '図書館で勉強します。',
-      exampleTranslation: 'I study at the library.',
+    Verb(
+      english: "Come",
+      kanji: "来る",
+      hiragana: "くる",
+      romaji: "kuru",
+      explanation: "Use this verb when talking about coming somewhere.",
+      conjugations: [
+        Conjugation(form: "Dictionary", japanese: "来る", meaning: "to come"),
+        Conjugation(form: "Polite", japanese: "来ます", meaning: "I come"),
+        Conjugation(form: "Polite Past", japanese: "来ました", meaning: "I came"),
+      ],
     ),
-    Particle(
-      symbol: 'へ',
-      meaning: 'Direction/Goal',
-      pronunciation: 'he/e',
-      hiragana: 'へ',
-      example: '東京へ行きます。',
-      exampleTranslation: 'I go to Tokyo.',
+    Verb(
+      english: "Wash",
+      kanji: "洗う",
+      hiragana: "あらう",
+      romaji: "arau",
+      explanation:
+          "Use this verb when talking about washing things like hands, dishes, or clothes.",
+      conjugations: [
+        Conjugation(form: "Dictionary", japanese: "洗う", meaning: "to wash"),
+        Conjugation(form: "Polite", japanese: "洗います", meaning: "I wash"),
+        Conjugation(
+          form: "Polite Past",
+          japanese: "洗いました",
+          meaning: "I washed",
+        ),
+      ],
     ),
-    Particle(
-      symbol: 'と',
-      meaning: 'And/With',
-      pronunciation: 'to',
-      hiragana: 'と',
-      example: '友達と映画を見ます。',
-      exampleTranslation: 'I watch movies with friends.',
+    Verb(
+      english: "Eat",
+      kanji: "食べる",
+      hiragana: "たべる",
+      romaji: "taberu",
+      explanation: "Use this verb when talking about eating food.",
+      conjugations: [
+        Conjugation(form: "Dictionary", japanese: "食べる", meaning: "to eat"),
+        Conjugation(form: "Polite", japanese: "食べます", meaning: "I eat"),
+        Conjugation(form: "Polite Past", japanese: "食べました", meaning: "I ate"),
+      ],
     ),
-    Particle(
-      symbol: 'も',
-      meaning: 'Also/Too',
-      pronunciation: 'mo',
-      hiragana: 'も',
-      example: '私も行きます。',
-      exampleTranslation: 'I will go too.',
+    Verb(
+      english: "Drink",
+      kanji: "飲む",
+      hiragana: "のむ",
+      romaji: "nomu",
+      explanation: "Use this verb when talking about drinking liquids.",
+      conjugations: [
+        Conjugation(form: "Dictionary", japanese: "飲む", meaning: "to drink"),
+        Conjugation(form: "Polite", japanese: "飲みます", meaning: "I drink"),
+        Conjugation(form: "Polite Past", japanese: "飲みました", meaning: "I drank"),
+      ],
     ),
-    Particle(
-      symbol: 'から',
-      meaning: 'From/Because',
-      pronunciation: 'kara',
-      hiragana: 'から',
-      example: '駅から歩きます。',
-      exampleTranslation: 'I walk from the station.',
+    Verb(
+      english: "Go",
+      kanji: "行く",
+      hiragana: "いく",
+      romaji: "iku",
+      explanation: "Use this verb when talking about going somewhere.",
+      conjugations: [
+        Conjugation(form: "Dictionary", japanese: "行く", meaning: "to go"),
+        Conjugation(form: "Polite", japanese: "行きます", meaning: "I go"),
+        Conjugation(form: "Polite Past", japanese: "行きました", meaning: "I went"),
+      ],
     ),
-    Particle(
-      symbol: 'まで',
-      meaning: 'Until/To',
-      pronunciation: 'made',
-      hiragana: 'まで',
-      example: '5時まで働きます。',
-      exampleTranslation: 'I work until 5 o\'clock.',
+    Verb(
+      english: "Come",
+      kanji: "来る",
+      hiragana: "くる",
+      romaji: "kuru",
+      explanation: "Use this verb when talking about coming somewhere.",
+      conjugations: [
+        Conjugation(form: "Dictionary", japanese: "来る", meaning: "to come"),
+        Conjugation(form: "Polite", japanese: "来ます", meaning: "I come"),
+        Conjugation(form: "Polite Past", japanese: "来ました", meaning: "I came"),
+      ],
     ),
-    Particle(
-      symbol: 'や',
-      meaning: 'And/etc',
-      pronunciation: 'ya',
-      hiragana: 'や',
-      example: 'りんごやバナナを買います。',
-      exampleTranslation: 'I buy apples, bananas, etc.',
+    Verb(
+      english: "Wash",
+      kanji: "洗う",
+      hiragana: "あらう",
+      romaji: "arau",
+      explanation:
+          "Use this verb when talking about washing things like hands, dishes, or clothes.",
+      conjugations: [
+        Conjugation(form: "Dictionary", japanese: "洗う", meaning: "to wash"),
+        Conjugation(form: "Polite", japanese: "洗います", meaning: "I wash"),
+        Conjugation(
+          form: "Polite Past",
+          japanese: "洗いました",
+          meaning: "I washed",
+        ),
+      ],
     ),
-    Particle(
-      symbol: 'の',
-      meaning: 'Possessive/Modifier',
-      pronunciation: 'no',
-      hiragana: 'の',
-      example: '私の本です。',
-      exampleTranslation: 'It is my book.',
+    Verb(
+      english: "Eat",
+      kanji: "食べる",
+      hiragana: "たべる",
+      romaji: "taberu",
+      explanation: "Use this verb when talking about eating food.",
+      conjugations: [
+        Conjugation(form: "Dictionary", japanese: "食べる", meaning: "to eat"),
+        Conjugation(form: "Polite", japanese: "食べます", meaning: "I eat"),
+        Conjugation(form: "Polite Past", japanese: "食べました", meaning: "I ate"),
+      ],
     ),
-    Particle(
-      symbol: 'か',
-      meaning: 'Question Marker',
-      pronunciation: 'ka',
-      hiragana: 'か',
-      example: '元気ですか？',
-      exampleTranslation: 'Are you well?',
+    Verb(
+      english: "Drink",
+      kanji: "飲む",
+      hiragana: "のむ",
+      romaji: "nomu",
+      explanation: "Use this verb when talking about drinking liquids.",
+      conjugations: [
+        Conjugation(form: "Dictionary", japanese: "飲む", meaning: "to drink"),
+        Conjugation(form: "Polite", japanese: "飲みます", meaning: "I drink"),
+        Conjugation(form: "Polite Past", japanese: "飲みました", meaning: "I drank"),
+      ],
     ),
-    Particle(
-      symbol: 'ね',
-      meaning: 'Confirmation Tag',
-      pronunciation: 'ne',
-      hiragana: 'ね',
-      example: '美しいですね。',
-      exampleTranslation: 'It\'s beautiful, isn\'t it?',
+    Verb(
+      english: "Go",
+      kanji: "行く",
+      hiragana: "いく",
+      romaji: "iku",
+      explanation: "Use this verb when talking about going somewhere.",
+      conjugations: [
+        Conjugation(form: "Dictionary", japanese: "行く", meaning: "to go"),
+        Conjugation(form: "Polite", japanese: "行きます", meaning: "I go"),
+        Conjugation(form: "Polite Past", japanese: "行きました", meaning: "I went"),
+      ],
     ),
-    Particle(
-      symbol: 'よ',
-      meaning: 'Assertion/Emphasis',
-      pronunciation: 'yo',
-      hiragana: 'よ',
-      example: '頑張って！',
-      exampleTranslation: 'Do your best!',
+    Verb(
+      english: "Come",
+      kanji: "来る",
+      hiragana: "くる",
+      romaji: "kuru",
+      explanation: "Use this verb when talking about coming somewhere.",
+      conjugations: [
+        Conjugation(form: "Dictionary", japanese: "来る", meaning: "to come"),
+        Conjugation(form: "Polite", japanese: "来ます", meaning: "I come"),
+        Conjugation(form: "Polite Past", japanese: "来ました", meaning: "I came"),
+      ],
     ),
-  ];
+  ].obs;
 
-  // Pagination and filter state
+  /// Pagination + search
   final RxInt pageIndex = 0.obs;
   final RxString searchQuery = ''.obs;
   final RxBool isLoading = false.obs;
   final int itemsPerPage = 10;
 
-  // Filtered particles based on search
-  List<Particle> get filteredParticles {
+  /// Filtered verbs
+  List<Verb> get filteredVerbs {
     if (searchQuery.value.isEmpty) {
-      return particles;
+      return verbs;
     }
-    return particles.where((particle) {
-      return particle.symbol.toLowerCase().contains(
+    return verbs.where((verb) {
+      return verb.english.toLowerCase().contains(
             searchQuery.value.toLowerCase(),
           ) ||
-          particle.meaning.toLowerCase().contains(
-            searchQuery.value.toLowerCase(),
-          ) ||
-          particle.pronunciation.toLowerCase().contains(
-            searchQuery.value.toLowerCase(),
-          );
+          verb.kanji.contains(searchQuery.value) ||
+          verb.hiragana.contains(searchQuery.value) ||
+          verb.romaji.toLowerCase().contains(searchQuery.value.toLowerCase());
     }).toList();
   }
 
-  // Current page items
-  List<Particle> get currentPageItems {
-    final filtered = filteredParticles;
+  /// Current page verbs
+  List<Verb> get currentPageItems {
+    final filtered = filteredVerbs;
     int start = pageIndex.value * itemsPerPage;
     int end = start + itemsPerPage;
     end = end > filtered.length ? filtered.length : end;
     return filtered.sublist(start, end);
   }
 
-  // Pagination helpers
+  /// Pagination helpers
   bool get hasNextPage =>
-      (pageIndex.value + 1) * itemsPerPage < filteredParticles.length;
-
+      (pageIndex.value + 1) * itemsPerPage < filteredVerbs.length;
   bool get hasPreviousPage => pageIndex.value > 0;
-
-  int get totalPages => (filteredParticles.length / itemsPerPage).ceil();
-
+  int get totalPages => (filteredVerbs.length / itemsPerPage).ceil();
   int get currentPage => pageIndex.value + 1;
 
-  // Navigation methods
   void nextPage() {
-    if (hasNextPage) {
-      pageIndex.value++;
-    }
+    if (hasNextPage) pageIndex.value++;
   }
 
   void previousPage() {
-    if (hasPreviousPage) {
-      pageIndex.value--;
-    }
+    if (hasPreviousPage) pageIndex.value--;
   }
 
   void goToPage(int page) {
@@ -230,10 +307,10 @@ class LearngrammerController extends GetxController {
     }
   }
 
-  // Search functionality
+  /// Search functions
   void updateSearchQuery(String query) {
     searchQuery.value = query;
-    pageIndex.value = 0; // Reset to first page when searching
+    pageIndex.value = 0;
   }
 
   void clearSearch() {
@@ -241,16 +318,8 @@ class LearngrammerController extends GetxController {
     pageIndex.value = 0;
   }
 
-  // Get particle details for modal/dialog
-  Particle getParticleAt(int index) {
+  /// Get verb by index
+  Verb getVerbAt(int index) {
     return currentPageItems[index];
   }
-
-  @override
-  // ignore: unnecessary_overrides
-  void onInit() {
-    super.onInit();
-    // Any initialization logic
-  }
-
 }

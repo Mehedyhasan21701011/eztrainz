@@ -14,6 +14,8 @@ import '../modules/onboardingscreen/bindings/onboardingscreen_binding.dart';
 import '../modules/onboardingscreen/views/onboardingscreen_view.dart';
 import '../modules/pamentsuccess/bindings/pamentsuccess_binding.dart';
 import '../modules/pamentsuccess/views/pamentsuccess_view.dart';
+import '../modules/particledetails/bindings/particledetails_binding.dart';
+import '../modules/particledetails/views/particledetails_view.dart';
 import '../modules/particlepage/bindings/particlepage_binding.dart';
 import '../modules/particlepage/views/particlepage_view.dart';
 import '../modules/practicegrammer/bindings/practicegrammer_binding.dart';
@@ -30,6 +32,8 @@ import '../modules/splashScreen/views/splash_screen_view.dart';
 import '../modules/splashscreen/controllers/splash_screen_controller.dart';
 import '../modules/thirdonboardingpage/bindings/thirdonboardingpage_binding.dart';
 import '../modules/thirdonboardingpage/views/thirdonboardingpage_view.dart';
+import '../modules/verbdetails/bindings/verbdetails_binding.dart';
+import '../modules/verbdetails/views/verbdetails_view.dart';
 import '../modules/vocabolarygrammer/bindings/vocabolarygrammer_binding.dart';
 import '../modules/vocabolarygrammer/views/vocabolarygrammer_view.dart';
 import '../modules/wordpage/bindings/wordpage_binding.dart';
@@ -40,7 +44,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.COURSEOVERVIEW;
+  static const INITIAL = Routes.SPLASH_SCREEN;
 
   static final routes = [
     GetPage(
@@ -129,6 +133,16 @@ class AppPages {
       name: _Paths.PAMENTSUCCESS,
       page: () => const PamentsuccessView(),
       binding: PamentsuccessBinding(),
+    ),
+    GetPage(
+      name: _Paths.PARTICLEDETAILS,
+      page: () => const ParticledetailsView(),
+      binding: ParticledetailsBinding(),
+    ),
+    GetPage(
+      name: _Paths.VERBDETAILS,
+      page: () => const VerbdetailsView(),
+      binding: VerbdetailsBinding(),
     ),
   ];
 }

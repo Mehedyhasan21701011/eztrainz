@@ -2,7 +2,6 @@
 
 import 'package:get/get.dart';
 import 'package:flutter/services.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class VocabolaryController extends GetxController {
   // Observable variables
@@ -18,23 +17,16 @@ class VocabolaryController extends GetxController {
   final RxList<Map<String, dynamic>> filteredExplore =
       <Map<String, dynamic>>[].obs;
 
-  // Youtube Controller
-  YoutubePlayerController? ytController;
-
+  final RxString selectedUrl = "".obs;
   @override
   void onInit() {
     super.onInit();
     loadData();
 
-    // ✅ Initialize YouTube controller
-    _initializeYoutubeController();
-
-    // ✅ React to tab changes and update video dynamically
+    _initializeYoutubeUrl();
     ever(selectedTab, (_) {
-      _initializeYoutubeController();
+      _initializeYoutubeUrl();
     });
-
-    // ✅ Listen to search changes
     debounce(
       searchQuery,
       (_) => filterExploreMore(),
@@ -42,38 +34,16 @@ class VocabolaryController extends GetxController {
     );
   }
 
-  void _initializeYoutubeController() {
-    const vocabUrl = "https://www.youtube.com/watch?v=1QBBa0pds8k";
-    const grammarUrl =
-        "https://www.youtube.com/watch?v=SPXQ8Bx-O_g&list=PLKOA3pgec-PYUd-aX8ArRqgfX8jvtJy6- ";
+  void _initializeYoutubeUrl() {
+    String vocabUrl = "https://www.youtube.com/watch?v=1QBBa0pds8k";
+    String grammarUrl =
+        "https://www.youtube.com/watch?v=SPXQ8Bx-O_g&list=PLKOA3pgec-PYUd-aX8ArRqgfX8jvtJy6-";
 
-    final selectedUrl = selectedTab.value == "Grammar" ? grammarUrl : vocabUrl;
-    final videoId = YoutubePlayer.convertUrlToId(selectedUrl);
-
-    if (videoId == null) return;
-
-    if (ytController == null) {
-      // First time initialization
-      ytController = YoutubePlayerController(
-        initialVideoId: videoId,
-        flags: const YoutubePlayerFlags(autoPlay: false, mute: false),
-      );
-    } else {
-      // Just load new video without disposing controller
-      ytController!.load(videoId);
-    }
-
+    selectedUrl.value = selectedTab.value == "Grammar" ? grammarUrl : vocabUrl;
     update();
   }
 
-  @override
-  void onClose() {
-    ytController?.dispose(); // ✅ Dispose to prevent memory leaks
-    super.onClose();
-  }
-
   void loadData() {
-    // Your word data remains unchanged...
     todaysWords.value = [
       {
         "id": 1,
@@ -218,10 +188,10 @@ class VocabolaryController extends GetxController {
     filteredExplore.value = exploreMore;
   }
 
-  // Tab selection
-  void selectTab(String tab) => selectedTab.value = tab;
+  void selectTab(String tab) {
+    selectedTab.value = tab;
+  }
 
-  // Navigation
   void nextWord() {
     if (currentWordIndex.value < todaysWords.length - 1) {
       currentWordIndex.value++;

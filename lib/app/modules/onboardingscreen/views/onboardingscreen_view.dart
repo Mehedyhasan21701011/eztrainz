@@ -13,13 +13,6 @@ class OnboardingscreenView extends GetView<OnboardingscreenController> {
   @override
   Widget build(BuildContext context) {
     // Set status bar style to match background
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent, // transparent for gradient
-        statusBarIconBrightness: Brightness.light,
-      ),
-    );
-
     return Scaffold(
       backgroundColor: Colors.white,
       extendBodyBehindAppBar: true,

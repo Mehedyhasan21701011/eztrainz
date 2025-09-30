@@ -3,7 +3,7 @@ import 'package:eztrainz/app/utils/widget/appbar.dart';
 import 'package:eztrainz/app/utils/widget/mediumtext.dart';
 import 'package:eztrainz/app/utils/widget/routebutton.dart';
 import 'package:eztrainz/app/utils/widget/smalltext.dart';
-import 'package:eztrainz/app/utils/widget/videosection.dart';
+import 'package:eztrainz/app/utils/widget/youtube.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/secondonboardingpage_controller.dart';
@@ -26,7 +26,10 @@ class SecondonboardingpageView extends GetView<SecondonboardingpageController> {
             ],
           ),
           SizedBox(height: 20),
-          buildVideoSection(controller.ytController),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: YouTubeVideoWidget(videoUrl: controller.videoId),
+          ),
           SizedBox(height: 20),
           mediumText("Japanese Made Eazy!"),
           SizedBox(height: 10),

@@ -54,7 +54,7 @@ class CourseoverviewView extends GetView<CourseoverviewController> {
               ),
               SizedBox(height: 10),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 decoration: BoxDecoration(
                   color: TColors.cardBackground,
                   borderRadius: BorderRadius.circular(16),

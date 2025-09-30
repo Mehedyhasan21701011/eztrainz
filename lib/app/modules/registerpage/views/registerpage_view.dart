@@ -88,7 +88,7 @@ class RegistrationView extends GetView<RegistrationController> {
                 primaryButton(
                   "Create Account",
                   onTap: () {
-                    Get.toNamed(Routes.HOME);
+                    Get.toNamed(Routes.COURSEOVERVIEW);
                   },
                 ),
                 const SizedBox(height: 24),

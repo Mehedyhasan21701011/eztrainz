@@ -3,7 +3,7 @@ part of 'app_pages.dart';
 
 abstract class Routes {
   Routes._();
-  static const HOME = _Paths.HOME;
+  static const HOME = _Paths.ONBOARDINGSCREEN;
   static const SPLASH_SCREEN = _Paths.SPLASH_SCREEN;
   static const ONBOARDINGSCREEN = _Paths.ONBOARDINGSCREEN;
   static const LIST_CONTENT = _Paths.LIST_CONTENT;
@@ -21,6 +21,8 @@ abstract class Routes {
   static const COURSEOVERVIEW = _Paths.COURSEOVERVIEW;
   static const PURCHASEDETAILS = _Paths.PURCHASEDETAILS;
   static const PAMENTSUCCESS = _Paths.PAMENTSUCCESS;
+  static const PARTICLEDETAILS = _Paths.PARTICLEDETAILS;
+  static const VERBDETAILS = _Paths.VERBDETAILS;
 }
 
 abstract class _Paths {
@@ -43,4 +45,6 @@ abstract class _Paths {
   static const COURSEOVERVIEW = '/courseoverview';
   static const PURCHASEDETAILS = '/purchasedetails';
   static const PAMENTSUCCESS = '/pamentsuccess';
+  static const PARTICLEDETAILS = '/particledetails';
+  static const VERBDETAILS = '/verbdetails';
 }
