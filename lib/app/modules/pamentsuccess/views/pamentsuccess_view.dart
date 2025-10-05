@@ -7,7 +7,6 @@ import 'package:eztrainz/app/utils/widget/primarybutton.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-
 import '../controllers/pamentsuccess_controller.dart';
 
 class PamentsuccessView extends GetView<PamentsuccessController> {

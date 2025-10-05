@@ -15,9 +15,6 @@ Widget primaryButton(
     child: InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(finalRadius),
-      splashColor: Colors.blue.withOpacity(0.2), // ✅ ripple effect
-      highlightColor: Colors.blue.withOpacity(0.1), // ✅ pressed color
-      hoverColor: Colors.blue.withOpacity(0.05), // ✅ for web/desktop
       child: Ink(
         width: width ?? double.infinity,
         height: 55,

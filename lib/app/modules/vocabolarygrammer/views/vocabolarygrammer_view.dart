@@ -8,7 +8,6 @@ import 'package:eztrainz/app/utils/widget/search.dart';
 import 'package:eztrainz/app/utils/widget/youtube.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class VocabolaryView extends GetView<VocabolaryController> {
   const VocabolaryView({super.key});

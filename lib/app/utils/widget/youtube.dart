@@ -19,12 +19,12 @@ class YouTubeVideoWidget extends StatefulWidget {
 }
 
 class _YouTubeVideoWidgetState extends State<YouTubeVideoWidget> {
-  late YoutubePlayerController _ytController;
+  late YoutubePlayerController ytController;
 
   @override
   void initState() {
     super.initState();
-    _ytController = YoutubePlayerController(
+    ytController = YoutubePlayerController(
       initialVideoId: YoutubePlayer.convertUrlToId(widget.videoUrl.value) ?? "",
       flags: YoutubePlayerFlags(autoPlay: widget.autoPlay, mute: false),
     );
@@ -33,15 +33,15 @@ class _YouTubeVideoWidgetState extends State<YouTubeVideoWidget> {
     ever(widget.videoUrl, (String newUrl) {
       final videoId = YoutubePlayer.convertUrlToId(newUrl) ?? "";
       if (videoId.isNotEmpty) {
-        _ytController.load(videoId); // load the new video
-        _ytController.pause(); // immediately pause to prevent autoplay
+        ytController.load(videoId); // load the new video
+        ytController.pause(); // immediately pause to prevent autoplay
       }
     });
   }
 
   @override
   void dispose() {
-    _ytController.dispose();
+    ytController.dispose();
     super.dispose();
   }
 
@@ -52,7 +52,7 @@ class _YouTubeVideoWidgetState extends State<YouTubeVideoWidget> {
       borderRadius: BorderRadius.circular(16), // adjust radius as needed
       child: YoutubePlayerBuilder(
         player: YoutubePlayer(
-          controller: _ytController,
+          controller: ytController,
           showVideoProgressIndicator: widget.showProgressIndicator,
         ),
         builder: (context, player) {

@@ -3,7 +3,7 @@ part of 'app_pages.dart';
 
 abstract class Routes {
   Routes._();
-  static const HOME = _Paths.ONBOARDINGSCREEN;
+  static const HOME = _Paths.HOME;
   static const SPLASH_SCREEN = _Paths.SPLASH_SCREEN;
   static const ONBOARDINGSCREEN = _Paths.ONBOARDINGSCREEN;
   static const LIST_CONTENT = _Paths.LIST_CONTENT;

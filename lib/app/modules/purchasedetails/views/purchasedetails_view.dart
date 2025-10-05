@@ -135,7 +135,7 @@ class PurchasedetailsView extends GetView<PurchasedetailsController> {
                 ),
                 child: Column(
                   children: [
-                    buildMethodTile("card", "assets/card.png"),
+                    buildMethodTile("Card", "assets/card.png"),
                     SizedBox(height: 15),
                     buildMethodTile("Bkash", "assets/bkash.png"),
                     SizedBox(height: 15),
@@ -176,10 +176,6 @@ class PurchasedetailsView extends GetView<PurchasedetailsController> {
           decoration: BoxDecoration(
             color: isSelected ? Colors.white : TColors.cardBackground,
             borderRadius: BorderRadius.circular(12),
-            // border: Border.all(
-            //   color: isSelected ? TColors.primary : Colors.transparent,
-            //   width: 1.5,
-            // ),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

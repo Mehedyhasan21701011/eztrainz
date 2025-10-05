@@ -2,128 +2,141 @@ import 'package:eztrainz/app/utils/style/styles.dart';
 import 'package:flutter/material.dart';
 
 Widget buildWordDialogWithoutAddIcon(Map<String, dynamic> word) {
-  return SingleChildScrollView(
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Image with fixed size
-            ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Image.asset(
-                "assets/tree.png",
-                width: 50,
-                height: 50,
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) {
-                  return const Icon(
-                    Icons.image_not_supported_outlined,
-                    size: 24,
-                    color: Colors.grey,
-                  );
+  return Container(
+    constraints: const BoxConstraints(maxWidth: 500),
+    child: SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Word Header Section
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Image
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.asset(
+                  "assets/tree.png",
+                  width: 60,
+                  height: 60,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Container(
+                      width: 60,
+                      height: 60,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: const Icon(
+                        Icons.image_not_supported_outlined,
+                        size: 32,
+                        color: Colors.grey,
+                      ),
+                    );
+                  },
+                ),
+              ),
+
+              const SizedBox(width: 12),
+
+              // Word Details - Flexible layout
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Kanji and Hiragana row
+                    Wrap(
+                      spacing: 16,
+                      runSpacing: 8,
+                      children: [
+                        buildWordRow("Kanji", word['kanji']),
+                        buildWordRow("Hiragana", word['hiragana'] ?? ''),
+                      ],
+                    ),
+                    const SizedBox(height: 12),
+                    // Romaji and Meaning row
+                    Wrap(
+                      spacing: 16,
+                      runSpacing: 8,
+                      children: [
+                        buildWordRow("Romaji", word['romaji'] ?? ''),
+                        buildWordRow("Meaning", word['meaning'] ?? ''),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+
+              const SizedBox(width: 8),
+
+              // Audio button
+              GestureDetector(
+                onTap: () {
+                  // Add audio play functionality
                 },
-              ),
-            ),
-            const SizedBox(width: 4),
-            Expanded(
-              child: Column(
-                children: [
-                  // First row: Kanji and Hiragana
-                  Row(
-                    children: [
-                      Expanded(child: buildWordRow("Kanji", word['kanji'])),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: buildWordRow("Hiragana", word['hiragana']),
-                      ),
-                    ],
+                child: Container(
+                  width: 32,
+                  height: 32,
+                  decoration: BoxDecoration(
+                    color: Colors.blue[50],
+                    borderRadius: BorderRadius.circular(16),
                   ),
-                  const SizedBox(height: 8),
-                  Row(
-                    children: [
-                      Expanded(child: buildWordRow("Romaji", word['romaji'])),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: buildWordRow("Meaning", word['meaning']),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-    
-            const SizedBox(width: 8),
-    
-            GestureDetector(
-              onTap: () {
-                // Add your audio play logic here
-                // controller.playAudio(word['audio']);
-              },
-              child: Container(
-                width: 32,
-                height: 32,
-                decoration: BoxDecoration(
-                  color: Colors.blue[50],
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: Center(
-                  child: Image.asset(
-                    "assets/mike.png",
-                    width: 20,
-                    height: 20,
-                    errorBuilder: (context, error, stackTrace) {
-                      return const Icon(
-                        Icons.volume_up,
-                        size: 18,
-                        color: Colors.blue,
-                      );
-                    },
+                  child: const Icon(
+                    Icons.volume_up,
+                    size: 18,
+                    color: Colors.blue,
                   ),
                 ),
               ),
-            ),
-          ],
-        ),
-    
-        const SizedBox(height: 16),
-    
-        // Sentence section
-        if (word['sentence'] != null) buildSentence(word),
-      ],
+            ],
+          ),
+
+          const SizedBox(height: 16),
+
+          // Sentence section
+          if (word['sentence'] != null) buildSentence(word),
+        ],
+      ),
     ),
   );
 }
 
 Widget buildWordRow(String label, String? value, {bool isBold = false}) {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-      Text(
-        label,
-        style: AppColors.titleStyle.copyWith(
-          fontSize: 10,
-          color: Colors.grey[600],
+  return IntrinsicWidth(
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          label,
+          style: AppColors.titleStyle.copyWith(
+            fontSize: 10,
+            color: Colors.grey[600],
+            fontWeight: FontWeight.w500,
+          ),
         ),
-        overflow: TextOverflow.ellipsis,
-        maxLines: 1,
-      ),
-      const SizedBox(width: 2),
-      Text(
-        value ?? '',
-        style: isBold
-            ? AppColors.highlightStyle.copyWith(fontSize: 14)
-            : AppColors.titleStyle.copyWith(
-                color: Colors.blue,
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-              ),
-        overflow: TextOverflow.ellipsis,
-        maxLines: 2, // Allow wrapping for longer content
-        softWrap: true,
-      ),
-    ],
+        const SizedBox(height: 2),
+        ConstrainedBox(
+          constraints: const BoxConstraints(minWidth: 60, maxWidth: 150),
+          child: Text(
+            value ?? '',
+            style: isBold
+                ? AppColors.highlightStyle.copyWith(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                  )
+                : AppColors.titleStyle.copyWith(
+                    color: Colors.blue[800],
+                    fontSize: 13.5,
+                    fontWeight: FontWeight.w500,
+                  ),
+            softWrap: true,
+            overflow: TextOverflow.visible,
+          ),
+        ),
+      ],
+    ),
   );
 }
 
@@ -132,46 +145,49 @@ Widget buildSentence(Map<String, dynamic> word) {
   if (sentence == null) return const SizedBox.shrink();
 
   return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            sentence['japanese'] ?? '',
-            style: AppColors.highlightStyle.copyWith(fontSize: 16),
-            overflow: TextOverflow.visible,
-            softWrap: true,
-          ),
-        ],
+      // Japanese sentence
+      Center(
+        child: Text(
+          sentence['japanese'] ?? '',
+          style: AppColors.highlightStyle.copyWith(fontSize: 16),
+          softWrap: true,
+          maxLines: null,
+        ),
       ),
       const SizedBox(height: 8),
 
+      // Romaji + English in a row, each wrapped
       Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          if (sentence['romaji']?.isNotEmpty == true) ...[
-            Text(
-              '${sentence['romaji']}',
-              style: AppColors.titleStyle.copyWith(
-                fontSize: 12,
-                color: Colors.grey[700],
+          if (sentence['romaji']?.isNotEmpty == true)
+            Expanded(
+              child: Text(
+                textAlign: TextAlign.center,
+                sentence['romaji']!,
+                style: AppColors.titleStyle.copyWith(
+                  fontSize: 12,
+                  color: Colors.grey[700],
+                ),
+                softWrap: true,
+                maxLines: null,
               ),
-              overflow: TextOverflow.visible,
-              softWrap: true,
             ),
-            const SizedBox(height: 4),
-          ],
-          if (sentence['english']?.isNotEmpty == true) ...[
-            Text(
-              '${sentence['english']}',
-              style: AppColors.titleStyle.copyWith(
-                fontSize: 12,
-                color: Colors.grey[700],
+          const SizedBox(width: 8),
+          if (sentence['english']?.isNotEmpty == true)
+            Expanded(
+              child: Text(
+                textAlign: TextAlign.center,
+                sentence['english']!,
+                style: AppColors.titleStyle.copyWith(
+                  fontSize: 12,
+                  color: Colors.grey[700],
+                ),
+                softWrap: true,
+                maxLines: null,
               ),
-              overflow: TextOverflow.visible,
-              softWrap: true,
             ),
-          ],
         ],
       ),
     ],

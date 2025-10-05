@@ -46,6 +46,7 @@ class ParticledetailsView extends GetView<ParticledetailsController> {
                         "${particle.symbol} Particle",
                         style: const TextStyle(
                           fontSize: 22,
+                          color: TColors.primary,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -63,14 +64,11 @@ class ParticledetailsView extends GetView<ParticledetailsController> {
                       ),
                     ),
                     const SizedBox(height: 6),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 16.0),
-                      child: Text(
-                        particle.explanation,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          color: Colors.black87,
-                        ),
+                    Text(
+                      particle.explanation,
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: Colors.black87,
                       ),
                     ),
 
@@ -124,9 +122,32 @@ class ParticledetailsView extends GetView<ParticledetailsController> {
                                 padding: const EdgeInsets.symmetric(
                                   vertical: 4.0,
                                 ),
-                                child: SelectableText(
-                                  example,
-                                  style: const TextStyle(fontSize: 16),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    // ✅ circular icon (bullet)
+                                    Container(
+                                      width: 8,
+                                      height: 8,
+                                      margin: const EdgeInsets.only(
+                                        top: 6,
+                                      ), // align with text
+                                      decoration: const BoxDecoration(
+                                        color: Colors
+                                            .blue, // change color if needed
+                                        shape: BoxShape.circle,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 8),
+
+                                    // ✅ Example text
+                                    Expanded(
+                                      child: Text(
+                                        example,
+                                        style: const TextStyle(fontSize: 16),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             )
@@ -183,10 +204,7 @@ class ParticledetailsView extends GetView<ParticledetailsController> {
                 OutlinedButton(
                   onPressed: () {
                     if (controller.particleId.value <
-                        controller
-                                .particlecontroller
-                                .currentPageItems
-                                .length -
+                        controller.particlecontroller.currentPageItems.length -
                             1) {
                       controller.particleId.value++;
                     }

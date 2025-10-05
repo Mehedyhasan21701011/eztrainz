@@ -61,7 +61,13 @@ class WordpageView extends GetView<WordpageController> {
                           Get.dialog(
                             AlertDialog(
                               backgroundColor: AppColors.cardBackground,
-                              content: buildWordDialogWithoutAddIcon(word),
+                              contentPadding: const EdgeInsets.all(16),
+                              content: SizedBox(
+                                width:
+                                    Get.width *
+                                    0.9, // ⬅️ set custom dialog width here
+                                child: buildWordDialogWithoutAddIcon(word),
+                              ),
                             ),
                           );
                         },

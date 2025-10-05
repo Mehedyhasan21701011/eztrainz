@@ -12,11 +12,7 @@ PreferredSizeWidget appBar({
     scrolledUnderElevation: 0,
     leading: InkWell(
       onTap: () {
-        if (Get.previousRoute.isNotEmpty) {
-          Get.back();
-        } else {
-          Get.offNamed(Routes.HOME);
-        }
+        Get.back();
       },
       child: leftIconPath != null
           ? Padding(

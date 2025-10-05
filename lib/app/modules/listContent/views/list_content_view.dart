@@ -5,6 +5,7 @@ import 'package:eztrainz/app/utils/widget/youtube.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import '../controllers/list_content_controller.dart';
 
 class ListContentView extends GetView<ListContentController> {
@@ -38,7 +39,24 @@ class ListContentView extends GetView<ListContentController> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            YouTubeVideoWidget(videoUrl: controller.url),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              // child: YouTubeVideoWidget(videoUrl: controller.url),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(
+                  16,
+                ), // adjust radius as needed
+                child: YoutubePlayerBuilder(
+                  player: YoutubePlayer(
+                    controller: controller.ytcontroller,
+                    showVideoProgressIndicator: true,
+                  ),
+                  builder: (context, player) {
+                    return player;
+                  },
+                ),
+              ),
+            ),
             const SizedBox(height: 10),
             _buildTitleSection(),
             const SizedBox(height: 10),

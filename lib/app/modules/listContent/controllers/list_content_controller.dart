@@ -3,26 +3,15 @@ import 'package:get/get.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class ListContentController extends GetxController {
-  // Constants
+  // === Constants ===
   static const Duration _watchedThreshold = Duration(seconds: 1);
   static const int _audioSnackbarDuration = 2;
 
-  /// Kanji options for the current lesson
+  /// ✅ Kanji options for the current lesson
   final RxList<String> kanjiOptions = <String>['日', '月', '人', '山', '水'].obs;
   final RxString selectedKanji = '日'.obs;
 
-  void selectKanji(String kanji) {
-    selectedKanji.value = kanji;
-    final lesson = _lessonsData.firstWhere((l) => l['kanji'] == kanji);
-    currentKanji.value = lesson['kanji'];
-    kanjiMeaning.value = lesson['meaning'];
-    kunyomi.value = lesson['kunyomi'];
-    onyomi.value = lesson['onyomi'];
-    lessonTitle.value = lesson['title'];
-    selectedexample.value = lesson['example'];
-  }
-
-  /// ✅ Reactive states for Kanji lesson
+  /// ✅ Reactive states
   final RxString currentKanji = '日'.obs;
   final RxString kanjiMeaning = 'Sun, Day'.obs;
   final RxString kunyomi = 'ひ / hi'.obs;
@@ -36,7 +25,7 @@ class ListContentController extends GetxController {
   final RxInt currentLessonIndex = 0.obs;
   final RxBool isLoading = false.obs;
 
-  /// ✅ Meaningful Kanji lesson data (JLPT N5 Level)
+  /// ✅ JLPT N5 Level data
   static const List<Map<String, dynamic>> _lessonsData = [
     {
       'kanji': '日',
@@ -87,7 +76,7 @@ class ListContentController extends GetxController {
 
   List<Map<String, dynamic>> get lessons => _lessonsData;
 
-  // Card quiz properties
+  // === Quiz properties ===
   final String question = "What are the 4 Kanjis we learned today?";
   final String answer = "国";
   final List<String> options = ["国", "年", "中"];
@@ -97,30 +86,58 @@ class ListContentController extends GetxController {
   final RxBool displayVisibility = true.obs;
   final RxBool isAnsSelected = false.obs;
 
-  /// Computed getters - cached for performance
+  // === Computed getters ===
   bool get isFirstLesson => currentLessonIndex.value == 0;
   bool get isLastLesson => currentLessonIndex.value == lessons.length - 1;
   double get progress => (currentLessonIndex.value + 1) / lessons.length;
   String get progressText =>
       '${currentLessonIndex.value + 1} / ${lessons.length}';
 
-  // Video properties
+  // === Video related ===
   final RxString url = ''.obs;
-  String title = '';
   final RxBool watched = false.obs;
 
-  late YoutubePlayerController ytController;
+  late YoutubePlayerController ytcontroller;
   final Rx<Duration> currentPosition = Duration.zero.obs;
   final RxDouble progressPercent = 0.0.obs;
+
+  bool _pausedOnce = false;
 
   @override
   void onInit() {
     super.onInit();
-    if (Get.arguments == null) {
-      _handleError('No content arguments provided');
-      return;
-    }
-    _initializeVideo();
+
+    // Initialize video
+    final defaultUrl =
+        "https://www.youtube.com/watch?v=w0nP5wFEYhU&list=PLoTQRR5Zh5qLiZiGwpmvJWZnp5hddBLQV";
+    final videoId = YoutubePlayer.convertUrlToId(defaultUrl) ?? "";
+
+    ytcontroller = YoutubePlayerController(
+      initialVideoId: videoId,
+      flags: const YoutubePlayerFlags(
+        autoPlay: false,
+        mute: false,
+        enableCaption: true,
+        disableDragSeek: false,
+      ),
+    );
+
+    ytcontroller.addListener(_onVideoProgressChanged);
+
+    // Set default URL
+    url.value = defaultUrl;
+
+    // Reactively update when URL changes
+    ever(url, (String newUrl) {
+      final newVideoId = YoutubePlayer.convertUrlToId(newUrl) ?? "";
+      if (newVideoId.isNotEmpty) {
+        ytcontroller.load(newVideoId);
+        ytcontroller.pause(); // prevent autoplay
+        _pausedOnce = false;
+        displayVisibility.value = true;
+        cardVisibility.value = false;
+      }
+    });
   }
 
   @override
@@ -129,53 +146,18 @@ class ListContentController extends GetxController {
     super.onClose();
   }
 
-  void _initializeVideo() {
-    try {
-      final arguments = Get.arguments;
-      if (arguments == null) {
-        _handleError('No arguments provided');
-        return;
-      }
-      final contentItem = arguments is Map<String, dynamic>
-          ? arguments
-          : <String, dynamic>{};
-
-      _extractVideoData(contentItem);
-      _setupVideoListener();
-    } catch (e) {
-      _handleError('Failed to initialize video: $e');
-    }
-  }
-
-  void _extractVideoData(Map<String, dynamic> contentItem) {
-    final urlValue = contentItem['url'];
-    final titleValue = contentItem['title'];
-    final watchedValue = contentItem['watched'];
-
-    url.value = urlValue is String ? urlValue : '';
-    title = titleValue is String ? titleValue : 'Unknown Title';
-    watched.value = watchedValue is bool ? watchedValue : false;
-
-    if (url.isEmpty) {
-      throw Exception('Video URL is empty');
-    }
-  }
-
-  bool _pausedOnce = false;
-
-  void _setupVideoListener() {
-    ytController.addListener(_onVideoProgressChanged);
-  }
-
   void _onVideoProgressChanged() {
-    final currentPos = ytController.value.position;
-    final totalDuration = ytController.metadata.duration;
+    if (!ytcontroller.value.isReady) return;
+
+    final currentPos = ytcontroller.value.position;
+    final totalDuration = ytcontroller.metadata.duration;
 
     _updateVideoProgress(currentPos, totalDuration);
     _checkWatchedStatus(currentPos, totalDuration);
 
-    if (!_pausedOnce && currentPos.inSeconds >= 5) {
-      ytController.pause();
+    // Pause after 10 seconds
+    if (!_pausedOnce && currentPos.inSeconds >= 10) {
+      ytcontroller.pause();
       displayVisibility.value = false;
       cardVisibility.value = true;
       _pausedOnce = true;
@@ -184,11 +166,7 @@ class ListContentController extends GetxController {
 
   void _updateVideoProgress(Duration currentPos, Duration totalDuration) {
     currentPosition.value = currentPos;
-    final arguments = Get.arguments;
-    final contentItem = arguments is Map<String, dynamic>
-        ? arguments
-        : <String, dynamic>{};
-    contentItem['progress'] = totalDuration.inSeconds > 0
+    progressPercent.value = totalDuration.inSeconds > 0
         ? currentPos.inMilliseconds / totalDuration.inMilliseconds
         : 0.0;
   }
@@ -197,79 +175,27 @@ class ListContentController extends GetxController {
     if (!watched.value &&
         totalDuration.inSeconds > 0 &&
         currentPos >= totalDuration - _watchedThreshold) {
-      _markVideoAsWatched();
+      watched.value = true;
+      debugPrint("✅ Video watched completely!");
     }
-  }
-
-  void _markVideoAsWatched() {
-    watched.value = true;
-    debugPrint("✅ Video watched completely!");
-  }
-
-  void selectKanjiOption(String kanji) {
-    if (kanji.isNotEmpty && kanjiOptions.contains(kanji)) {
-      selectedKanji.value = kanji;
-    } else {
-      debugPrint('Warning: Invalid kanji selection: $kanji');
-    }
-  }
-
-  void playAudio(String type) {
-    if (!_isValidAudioType(type)) {
-      debugPrint('Warning: Invalid audio type: $type');
-      return;
-    }
-
-    final pronunciation = _getPronunciation(type);
-    _showAudioSnackbar(type, pronunciation);
-    _simulateAudioPlayback(pronunciation);
-  }
-
-  bool _isValidAudioType(String type) {
-    return type == 'kunyomi' || type == 'onyomi';
-  }
-
-  String _getPronunciation(String type) {
-    return type == 'kunyomi' ? kunyomi.value : onyomi.value;
-  }
-
-  void _showAudioSnackbar(String type, String pronunciation) {
-    Get.snackbar(
-      'Audio Playing',
-      'Playing $type: $pronunciation',
-      snackPosition: SnackPosition.TOP,
-      backgroundColor: Colors.blue.withOpacity(0.8),
-      colorText: Colors.white,
-      duration: const Duration(seconds: _audioSnackbarDuration),
-      icon: const Icon(Icons.volume_up, color: Colors.white),
-    );
-  }
-
-  Future<void> _simulateAudioPlayback(String pronunciation) async {
-    await Future.delayed(const Duration(milliseconds: 1000));
-    debugPrint('Playing audio: $pronunciation');
-  }
-
-  void _handleError(String message) {
-    debugPrint('Error: $message');
-    Get.snackbar(
-      'Error',
-      message,
-      snackPosition: SnackPosition.TOP,
-      backgroundColor: Colors.red.withOpacity(0.8),
-      colorText: Colors.white,
-      duration: const Duration(seconds: 3),
-      icon: const Icon(Icons.error, color: Colors.white),
-    );
   }
 
   void _disposeResources() {
-    try {
-      ytController.removeListener(_onVideoProgressChanged);
-      ytController.dispose();
-    } catch (e) {
-      debugPrint('Error disposing resources: $e');
-    }
+    ytcontroller.removeListener(_onVideoProgressChanged);
+    ytcontroller.dispose();
+  }
+
+  // ================== QUIZ & LESSON ==================
+
+  void selectKanji(String kanji) {
+    selectedKanji.value = kanji;
+    final lesson = _lessonsData.firstWhere((l) => l['kanji'] == kanji);
+    currentKanji.value = lesson['kanji'];
+    kanjiMeaning.value = lesson['meaning'];
+    kunyomi.value = lesson['kunyomi'];
+    onyomi.value = lesson['onyomi'];
+    lessonTitle.value = lesson['title'];
+    selectedexample.value = lesson['example'];
   }
 
   void resetQuiz() {
@@ -288,19 +214,17 @@ class ListContentController extends GetxController {
   }
 
   void nextLesson() {
-    if (!isLastLesson) {
-      currentLessonIndex.value++;
-      _loadLessonData();
-      resetQuiz();
-    }
+    if (isLastLesson) return;
+    currentLessonIndex.value++;
+    _loadLessonData();
+    resetQuiz();
   }
 
   void previousLesson() {
-    if (!isFirstLesson) {
-      currentLessonIndex.value--;
-      _loadLessonData();
-      resetQuiz();
-    }
+    if (isFirstLesson) return;
+    currentLessonIndex.value--;
+    _loadLessonData();
+    resetQuiz();
   }
 
   void _loadLessonData() {
@@ -316,5 +240,26 @@ class ListContentController extends GetxController {
         kanjiOptions.assignAll(optionsList.whereType<String>().toList());
       }
     }
+  }
+
+  // ================== AUDIO ==================
+  void playAudio(String type) {
+    if (type != 'kunyomi' && type != 'onyomi') return;
+
+    final pronunciation = type == 'kunyomi' ? kunyomi.value : onyomi.value;
+
+    Get.snackbar(
+      'Audio Playing',
+      'Playing $type: $pronunciation',
+      snackPosition: SnackPosition.TOP,
+      backgroundColor: Colors.blue.withOpacity(0.8),
+      colorText: Colors.white,
+      duration: const Duration(seconds: _audioSnackbarDuration),
+      icon: const Icon(Icons.volume_up, color: Colors.white),
+    );
+
+    Future.delayed(const Duration(milliseconds: 1000), () {
+      debugPrint('Playing audio: $pronunciation');
+    });
   }
 }
