@@ -2,9 +2,12 @@ import 'package:get/get.dart';
 
 class HomeController extends GetxController {
   final RxString selectedLevel = "N5".obs; // Fixed: Changed from "N" to "N1"
+  final RxBool levelVisible = true.obs;
   final Rxn<int> expandedIndex = Rxn<int>();
   final RxList<Map<String, dynamic>> lessons = <Map<String, dynamic>>[].obs;
   final RxString videoUrl = "".obs;
+  final RxString querydata = "".obs;
+  var isSearchActive = false.obs;
 
   /// Full lesson data for all levels
   final Map<String, List<Map<String, dynamic>>> allLessons = {
@@ -94,11 +97,9 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    // Ensure we have a valid level, with safety check
     if (!allLessons.containsKey(selectedLevel.value)) {
       selectedLevel.value = "N5";
     }
-    // Load default lessons
     lessons.assignAll(allLessons[selectedLevel.value] ?? []);
   }
 
@@ -110,8 +111,35 @@ class HomeController extends GetxController {
     expandedIndex.value = expandedIndex.value == index ? null : index;
   }
 
+  void filterWords(String value) {
+    querydata.value = value.trim();
+    isSearchActive.value = false;
+    searchQuery();
+  }
+
+  void setSearchActive() {
+    isSearchActive.value = true;
+    levelVisible.value = false;
+  }
+
+  void searchQuery() {
+    final query = querydata.value.toLowerCase();
+    if (query.isEmpty) {
+      lessons.assignAll(allLessons[selectedLevel.value] ?? []);
+      return;
+    }
+
+    final allLessonsForLevel = allLessons[selectedLevel.value] ?? [];
+    final filtered = allLessonsForLevel.where((lesson) {
+      final title = (lesson["title"] as String? ?? "").toLowerCase();
+      return title.contains(query);
+    }).toList();
+
+    lessons.assignAll(filtered);
+    expandedIndex.value = null;
+  }
+
   void changeLevel(String level) {
-    // Validate level exists before changing
     if (!allLessons.containsKey(level)) return;
 
     selectedLevel.value = level;

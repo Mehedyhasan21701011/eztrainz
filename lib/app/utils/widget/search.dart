@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-Widget buildSearch() {
+Widget buildSearch({required dynamic Controller}) {
+  final TextEditingController searchController = TextEditingController();
+  searchController.text = Controller.querydata.value;
+
   return Flexible(
     child: Container(
       height: 40,
@@ -27,10 +31,14 @@ Widget buildSearch() {
           ),
 
           /// Text Field
-          const Expanded(
+          Expanded(
             child: TextField(
-              style: TextStyle(fontSize: 16),
-              decoration: InputDecoration(
+              controller: searchController,
+              onChanged: (value) {
+                Controller.filterWords(value);
+              },
+              style: const TextStyle(fontSize: 16),
+              decoration: const InputDecoration(
                 hintText: "Search",
                 hintStyle: TextStyle(fontSize: 16, color: Color(0xFF3193F5)),
                 border: InputBorder.none,
@@ -39,6 +47,23 @@ Widget buildSearch() {
               ),
             ),
           ),
+
+          /// Clear button (reactive to controller state)
+          Obx(() {
+            return Controller.querydata.value.isNotEmpty
+                ? GestureDetector(
+                    onTap: () {
+                      searchController.clear();
+                      Controller.filterWords("");
+                    },
+                    child: const Icon(
+                      Icons.clear,
+                      color: Colors.blue,
+                      size: 20,
+                    ),
+                  )
+                : const SizedBox.shrink();
+          }),
         ],
       ),
     ),

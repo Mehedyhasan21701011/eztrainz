@@ -1,4 +1,3 @@
-import 'package:eztrainz/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -19,8 +18,8 @@ PreferredSizeWidget appBar({
               padding: const EdgeInsets.all(12),
               child: Image.asset(
                 leftIconPath,
-                width: 32,
-                height: 32,
+                width: 24,
+                height: 24,
                 fit: BoxFit.contain,
               ),
             )

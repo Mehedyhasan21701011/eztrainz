@@ -1,5 +1,9 @@
 import 'package:get/get.dart';
 
+import '../modules/adjective/bindings/adjective_binding.dart';
+import '../modules/adjective/views/adjective_view.dart';
+import '../modules/adverb/bindings/adverb_binding.dart';
+import '../modules/adverb/views/adverb_view.dart';
 import '../modules/courseoverview/bindings/courseoverview_binding.dart';
 import '../modules/courseoverview/views/courseoverview_view.dart';
 import '../modules/gamepage/bindings/gamepage_binding.dart';
@@ -10,6 +14,8 @@ import '../modules/learngrammer/bindings/learngrammer_binding.dart';
 import '../modules/learngrammer/views/learngrammer_view.dart';
 import '../modules/listContent/bindings/list_content_binding.dart';
 import '../modules/listContent/views/list_content_view.dart';
+import '../modules/nounpronoun/bindings/nounpronoun_binding.dart';
+import '../modules/nounpronoun/views/nounpronoun_view.dart';
 import '../modules/onboardingscreen/bindings/onboardingscreen_binding.dart';
 import '../modules/onboardingscreen/views/onboardingscreen_view.dart';
 import '../modules/pamentsuccess/bindings/pamentsuccess_binding.dart';
@@ -28,6 +34,10 @@ import '../modules/registerpage/bindings/registerpage_binding.dart';
 import '../modules/registerpage/views/registerpage_view.dart';
 import '../modules/secondonboardingpage/bindings/secondonboardingpage_binding.dart';
 import '../modules/secondonboardingpage/views/secondonboardingpage_view.dart';
+import '../modules/sentence/bindings/sentence_binding.dart';
+import '../modules/sentence/views/sentence_view.dart';
+import '../modules/sentencexample/bindings/sentencexample_binding.dart';
+import '../modules/sentencexample/views/sentencexample_view.dart';
 import '../modules/splashScreen/views/splash_screen_view.dart';
 import '../modules/splashscreen/controllers/splash_screen_controller.dart';
 import '../modules/thirdonboardingpage/bindings/thirdonboardingpage_binding.dart';
@@ -44,7 +54,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.SPLASH_SCREEN;
+  static const INITIAL = Routes.HOME;
 
   static final routes = [
     GetPage(
@@ -143,6 +153,31 @@ class AppPages {
       name: _Paths.VERBDETAILS,
       page: () => const VerbdetailsView(),
       binding: VerbdetailsBinding(),
+    ),
+    GetPage(
+      name: _Paths.SENTENCE,
+      page: () => const SentenceView(),
+      binding: SentenceBinding(),
+    ),
+    GetPage(
+      name: _Paths.SENTENCEXAMPLE,
+      page: () => const SentencexampleView(),
+      binding: SentencexampleBinding(),
+    ),
+    GetPage(
+      name: _Paths.NOUNPRONOUN,
+      page: () => const NounpronounView(),
+      binding: NounpronounBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADJECTIVE,
+      page: () => const AdjectiveView(),
+      binding: AdjectiveBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADVERB,
+      page: () => const AdverbView(),
+      binding: AdverbBinding(),
     ),
   ];
 }

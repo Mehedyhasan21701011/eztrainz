@@ -23,6 +23,11 @@ abstract class Routes {
   static const PAMENTSUCCESS = _Paths.PAMENTSUCCESS;
   static const PARTICLEDETAILS = _Paths.PARTICLEDETAILS;
   static const VERBDETAILS = _Paths.VERBDETAILS;
+  static const SENTENCE = _Paths.SENTENCE;
+  static const SENTENCEXAMPLE = _Paths.SENTENCEXAMPLE;
+  static const NOUNPRONOUN = _Paths.NOUNPRONOUN;
+  static const ADJECTIVE = _Paths.ADJECTIVE;
+  static const ADVERB = _Paths.ADVERB;
 }
 
 abstract class _Paths {
@@ -47,4 +52,9 @@ abstract class _Paths {
   static const PAMENTSUCCESS = '/pamentsuccess';
   static const PARTICLEDETAILS = '/particledetails';
   static const VERBDETAILS = '/verbdetails';
+  static const SENTENCE = '/sentence';
+  static const SENTENCEXAMPLE = '/sentencexample';
+  static const NOUNPRONOUN = '/nounpronoun';
+  static const ADJECTIVE = '/adjective';
+  static const ADVERB = '/adverb';
 }

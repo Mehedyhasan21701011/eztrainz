@@ -6,7 +6,9 @@ class Verb {
   final String hiragana;
   final String romaji;
   final String explanation;
-  final List<Conjugation> conjugations;
+  final PoliteForm politeForm;
+  final PlainForm plainForm;
+  final TeForm teForm;
 
   Verb({
     required this.english,
@@ -14,19 +16,49 @@ class Verb {
     required this.hiragana,
     required this.romaji,
     required this.explanation,
-    required this.conjugations,
+    required this.politeForm,
+    required this.plainForm,
+    required this.teForm,
   });
 }
 
-class Conjugation {
-  final String form;
-  final String japanese;
-  final String meaning;
+class PoliteForm {
+  final String presentPositive;
+  final String presentNegative;
+  final String pastPositive;
+  final String pastNegative;
 
-  Conjugation({
-    required this.form,
-    required this.japanese,
-    required this.meaning,
+  PoliteForm({
+    required this.presentPositive,
+    required this.presentNegative,
+    required this.pastPositive,
+    required this.pastNegative,
+  });
+}
+
+class PlainForm {
+  final String presentPositive;
+  final String presentNegative;
+  final String pastPositive;
+  final String pastNegative;
+
+  PlainForm({
+    required this.presentPositive,
+    required this.presentNegative,
+    required this.pastPositive,
+    required this.pastNegative,
+  });
+}
+
+class TeForm {
+  final String connective;
+  final String request;
+  final String progressive;
+
+  TeForm({
+    required this.connective,
+    required this.request,
+    required this.progressive,
   });
 }
 
@@ -35,10 +67,6 @@ class LearngrammerController extends GetxController {
 
   /// Grammar cards
   final List<Map<String, String>> grammarCards = [
-    {
-      "title": "Sentence Foundation",
-      "description": "Build basic Japanese sentences with polite endings.",
-    },
     {
       "title": "Core Particles",
       "description": "Learn the small words that link ideas and show meanings.",
@@ -49,210 +77,137 @@ class LearngrammerController extends GetxController {
     },
     {
       "title": "Adjectives",
-      "description": "Learn how “i” and “na” adjectives shapes descriptions.",
+      "description":
+          "Learn how \"i\" and \"na\" adjectives shape descriptions.",
     },
     {
-      "title": "Describe & Connect",
+      "title": "Adverbs",
       "description": "Combine words to express complete ideas.",
+    },
+    {
+      "title": "Sentence Foundation",
+      "description": "Build basic Japanese sentences with polite endings.",
     },
   ];
 
   /// Verb list
   var verbs = <Verb>[
     Verb(
-      english: "Wash",
-      kanji: "洗う",
-      hiragana: "あらう",
-      romaji: "arau",
+      english: "to wash",
+      kanji: "洗います",
+      hiragana: "あらいます",
+      romaji: "araimasu",
       explanation:
-          "Use this verb when talking about washing things like hands, dishes, or clothes.",
-      conjugations: [
-        Conjugation(form: "Dictionary", japanese: "洗う", meaning: "to wash"),
-        Conjugation(form: "Polite", japanese: "洗います", meaning: "I wash"),
-        Conjugation(
-          form: "Polite Past",
-          japanese: "洗いました",
-          meaning: "I washed",
-        ),
-      ],
+          "Use this verb when talking about washing things like hands or dishes.",
+      politeForm: PoliteForm(
+        presentPositive: "洗います",
+        presentNegative: "洗いません",
+        pastPositive: "洗いました",
+        pastNegative: "洗いませんでした",
+      ),
+      plainForm: PlainForm(
+        presentPositive: "洗う",
+        presentNegative: "洗わない",
+        pastPositive: "洗った",
+        pastNegative: "洗わなかった",
+      ),
+      teForm: TeForm(
+        connective: "洗って",
+        request: "洗ってください",
+        progressive: "洗っています",
+      ),
     ),
     Verb(
-      english: "Eat",
+      english: "to eat",
       kanji: "食べる",
       hiragana: "たべる",
       romaji: "taberu",
       explanation: "Use this verb when talking about eating food.",
-      conjugations: [
-        Conjugation(form: "Dictionary", japanese: "食べる", meaning: "to eat"),
-        Conjugation(form: "Polite", japanese: "食べます", meaning: "I eat"),
-        Conjugation(form: "Polite Past", japanese: "食べました", meaning: "I ate"),
-      ],
+      politeForm: PoliteForm(
+        presentPositive: "食べます",
+        presentNegative: "食べません",
+        pastPositive: "食べました",
+        pastNegative: "食べませんでした",
+      ),
+      plainForm: PlainForm(
+        presentPositive: "食べる",
+        presentNegative: "食べない",
+        pastPositive: "食べた",
+        pastNegative: "食べなかった",
+      ),
+      teForm: TeForm(
+        connective: "食べて",
+        request: "食べてください",
+        progressive: "食べています",
+      ),
     ),
     Verb(
-      english: "Drink",
+      english: "to drink",
       kanji: "飲む",
       hiragana: "のむ",
       romaji: "nomu",
       explanation: "Use this verb when talking about drinking liquids.",
-      conjugations: [
-        Conjugation(form: "Dictionary", japanese: "飲む", meaning: "to drink"),
-        Conjugation(form: "Polite", japanese: "飲みます", meaning: "I drink"),
-        Conjugation(form: "Polite Past", japanese: "飲みました", meaning: "I drank"),
-      ],
+      politeForm: PoliteForm(
+        presentPositive: "飲みます",
+        presentNegative: "飲みません",
+        pastPositive: "飲みました",
+        pastNegative: "飲みませんでした",
+      ),
+      plainForm: PlainForm(
+        presentPositive: "飲む",
+        presentNegative: "飲まない",
+        pastPositive: "飲んだ",
+        pastNegative: "飲まなかった",
+      ),
+      teForm: TeForm(
+        connective: "飲んで",
+        request: "飲んでください",
+        progressive: "飲んでいます",
+      ),
     ),
     Verb(
-      english: "Go",
+      english: "to go",
       kanji: "行く",
       hiragana: "いく",
       romaji: "iku",
       explanation: "Use this verb when talking about going somewhere.",
-      conjugations: [
-        Conjugation(form: "Dictionary", japanese: "行く", meaning: "to go"),
-        Conjugation(form: "Polite", japanese: "行きます", meaning: "I go"),
-        Conjugation(form: "Polite Past", japanese: "行きました", meaning: "I went"),
-      ],
+      politeForm: PoliteForm(
+        presentPositive: "行きます",
+        presentNegative: "行きません",
+        pastPositive: "行きました",
+        pastNegative: "行きませんでした",
+      ),
+      plainForm: PlainForm(
+        presentPositive: "行く",
+        presentNegative: "行かない",
+        pastPositive: "行った",
+        pastNegative: "行かなかった",
+      ),
+      teForm: TeForm(
+        connective: "行って",
+        request: "行ってください",
+        progressive: "行っています",
+      ),
     ),
     Verb(
-      english: "Come",
+      english: "to come",
       kanji: "来る",
       hiragana: "くる",
       romaji: "kuru",
       explanation: "Use this verb when talking about coming somewhere.",
-      conjugations: [
-        Conjugation(form: "Dictionary", japanese: "来る", meaning: "to come"),
-        Conjugation(form: "Polite", japanese: "来ます", meaning: "I come"),
-        Conjugation(form: "Polite Past", japanese: "来ました", meaning: "I came"),
-      ],
-    ),
-    Verb(
-      english: "Wash",
-      kanji: "洗う",
-      hiragana: "あらう",
-      romaji: "arau",
-      explanation:
-          "Use this verb when talking about washing things like hands, dishes, or clothes.",
-      conjugations: [
-        Conjugation(form: "Dictionary", japanese: "洗う", meaning: "to wash"),
-        Conjugation(form: "Polite", japanese: "洗います", meaning: "I wash"),
-        Conjugation(
-          form: "Polite Past",
-          japanese: "洗いました",
-          meaning: "I washed",
-        ),
-      ],
-    ),
-    Verb(
-      english: "Eat",
-      kanji: "食べる",
-      hiragana: "たべる",
-      romaji: "taberu",
-      explanation: "Use this verb when talking about eating food.",
-      conjugations: [
-        Conjugation(form: "Dictionary", japanese: "食べる", meaning: "to eat"),
-        Conjugation(form: "Polite", japanese: "食べます", meaning: "I eat"),
-        Conjugation(form: "Polite Past", japanese: "食べました", meaning: "I ate"),
-      ],
-    ),
-    Verb(
-      english: "Drink",
-      kanji: "飲む",
-      hiragana: "のむ",
-      romaji: "nomu",
-      explanation: "Use this verb when talking about drinking liquids.",
-      conjugations: [
-        Conjugation(form: "Dictionary", japanese: "飲む", meaning: "to drink"),
-        Conjugation(form: "Polite", japanese: "飲みます", meaning: "I drink"),
-        Conjugation(form: "Polite Past", japanese: "飲みました", meaning: "I drank"),
-      ],
-    ),
-    Verb(
-      english: "Go",
-      kanji: "行く",
-      hiragana: "いく",
-      romaji: "iku",
-      explanation: "Use this verb when talking about going somewhere.",
-      conjugations: [
-        Conjugation(form: "Dictionary", japanese: "行く", meaning: "to go"),
-        Conjugation(form: "Polite", japanese: "行きます", meaning: "I go"),
-        Conjugation(form: "Polite Past", japanese: "行きました", meaning: "I went"),
-      ],
-    ),
-    Verb(
-      english: "Come",
-      kanji: "来る",
-      hiragana: "くる",
-      romaji: "kuru",
-      explanation: "Use this verb when talking about coming somewhere.",
-      conjugations: [
-        Conjugation(form: "Dictionary", japanese: "来る", meaning: "to come"),
-        Conjugation(form: "Polite", japanese: "来ます", meaning: "I come"),
-        Conjugation(form: "Polite Past", japanese: "来ました", meaning: "I came"),
-      ],
-    ),
-    Verb(
-      english: "Wash",
-      kanji: "洗う",
-      hiragana: "あらう",
-      romaji: "arau",
-      explanation:
-          "Use this verb when talking about washing things like hands, dishes, or clothes.",
-      conjugations: [
-        Conjugation(form: "Dictionary", japanese: "洗う", meaning: "to wash"),
-        Conjugation(form: "Polite", japanese: "洗います", meaning: "I wash"),
-        Conjugation(
-          form: "Polite Past",
-          japanese: "洗いました",
-          meaning: "I washed",
-        ),
-      ],
-    ),
-    Verb(
-      english: "Eat",
-      kanji: "食べる",
-      hiragana: "たべる",
-      romaji: "taberu",
-      explanation: "Use this verb when talking about eating food.",
-      conjugations: [
-        Conjugation(form: "Dictionary", japanese: "食べる", meaning: "to eat"),
-        Conjugation(form: "Polite", japanese: "食べます", meaning: "I eat"),
-        Conjugation(form: "Polite Past", japanese: "食べました", meaning: "I ate"),
-      ],
-    ),
-    Verb(
-      english: "Drink",
-      kanji: "飲む",
-      hiragana: "のむ",
-      romaji: "nomu",
-      explanation: "Use this verb when talking about drinking liquids.",
-      conjugations: [
-        Conjugation(form: "Dictionary", japanese: "飲む", meaning: "to drink"),
-        Conjugation(form: "Polite", japanese: "飲みます", meaning: "I drink"),
-        Conjugation(form: "Polite Past", japanese: "飲みました", meaning: "I drank"),
-      ],
-    ),
-    Verb(
-      english: "Go",
-      kanji: "行く",
-      hiragana: "いく",
-      romaji: "iku",
-      explanation: "Use this verb when talking about going somewhere.",
-      conjugations: [
-        Conjugation(form: "Dictionary", japanese: "行く", meaning: "to go"),
-        Conjugation(form: "Polite", japanese: "行きます", meaning: "I go"),
-        Conjugation(form: "Polite Past", japanese: "行きました", meaning: "I went"),
-      ],
-    ),
-    Verb(
-      english: "Come",
-      kanji: "来る",
-      hiragana: "くる",
-      romaji: "kuru",
-      explanation: "Use this verb when talking about coming somewhere.",
-      conjugations: [
-        Conjugation(form: "Dictionary", japanese: "来る", meaning: "to come"),
-        Conjugation(form: "Polite", japanese: "来ます", meaning: "I come"),
-        Conjugation(form: "Polite Past", japanese: "来ました", meaning: "I came"),
-      ],
+      politeForm: PoliteForm(
+        presentPositive: "来ます",
+        presentNegative: "来ません",
+        pastPositive: "来ました",
+        pastNegative: "来ませんでした",
+      ),
+      plainForm: PlainForm(
+        presentPositive: "来る",
+        presentNegative: "来ない",
+        pastPositive: "来た",
+        pastNegative: "来なかった",
+      ),
+      teForm: TeForm(connective: "来て", request: "来てください", progressive: "来ています"),
     ),
   ].obs;
 
@@ -260,13 +215,11 @@ class LearngrammerController extends GetxController {
   final RxInt pageIndex = 0.obs;
   final RxString searchQuery = ''.obs;
   final RxBool isLoading = false.obs;
-  final int itemsPerPage = 10;
+  final int itemsPerPage = 6; // ✅ Show 4 verbs per page
 
   /// Filtered verbs
   List<Verb> get filteredVerbs {
-    if (searchQuery.value.isEmpty) {
-      return verbs;
-    }
+    if (searchQuery.value.isEmpty) return verbs;
     return verbs.where((verb) {
       return verb.english.toLowerCase().contains(
             searchQuery.value.toLowerCase(),
@@ -301,13 +254,6 @@ class LearngrammerController extends GetxController {
     if (hasPreviousPage) pageIndex.value--;
   }
 
-  void goToPage(int page) {
-    if (page >= 0 && page < totalPages) {
-      pageIndex.value = page;
-    }
-  }
-
-  /// Search functions
   void updateSearchQuery(String query) {
     searchQuery.value = query;
     pageIndex.value = 0;
@@ -316,10 +262,5 @@ class LearngrammerController extends GetxController {
   void clearSearch() {
     searchQuery.value = '';
     pageIndex.value = 0;
-  }
-
-  /// Get verb by index
-  Verb getVerbAt(int index) {
-    return currentPageItems[index];
   }
 }

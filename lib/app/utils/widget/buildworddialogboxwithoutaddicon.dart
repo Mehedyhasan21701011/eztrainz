@@ -47,7 +47,7 @@ Widget buildWordDialogWithoutAddIcon(Map<String, dynamic> word) {
                   children: [
                     // Kanji and Hiragana row
                     Wrap(
-                      spacing: 16,
+                      spacing: 32,
                       runSpacing: 8,
                       children: [
                         buildWordRow("Kanji", word['kanji']),
@@ -57,7 +57,7 @@ Widget buildWordDialogWithoutAddIcon(Map<String, dynamic> word) {
                     const SizedBox(height: 12),
                     // Romaji and Meaning row
                     Wrap(
-                      spacing: 16,
+                      spacing: 32,
                       runSpacing: 8,
                       children: [
                         buildWordRow("Romaji", word['romaji'] ?? ''),
@@ -132,7 +132,7 @@ Widget buildWordRow(String label, String? value, {bool isBold = false}) {
                     fontWeight: FontWeight.w500,
                   ),
             softWrap: true,
-            overflow: TextOverflow.visible,
+            overflow: TextOverflow.ellipsis,
           ),
         ),
       ],

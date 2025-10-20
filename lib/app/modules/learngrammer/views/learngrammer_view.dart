@@ -26,7 +26,7 @@ class LearngrammerView extends GetView<LearngrammerController> {
         },
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        padding: EdgeInsets.all(16),
         child: Column(
           children: [
             Row(
@@ -86,8 +86,16 @@ class LearngrammerView extends GetView<LearngrammerController> {
               final card = controller.grammarCards[index];
               return GestureDetector(
                 onTap: () {
-                  if (index == 1) {
+                  if (index == 0) {
                     Get.toNamed(Routes.PARTICLEPAGE);
+                  } else if (index == 4) {
+                    Get.toNamed(Routes.SENTENCE);
+                  } else if (index == 1) {
+                    Get.toNamed(Routes.NOUNPRONOUN);
+                  } else if (index == 2) {
+                    Get.toNamed(Routes.ADJECTIVE);
+                  } else if (index == 3) {
+                    Get.toNamed(Routes.ADVERB);
                   }
                 },
                 child: Container(
@@ -157,7 +165,9 @@ class LearngrammerView extends GetView<LearngrammerController> {
               itemCount: items.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                childAspectRatio: 1.71,
+                crossAxisSpacing: 2,
+                mainAxisSpacing: 2,
+                childAspectRatio: 1.2,
               ),
               itemBuilder: (context, index) {
                 final verb = items[index];
@@ -166,8 +176,9 @@ class LearngrammerView extends GetView<LearngrammerController> {
             );
           }),
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 8),
         Obx(() => _buildPaginationControls()),
+        const SizedBox(height: 8),
       ],
     );
   }
@@ -202,7 +213,6 @@ class LearngrammerView extends GetView<LearngrammerController> {
     );
   }
 
-  /// ✅ FIXED: Verb Card
   Widget _buildVerbCard(Verb verb, int index) {
     return Card(
       color: Colors.white,
@@ -210,16 +220,17 @@ class LearngrammerView extends GetView<LearngrammerController> {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: InkWell(
         onTap: () {
-          Get.toNamed(Routes.VERBDETAILS, arguments: index); // ✅ send verb
+          Get.toNamed(Routes.VERBDETAILS, arguments: index);
         },
         borderRadius: BorderRadius.circular(12),
-        child: Container(
-          padding: const EdgeInsets.all(12),
+        child: Padding(
+          padding: const EdgeInsets.all(8),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                verb.english, // ✅ English meaning
+                verb.english,
+                textAlign: TextAlign.center,
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
@@ -232,23 +243,11 @@ class LearngrammerView extends GetView<LearngrammerController> {
                 style: const TextStyle(fontSize: 16, color: TColors.primary),
                 textAlign: TextAlign.center,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      verb.hiragana,
-                      style: const TextStyle(fontSize: 16, color: Colors.black),
-                      textAlign: TextAlign.center,
-                    ),
-                    Text(
-                      verb.romaji,
-                      style: const TextStyle(fontSize: 16, color: Colors.black),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
+              const SizedBox(height: 4),
+              Text(
+                "${verb.hiragana}    ${verb.romaji}",
+                style: const TextStyle(fontSize: 14, color: Colors.black),
+                textAlign: TextAlign.center,
               ),
             ],
           ),
@@ -261,42 +260,21 @@ class LearngrammerView extends GetView<LearngrammerController> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        // Previous Button
         controller.hasPreviousPage
-            ? TextButton(
+            ? TextButton.icon(
                 onPressed: controller.previousPage,
-                style: TextButton.styleFrom(
-                  foregroundColor: controller.hasPreviousPage
-                      ? TColors.primary
-                      : Colors.grey,
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: const [
-                    Icon(Icons.arrow_back_ios, size: 16),
-                    SizedBox(width: 4),
-                    Text('Previous'),
-                  ],
-                ),
+                icon: const Icon(Icons.arrow_back_ios, size: 16),
+                label: const Text("Previous"),
+                style: TextButton.styleFrom(foregroundColor: TColors.primary),
               )
             : const SizedBox.shrink(),
 
         controller.hasNextPage
-            ? TextButton(
+            ? TextButton.icon(
                 onPressed: controller.nextPage,
-                style: TextButton.styleFrom(
-                  foregroundColor: controller.hasNextPage
-                      ? TColors.primary
-                      : Colors.grey,
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: const [
-                    Text('Next'),
-                    SizedBox(width: 4),
-                    Icon(Icons.arrow_forward_ios, size: 16),
-                  ],
-                ),
+                label: const Text("Next"),
+                icon: const Icon(Icons.arrow_forward_ios, size: 16),
+                style: TextButton.styleFrom(foregroundColor: TColors.primary),
               )
             : const SizedBox.shrink(),
       ],

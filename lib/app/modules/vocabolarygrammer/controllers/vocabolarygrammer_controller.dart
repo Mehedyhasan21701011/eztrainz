@@ -7,7 +7,7 @@ class VocabolaryController extends GetxController {
   // Observable variables
   final RxString selectedTab = "Grammar".obs;
   final RxInt currentWordIndex = 0.obs;
-  final RxString searchQuery = "".obs;
+  final RxString querydata = "".obs;
   final RxBool isPlaying = false.obs;
   final RxString SelectedCategory = "".obs;
 
@@ -28,7 +28,7 @@ class VocabolaryController extends GetxController {
       _initializeYoutubeUrl();
     });
     debounce(
-      searchQuery,
+      querydata,
       (_) => filterExploreMore(),
       time: const Duration(milliseconds: 300),
     );
@@ -90,99 +90,9 @@ class VocabolaryController extends GetxController {
     ];
 
     exploreMore.value = [
-      {
-        "category": "Nouns",
-        "japanese": "めいし",
-        "items": [
-          {"kanji": "犬", "hiragana": "いぬ", "romaji": "inu", "meaning": "dog"},
-          {"kanji": "猫", "hiragana": "ねこ", "romaji": "neko", "meaning": "cat"},
-          {
-            "kanji": "車",
-            "hiragana": "くるま",
-            "romaji": "kuruma",
-            "meaning": "car",
-          },
-          {"kanji": "家", "hiragana": "いえ", "romaji": "ie", "meaning": "house"},
-          {
-            "kanji": "学校",
-            "hiragana": "がっこう",
-            "romaji": "gakkou",
-            "meaning": "school",
-          },
-        ],
-      },
-      {
-        "category": "Pronoun",
-        "japanese": "だいめいし",
-        "items": [
-          {
-            "kanji": "私",
-            "hiragana": "わたし",
-            "romaji": "watashi",
-            "meaning": "I/me",
-          },
-          {
-            "kanji": "あなた",
-            "hiragana": "あなた",
-            "romaji": "anata",
-            "meaning": "you",
-          },
-          {
-            "kanji": "彼",
-            "hiragana": "かれ",
-            "romaji": "kare",
-            "meaning": "he/him",
-          },
-          {
-            "kanji": "彼女",
-            "hiragana": "かのじょ",
-            "romaji": "kanojo",
-            "meaning": "she/her",
-          },
-          {
-            "kanji": "これ",
-            "hiragana": "これ",
-            "romaji": "kore",
-            "meaning": "this",
-          },
-        ],
-      },
-      {
-        "category": "Verb",
-        "japanese": "どうし",
-        "items": [
-          {
-            "kanji": "食べる",
-            "hiragana": "たべる",
-            "romaji": "taberu",
-            "meaning": "to eat",
-          },
-          {
-            "kanji": "飲む",
-            "hiragana": "のむ",
-            "romaji": "nomu",
-            "meaning": "to drink",
-          },
-          {
-            "kanji": "見る",
-            "hiragana": "みる",
-            "romaji": "miru",
-            "meaning": "to see/watch",
-          },
-          {
-            "kanji": "行く",
-            "hiragana": "いく",
-            "romaji": "iku",
-            "meaning": "to go",
-          },
-          {
-            "kanji": "来る",
-            "hiragana": "くる",
-            "romaji": "kuru",
-            "meaning": "to come",
-          },
-        ],
-      },
+      {"category": "Nouns", "japanese": "めいし"},
+      {"category": "Pronoun", "japanese": "だいめいし"},
+      {"category": "Verb", "japanese": "どうし"},
     ];
 
     filteredExplore.value = exploreMore;
@@ -215,30 +125,29 @@ class VocabolaryController extends GetxController {
     Future.delayed(const Duration(seconds: 2), () => isPlaying.value = false);
   }
 
-  // Search
-  void updateSearchQuery(String query) => searchQuery.value = query;
+  void filterWords(String value) {
+    querydata.value = value;
+  }
 
   void filterExploreMore() {
-    if (searchQuery.value.isEmpty) {
+    if (querydata.value.isEmpty) {
       filteredExplore.value = exploreMore;
     } else {
       filteredExplore.value = exploreMore
-          .map((category) {
-            final filteredItems = (category['items'] as List).where((item) {
-              return item['romaji'].toLowerCase().contains(
-                    searchQuery.value.toLowerCase(),
-                  ) ||
-                  item['meaning'].toLowerCase().contains(
-                    searchQuery.value.toLowerCase(),
-                  ) ||
-                  item['hiragana'].contains(searchQuery.value) ||
-                  item['kanji'].contains(searchQuery.value);
-            }).toList();
-            return {...category, 'items': filteredItems};
-          })
-          .where((category) => (category['items'] as List).isNotEmpty)
+          .where(
+            (item) =>
+                item['category'].toString().toLowerCase().contains(
+                  querydata.value.toLowerCase(),
+                ) ||
+                item['japanese'].toString().contains(querydata.value),
+          )
           .toList();
     }
+  }
+
+  void clearSearch() {
+    querydata.value = "";
+    filterExploreMore();
   }
 
   // Getters

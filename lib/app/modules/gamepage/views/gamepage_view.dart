@@ -1,25 +1,69 @@
-import 'package:eztrainz/app/routes/app_pages.dart';
-import 'package:eztrainz/app/utils/widget/appbar.dart';
 import 'package:flutter/material.dart';
+class GamepageView extends StatelessWidget {
+  const GamepageView({Key? key}) : super(key: key);
 
-import 'package:get/get.dart';
-
-import '../controllers/gamepage_controller.dart';
-
-class GamepageView extends GetView<GamepageController> {
-  const GamepageView({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar(
-        leftIconPath: "assets/leftArrow.png",
-        rightIconPath: "assets/profile.png",
-        onRightIconTap: () {
-          Get.toNamed(Routes.PROFILEPAGE);
-        },
-      ),
-      body: const Center(
-        child: Text('GamepageView is working', style: TextStyle(fontSize: 20)),
+      appBar: AppBar(title: const Text('Layout Guide')),
+      body: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SizedBox(width: 200),
+              Expanded(
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [Text("data-1"), Text("data-2")],
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(width: 8),
+              Expanded(
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [Text("data-1"), Text("data-2")],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 30),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SizedBox(width: 200),
+              Expanded(
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [Text("data-1"), Text("data-2")],
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(width: 8),
+              Expanded(
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [Text("data-1"), Text("data-2")],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

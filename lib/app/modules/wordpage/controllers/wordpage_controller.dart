@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 class WordpageController extends GetxController {
   var allWords = <Map<String, dynamic>>[].obs;
   var filteredWords = <Map<String, dynamic>>[].obs;
-  var searchQuery = ''.obs;
+  var querydata = ''.obs;
   final RxString selectedCategory = "".obs;
   final VocabolaryController vgController = Get.find<VocabolaryController>();
 
@@ -65,7 +65,7 @@ class WordpageController extends GetxController {
   }
 
   void filterWords(String query) {
-    searchQuery.value = query;
+    querydata.value = query;
     if (query.isEmpty) {
       filteredWords.assignAll(allWords);
     } else {
@@ -88,7 +88,7 @@ class WordpageController extends GetxController {
 
   void addWord(Map<String, dynamic> word) {
     allWords.add(word);
-    filterWords(searchQuery.value);
+    filterWords(querydata.value);
     update(); // Notify listeners
   }
 
@@ -96,13 +96,13 @@ class WordpageController extends GetxController {
     if (index >= 0 && index < filteredWords.length) {
       final wordToRemove = filteredWords[index];
       allWords.remove(wordToRemove);
-      filterWords(searchQuery.value);
+      filterWords(querydata.value);
       update(); // Notify listeners
     }
   }
 
   void clearSearch() {
-    searchQuery.value = '';
+    querydata.value = '';
     filteredWords.assignAll(allWords);
   }
 }

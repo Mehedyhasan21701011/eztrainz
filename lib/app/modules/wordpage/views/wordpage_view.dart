@@ -40,7 +40,7 @@ class WordpageView extends GetView<WordpageController> {
                       ),
                     ),
                   ),
-                  buildSearch(),
+                  buildSearch(Controller: controller),
                 ],
               ),
             ),
@@ -55,7 +55,6 @@ class WordpageView extends GetView<WordpageController> {
                     runSpacing: 6,
                     children: controller.filteredWords.map((word) {
                       final meaning = word['meaning'] ?? '';
-
                       return GestureDetector(
                         onTap: () {
                           Get.dialog(

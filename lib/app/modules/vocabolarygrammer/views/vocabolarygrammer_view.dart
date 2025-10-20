@@ -383,7 +383,7 @@ class VocabolaryView extends GetView<VocabolaryController> {
           Row(
             children: [
               Expanded(child: headingText("Explore More")),
-              buildSearch(),
+              buildSearch(Controller: controller),
             ],
           ),
           const SizedBox(height: 12),
@@ -398,9 +398,9 @@ class VocabolaryView extends GetView<VocabolaryController> {
       height: 80,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: controller.exploreMore.length,
+        itemCount: controller.filteredExplore.length,
         itemBuilder: (context, index) {
-          final category = controller.exploreMore[index];
+          final category = controller.filteredExplore[index];
           return Obx(
             () => GestureDetector(
               onTap: () {
