@@ -14,6 +14,8 @@ import '../modules/learngrammer/bindings/learngrammer_binding.dart';
 import '../modules/learngrammer/views/learngrammer_view.dart';
 import '../modules/listContent/bindings/list_content_binding.dart';
 import '../modules/listContent/views/list_content_view.dart';
+import '../modules/listenpage/bindings/listenpage_binding.dart';
+import '../modules/listenpage/views/listenpage_view.dart';
 import '../modules/nounpronoun/bindings/nounpronoun_binding.dart';
 import '../modules/nounpronoun/views/nounpronoun_view.dart';
 import '../modules/onboardingscreen/bindings/onboardingscreen_binding.dart';
@@ -178,6 +180,11 @@ class AppPages {
       name: _Paths.ADVERB,
       page: () => const AdverbView(),
       binding: AdverbBinding(),
+    ),
+    GetPage(
+      name: _Paths.LISTENPAGE,
+      page: () => const ListenpageView(),
+      binding: ListenpageBinding(),
     ),
   ];
 }

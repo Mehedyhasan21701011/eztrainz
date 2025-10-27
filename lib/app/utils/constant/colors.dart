@@ -5,6 +5,7 @@ class TColors {
   static const Color buttonSecondary = Color(0xFFFFFC00);
   static const Color background = Color(0xFFF5F5F5);
   static const Color buttonBackground = Color(0xFFE1EFFD);
+  static const Color questionBackground = Color(0xFFF6F585);
   static const Color cardBackground = Color(0xFFE1EFFD);
   static const Color textDark = Color(0xFF333333);
   static const Color textLight = Color(0xFFFFFFFF);

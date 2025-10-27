@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:eztrainz/app/routes/app_pages.dart';
 import 'package:eztrainz/app/utils/constant/colors.dart';
 import 'package:eztrainz/app/utils/widget/appbar.dart';
@@ -100,102 +102,17 @@ class NounpronounView extends GetView<NounpronounController> {
           style: TextStyle(color: Colors.black87),
         ),
         SizedBox(height: 20),
-
-        pCard(Controller.pronoun),
+        card(Controller.pronoun),
       ],
     );
   }
 
-  Widget card(List<Map<String, dynamic>> nouns) {
+  Widget card(List<Map<String, dynamic>> data) {
     return Expanded(
       child: ListView.builder(
-        itemCount: nouns.length,
+        itemCount: data.length,
         itemBuilder: (context, index) {
-          final noun = nouns[index];
-          return Column(
-            children: [
-              Container(
-                width: 170,
-                height: 100,
-                margin: EdgeInsets.symmetric(vertical: 8.0),
-                padding: EdgeInsets.all(16.0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8.0),
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.2), // shadow color
-                      offset: const Offset(3, 3), // → right: 3, ↓ bottom: 3
-                      blurRadius: 2, // soft blur
-                    ),
-                  ],
-                ),
-
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  textAlign: TextAlign.right,
-                                  noun['japanese'],
-                                  style: const TextStyle(
-                                    fontSize: 16.0,
-                                    color: TColors.primary,
-                                  ),
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 1,
-                                ),
-                              ),
-                              SizedBox(width: 16),
-                              Expanded(
-                                child: Text(
-                                  textAlign: TextAlign.left,
-                                  noun['hiragana'],
-                                  style: TextStyle(
-                                    fontSize: 16.0,
-                                    color: TColors.primary,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 10.0),
-                          Center(
-                            child: Text(
-                              noun['category'],
-                              style: TextStyle(
-                                fontSize: 16.0,
-                                color: Colors.black87,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Text(noun['description']),
-              SizedBox(height: 20),
-            ],
-          );
-        },
-      ),
-    );
-  }
-
-  Widget pCard(List<Map<String, dynamic>> pronouns) {
-    return Expanded(
-      child: ListView.builder(
-        itemCount: pronouns.length,
-        itemBuilder: (context, index) {
-          final pronoun = pronouns[index];
+          final da_ta = data[index];
           return Column(
             children: [
               Container(
@@ -225,7 +142,7 @@ class NounpronounView extends GetView<NounpronounController> {
                           children: [
                             Center(
                               child: Text(
-                                pronoun['japanese'],
+                                da_ta['japanese'],
                                 style: const TextStyle(
                                   fontSize: 16.0,
                                   color: TColors.primary,
@@ -237,7 +154,7 @@ class NounpronounView extends GetView<NounpronounController> {
                             SizedBox(width: 30),
                             Center(
                               child: Text(
-                                pronoun['hiragana'],
+                                da_ta['hiragana'],
                                 style: TextStyle(
                                   fontSize: 16.0,
                                   color: TColors.primary,
@@ -249,7 +166,7 @@ class NounpronounView extends GetView<NounpronounController> {
                         SizedBox(height: 10.0),
                         Center(
                           child: Text(
-                            pronoun['category'],
+                            da_ta['category'],
                             style: TextStyle(
                               fontSize: 16.0,
                               color: Colors.black87,
@@ -261,7 +178,7 @@ class NounpronounView extends GetView<NounpronounController> {
                   ],
                 ),
               ),
-              Text(pronoun['description']),
+              Text(da_ta['description']),
               SizedBox(height: 20),
             ],
           );

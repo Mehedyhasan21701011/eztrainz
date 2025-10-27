@@ -1,3 +1,5 @@
+// ignore_for_file: use_super_parameters
+
 import 'package:eztrainz/app/modules/sentence/controllers/sentence_controller.dart';
 import 'package:eztrainz/app/routes/app_pages.dart';
 import 'package:eztrainz/app/utils/constant/colors.dart';

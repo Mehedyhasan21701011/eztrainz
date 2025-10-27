@@ -62,7 +62,6 @@ class HomeView extends GetView<HomeController> {
 
           /// ✅ Reactive Level Selector
           Obx(() {
-            print("📊 levelVisible: ${controller.levelVisible.value}");
             return controller.levelVisible.value
                 ? Positioned(
                     left: 0,
@@ -298,9 +297,6 @@ class HomeView extends GetView<HomeController> {
                     controller.toggleExpand(expanded ? index : null);
                     controller.levelVisible.value =
                         !expanded; // 👈 এখানে পরিবর্তন করো
-                    print(
-                      "levelVisible changed to: ${controller.levelVisible.value}",
-                    );
                   });
                 },
 
@@ -430,6 +426,8 @@ class HomeView extends GetView<HomeController> {
                 Get.toNamed(Routes.LIST_CONTENT, arguments: contentItem);
               } else if (title == "Vocabulary & Grammar") {
                 Get.toNamed(Routes.VOCABOLARYGRAMMER);
+              } else if (title == "Listening Practice") {
+                Get.toNamed(Routes.LISTENPAGE);
               }
             },
           ),

@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_use_of_protected_member
+
 import 'package:eztrainz/app/modules/profilepage/controllers/profilepage_controller.dart';
 import 'package:eztrainz/app/routes/app_pages.dart';
 import 'package:eztrainz/app/utils/constraint/colors.dart';

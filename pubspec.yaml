@@ -17,6 +17,7 @@ dependencies:
   number_pagination: ^1.1.6
   wrapbuilder: ^0.0.1
   fl_chart: ^1.1.1
+  audioplayers: ^6.5.1
 
 dev_dependencies:
   flutter_test:
@@ -27,6 +28,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
+    - assets/audio/
 
 
 flutter_icons:
