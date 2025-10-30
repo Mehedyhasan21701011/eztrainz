@@ -72,8 +72,23 @@ class ListenpageController extends GetxController {
   }
 
   void selectAnswer(int index) {
-    if (selectedAnswer.value != -1) return; // Prevent changing answer
+    // Prevent changing answer only if current answer is correct
+    if (selectedAnswer.value != -1 && isCorrect(selectedAnswer.value)) {
+      return;
+    }
+
     selectedAnswer.value = index;
+
+    // Auto-advance only on correct answer
+    if (isCorrect(index)) {
+      Future.delayed(const Duration(seconds: 1), () {
+        if (hasNextPage) {
+          nextPage();
+        } else {
+          showQuestion.value = false;
+        }
+      });
+    }
   }
 
   @override

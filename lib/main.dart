@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: "EZTrainz",
-      theme: themeService.lightTheme,
+      theme: ThemeData(fontFamily: 'Poppins'),
       darkTheme: themeService.darkTheme,
       themeMode: ThemeMode.system,
       initialRoute: AppPages.INITIAL, // ✅ SplashScreen first
