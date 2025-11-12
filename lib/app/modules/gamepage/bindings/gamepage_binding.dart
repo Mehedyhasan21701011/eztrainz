@@ -5,8 +5,6 @@ import '../controllers/gamepage_controller.dart';
 class GamepageBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<GamepageController>(
-      () => GamepageController(),
-    );
+    Get.lazyPut<GameController>(() => GameController());
   }
 }

@@ -29,6 +29,8 @@ abstract class Routes {
   static const ADJECTIVE = _Paths.ADJECTIVE;
   static const ADVERB = _Paths.ADVERB;
   static const LISTENPAGE = _Paths.LISTENPAGE;
+  static const LOGIN = _Paths.LOGIN;
+  static const SETTINGPAGE = _Paths.SETTINGPAGE;
 }
 
 abstract class _Paths {
@@ -59,4 +61,6 @@ abstract class _Paths {
   static const ADJECTIVE = '/adjective';
   static const ADVERB = '/adverb';
   static const LISTENPAGE = '/listenpage';
+  static const LOGIN = '/login';
+  static const SETTINGPAGE = '/settingpage';
 }

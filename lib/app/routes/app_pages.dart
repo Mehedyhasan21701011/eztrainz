@@ -16,6 +16,8 @@ import '../modules/listContent/bindings/list_content_binding.dart';
 import '../modules/listContent/views/list_content_view.dart';
 import '../modules/listenpage/bindings/listenpage_binding.dart';
 import '../modules/listenpage/views/listenpage_view.dart';
+import '../modules/login/bindings/login_binding.dart';
+import '../modules/login/views/login_view.dart';
 import '../modules/nounpronoun/bindings/nounpronoun_binding.dart';
 import '../modules/nounpronoun/views/nounpronoun_view.dart';
 import '../modules/onboardingscreen/bindings/onboardingscreen_binding.dart';
@@ -40,6 +42,8 @@ import '../modules/sentence/bindings/sentence_binding.dart';
 import '../modules/sentence/views/sentence_view.dart';
 import '../modules/sentencexample/bindings/sentencexample_binding.dart';
 import '../modules/sentencexample/views/sentencexample_view.dart';
+import '../modules/settingpage/bindings/settingpage_binding.dart';
+import '../modules/settingpage/views/settingpage_view.dart';
 import '../modules/splashScreen/views/splash_screen_view.dart';
 import '../modules/splashscreen/controllers/splash_screen_controller.dart';
 import '../modules/thirdonboardingpage/bindings/thirdonboardingpage_binding.dart';
@@ -56,7 +60,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.SPLASH_SCREEN;
+  static const INITIAL = Routes.LOGIN;
 
   static final routes = [
     GetPage(
@@ -185,6 +189,16 @@ class AppPages {
       name: _Paths.LISTENPAGE,
       page: () => const ListenpageView(),
       binding: ListenpageBinding(),
+    ),
+    GetPage(
+      name: _Paths.LOGIN,
+      page: () => const LoginView(),
+      binding: LoginBinding(),
+    ),
+    GetPage(
+      name: _Paths.SETTINGPAGE,
+      page: () => const SettingpageView(),
+      binding: SettingpageBinding(),
     ),
   ];
 }

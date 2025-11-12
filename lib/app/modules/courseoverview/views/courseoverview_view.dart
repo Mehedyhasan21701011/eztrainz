@@ -45,7 +45,7 @@ class CourseoverviewView extends GetView<CourseoverviewController> {
                 ],
               ),
               SizedBox(height: 10),
-              gameCard(),
+              gameCard("assets/thumb_1.png"),
               SizedBox(height: 30),
               Text(
                 "Overview",

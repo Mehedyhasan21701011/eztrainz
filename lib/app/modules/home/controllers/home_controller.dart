@@ -159,15 +159,8 @@ class HomeController extends GetxController {
     return lesson["progress"] as double? ?? 0.0;
   }
 
-  // Additional helper methods for better functionality
-
-  /// Get all available levels
   List<String> get availableLevels => allLessons.keys.toList();
-
-  /// Check if a level exists
   bool isValidLevel(String level) => allLessons.containsKey(level);
-
-  /// Get lesson count for current level
   int get currentLevelLessonCount => lessons.length;
 
   /// Set video URL

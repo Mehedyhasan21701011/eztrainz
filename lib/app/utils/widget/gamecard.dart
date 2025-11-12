@@ -2,7 +2,7 @@ import 'package:eztrainz/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-Widget gameCard() {
+Widget gameCard(String path) {
   return GestureDetector(
     onTap: () {
       Get.toNamed(Routes.GAMEPAGE);
@@ -10,7 +10,7 @@ Widget gameCard() {
     child: ClipRRect(
       borderRadius: BorderRadius.circular(12),
       child: Image.asset(
-        "assets/playcard.png",
+        path,
         fit: BoxFit.cover,
         errorBuilder: (context, error, stackTrace) {
           return Container(

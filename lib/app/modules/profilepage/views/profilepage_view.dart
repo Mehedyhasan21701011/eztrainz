@@ -19,7 +19,7 @@ class ProfileView extends GetView<ProfileController> {
         leftIconPath: "assets/leftArrow.png",
         rightIconPath: "assets/setting.png",
         onRightIconTap: () {
-          Get.toNamed(Routes.HOME);
+          Get.toNamed(Routes.SETTINGPAGE);
         },
       ),
       body: SingleChildScrollView(
