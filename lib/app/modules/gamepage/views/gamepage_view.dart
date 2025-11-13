@@ -3,6 +3,7 @@
 import 'package:eztrainz/app/modules/gamepage/controllers/gamepage_controller.dart';
 import 'package:eztrainz/app/routes/app_pages.dart';
 import 'package:eztrainz/app/utils/constant/colors.dart';
+import 'package:eztrainz/app/utils/style/styles.dart';
 import 'package:eztrainz/app/utils/widget/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -30,10 +31,7 @@ class GamepageView extends GetView<GameController> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  "Play Game",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
+                const Text("Play Game", style: Heading.heading2),
                 Image.asset("assets/madel.png", height: 32, width: 32),
               ],
             ),
@@ -44,17 +42,14 @@ class GamepageView extends GetView<GameController> {
               "Play, test, and master your Japanese skills",
               style: TextStyle(fontSize: 14),
             ),
-
             const SizedBox(height: 10),
-
-            // 🔹 Overall progress bar
             Obx(
               () => ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: LinearProgressIndicator(
                   value: controller.progressValue.value,
                   minHeight: 6,
-                  backgroundColor: TColors.background,
+                  backgroundColor: TColors.buttonBackground,
                   valueColor: AlwaysStoppedAnimation<Color>(TColors.primary),
                 ),
               ),
@@ -69,10 +64,7 @@ class GamepageView extends GetView<GameController> {
                 Text("Level 3"),
               ],
             ),
-
-            const SizedBox(height: 10),
-
-            // 🔹 List of Game Cards
+            const SizedBox(height: 20),
             Expanded(
               child: Obx(
                 () => ListView.builder(
@@ -113,8 +105,9 @@ class GamepageView extends GetView<GameController> {
                                 Row(
                                   children: [
                                     CircleAvatar(
+                                      backgroundColor: Colors.blue,
                                       radius: 20,
-                                      child: Image.asset("assets/profile.png"),
+                                      child: SizedBox(), //put image
                                     ),
                                     const SizedBox(width: 10),
                                     Expanded(
@@ -124,10 +117,7 @@ class GamepageView extends GetView<GameController> {
                                         children: [
                                           Text(
                                             game.title,
-                                            style: const TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                            ),
+                                            style: Heading.heading1,
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
                                           ),
@@ -135,8 +125,13 @@ class GamepageView extends GetView<GameController> {
                                           Text(
                                             game.subtitle,
                                             style: const TextStyle(
-                                              fontSize: 13,
-                                              color: Colors.black54,
+                                              fontSize: 14,
+                                              color: Color.fromARGB(
+                                                170,
+                                                0,
+                                                0,
+                                                0,
+                                              ),
                                             ),
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
@@ -151,7 +146,7 @@ class GamepageView extends GetView<GameController> {
                                   borderRadius: BorderRadius.circular(10),
                                   child: LinearProgressIndicator(
                                     value: game.progress,
-                                    minHeight: 4,
+                                    minHeight: 6,
                                     backgroundColor: Colors.blue[50],
                                     valueColor:
                                         const AlwaysStoppedAnimation<Color>(
@@ -164,16 +159,16 @@ class GamepageView extends GetView<GameController> {
                                   Text(
                                     "${(game.progress.toDouble() * 100).toStringAsFixed(0)}% complete",
                                     style: const TextStyle(
-                                      fontSize: 12,
-                                      color: Colors.black54,
+                                      fontSize: 14,
+                                      color: Color.fromARGB(170, 0, 0, 0),
                                     ),
                                   )
                                 else
                                   const Text(
                                     "Unlock at level 1",
                                     style: TextStyle(
-                                      fontSize: 12,
-                                      color: Colors.black54,
+                                      fontSize: 14,
+                                      color: Color.fromARGB(170, 0, 0, 0),
                                     ),
                                   ),
                               ],
@@ -224,8 +219,9 @@ class GamepageView extends GetView<GameController> {
                                   child: const Text(
                                     "Play",
                                     style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
+                                      fontSize: 18,
+                                      color: TColors.primary,
+                                      fontWeight: FontWeight.w500,
                                     ),
                                   ),
                                 ),

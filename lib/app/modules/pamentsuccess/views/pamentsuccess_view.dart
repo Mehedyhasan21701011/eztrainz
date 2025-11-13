@@ -36,7 +36,7 @@ class PamentsuccessView extends GetView<PamentsuccessController> {
                 ],
               ),
               SizedBox(height: 10),
-              gameCard("assets/thumb_3.png"),
+              gameCard("assets/thumbN5_1.png"),
               SizedBox(height: 50),
               Text(
                 "Congratulations!",

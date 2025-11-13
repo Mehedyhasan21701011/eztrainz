@@ -76,7 +76,6 @@ class HomeView extends GetView<HomeController> {
     );
   }
 
-  // ---------------- PLAY GAMES SECTION ----------------
   Widget _buildPlayGamesSection() {
     return Column(
       children: [
